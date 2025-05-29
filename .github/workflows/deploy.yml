@@ -32,3 +32,4 @@ jobs:
           password: 2O7O-FjIapDC
           server-dir: /home/teckezxd/globalsalah.com/
           local-dir: ./
+          timeout: 900000
