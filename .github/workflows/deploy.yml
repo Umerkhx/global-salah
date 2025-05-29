@@ -31,7 +31,7 @@ jobs:
           server: 162.0.232.190
           username: global_sallaahh266@globalsalah.com
           password: 2O7O-FjIapDC
-          port: 21
+          port: 21098
           protocol: ftp
           local-dir: ./
           server-dir: /home/teckezxd/globalsalah.com/
