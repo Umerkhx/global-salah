@@ -26,12 +26,12 @@ jobs:
       - name: Build Next.js project
         run: npm run build
 
-      - name: Deploy to cPanel via FTP
+      - name: Deploy all files to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.teckteam.org
+          server: 162.0.232.190
           username: global_sallaahh266@globalsalah.com
           password: 2O7O-FjIapDC
           port: 21
-          local-dir: .next
+          local-dir: ./
           server-dir: /home/teckezxd/globalsalah.com/
