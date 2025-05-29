@@ -1,0 +1,18 @@
+name: Test FTP Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-ftp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install FTP client
+        run: sudo apt-get update && sudo apt-get install -y ftp
+
+      - name: Test FTP connection
+        run: |
+          echo open 162.0.232.190 > ftp.txt
+          echo user global_sallaahh266@globalsalah.com 2O7O-FjIapDC >> ftp.txt
+          echo quit >> ftp.txt
+          ftp -n < ftp.txt
