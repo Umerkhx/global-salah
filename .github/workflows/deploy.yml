@@ -1,36 +1,25 @@
-name: Deploy via SFTP From Git
+name: FTP Deploy (Hardcoded)
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  deploy:
+  ftp-deploy:
+    name: Upload via FTP
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: FTP Deploy (hardcoded creds)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          node-version: '20'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Upload via SCP (SFTP)
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          port: ${{ secrets.SFTP_PORT }}
-          source: ".next/**,public/**,package.json"
-          target: ${{ secrets.SFTP_TARGET }}
+          server: ftp.teckteam.org
+          username: global_sallaahh266@globalsalah.com
+          password: 2O7O-FjIapDC
+          port: 21
+          protocol: ftp
+          server-dir: /home/teckezxd/globalsalah.com/
