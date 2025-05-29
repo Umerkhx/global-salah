@@ -1,4 +1,4 @@
-name: Deploy via SFTP
+name: Deploy via SFTP From G
 
 on:
   push:
