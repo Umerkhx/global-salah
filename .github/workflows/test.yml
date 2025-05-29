@@ -15,9 +15,9 @@ jobs:
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: 162.0.232.190
-          username: global_sallaahh266@globalsalah.com
-          password: 2O7O-FjIapDC
+          server: 192.250.232.90
+          username: testinglc2@testing.lc2swansea.online
+          password: LX3BAtubA4
           port: 21
           local-dir: ./
           server-dir: /
