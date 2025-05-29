@@ -1,4 +1,4 @@
-name: Deploy via FTP
+name: Deploy to cPanel
 
 on:
   push:
@@ -12,24 +12,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build project
+      - name: Build Next.js project
         run: npm run build
 
-      - name: Upload via FTP
+      - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: 162.0.232.190
+          server: ftp.teckteam.org
           username: global_sallaahh266@globalsalah.com
           password: 2O7O-FjIapDC
+          port: 21
+          local-dir: .next
           server-dir: /home/teckezxd/globalsalah.com/
-          local-dir: ./
-          timeout: 900000
