@@ -26,7 +26,6 @@ jobs:
     - name: Build Next.js application for static export
       run: |
         npm run build
-        npm run export
       env:
         NODE_ENV: production
         
