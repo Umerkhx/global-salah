@@ -1,19 +1,37 @@
-name: Test FTP Connection
+name: Deploy to cPanel
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  ftp-test:
+  FTP-Deploy-Action:
+    name: FTP Deploy and Test Connection
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install FTP client
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install FTP client for connection test
         run: sudo apt-get update && sudo apt-get install -y ftp
 
       - name: Test FTP connection
         run: |
-          echo open 162.0.232.190 > ftp.txt
+          echo open ftp.teckteam.org > ftp.txt
           echo user global_sallaahh266@globalsalah.com 2O7O-FjIapDC >> ftp.txt
           echo quit >> ftp.txt
           ftp -n < ftp.txt
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 162.0.232.190
+          username: global_sallaahh266@globalsalah.com
+          password: 2O7O-FjIapDC
+          port: 21
+          protocol: ftp
+          local-dir: ./   # poora repo upload kar dega
+          server-dir: /home/teckezxd/globalsalah.com/
