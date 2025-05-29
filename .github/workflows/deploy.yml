@@ -6,32 +6,32 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  FTP-Deploy-Action:
+    name: FTP Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Next.js project
+      - name: Build Next.js app
         run: npm run build
 
-      - name: Deploy all files to cPanel via FTP
+      - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: 162.0.232.190
           username: global_sallaahh266@globalsalah.com
           password: 2O7O-FjIapDC
           port: 21
+          protocol: ftp
           local-dir: ./
           server-dir: /home/teckezxd/globalsalah.com/
