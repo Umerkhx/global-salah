@@ -1,4 +1,4 @@
-name: FTP Deploy (Hardcoded)
+name: Deploy via FTP
 
 on:
   push:
@@ -6,20 +6,29 @@ on:
       - main
 
 jobs:
-  ftp-deploy:
-    name: Upload via FTP
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: FTP Deploy (hardcoded creds)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.teckteam.org
+          server: 162.0.232.190
           username: global_sallaahh266@globalsalah.com
           password: 2O7O-FjIapDC
-          port: 21
-          protocol: ftp
           server-dir: /home/teckezxd/globalsalah.com/
+          local-dir: ./
