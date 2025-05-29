@@ -20,5 +20,6 @@ jobs:
           password: 2O7O-FjIapDC
           port: 21
           local-dir: ./
-          remote-dir: /
-          ftp-passive: true
+          server-dir: /
+          protocol: ftp
+
