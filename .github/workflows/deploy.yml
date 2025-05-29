@@ -1,148 +1,45 @@
-name: Deploy Next.js 15 to cPanel
+name: Deploy Next.js to cPanel via FTP
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy Next.js 15
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build Next.js application for static export
-      run: |
-        npm run build
-      env:
-        NODE_ENV: production
-        
-    - name: Prepare files for deployment
-      run: |
-        # Create deployment directory
-        mkdir -p deploy
-        
-        # Copy static export files (from 'out' directory)
-        if [ -d "out" ]; then
-          cp -r out/* deploy/
-        else
-          # Fallback: copy build files if export didn't work
-          cp -r .next/static deploy/_next/static
-          cp -r public/* deploy/ 2>/dev/null || :
-        fi
-        
-        # Create .htaccess for dynamic routing and API handling
-        cat > deploy/.htaccess << 'EOF'
-        RewriteEngine On
-        
-        # Handle dynamic routes and client-side routing
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteCond %{REQUEST_URI} !^/api/
-        RewriteCond %{REQUEST_URI} !^/_next/
-        RewriteRule ^(.*)$ /index.html [QSA,L]
-        
-        # Handle API routes (for dynamic functionality)
-        RewriteCond %{REQUEST_URI} ^/api/
-        RewriteRule ^api/(.*)$ /api-handler.php?route=$1 [QSA,L]
-        
-        # Cache optimization
-        <IfModule mod_expires.c>
-          ExpiresActive on
-          ExpiresByType text/css "access plus 1 year"
-          ExpiresByType application/javascript "access plus 1 year"
-          ExpiresByType image/png "access plus 1 year"
-          ExpiresByType image/jpg "access plus 1 year"
-          ExpiresByType image/jpeg "access plus 1 year"
-          ExpiresByType image/gif "access plus 1 year"
-          ExpiresByType image/svg+xml "access plus 1 year"
-        </IfModule>
-        
-        # Security headers
-        <IfModule mod_headers.c>
-          Header always set X-Content-Type-Options nosniff
-          Header always set X-Frame-Options DENY
-          Header always set X-XSS-Protection "1; mode=block"
-        </IfModule>
-        EOF
-        
-        # Create PHP handler for dynamic API calls (for shared hosting)
-        cat > deploy/api-handler.php << 'EOF'
-        <?php
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization');
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            http_response_code(200);
-            exit();
-        }
-        
-        $route = $_GET['route'] ?? '';
-        $method = $_SERVER['REQUEST_METHOD'];
-        
-        // Handle your API routes here
-        switch($route) {
-            case 'contact':
-                if ($method === 'POST') {
-                    $input = json_decode(file_get_contents('php://input'), true);
-                    // Handle contact form submission
-                    echo json_encode(['success' => true, 'message' => 'Message sent successfully']);
-                } else {
-                    http_response_code(405);
-                    echo json_encode(['error' => 'Method not allowed']);
-                }
-                break;
-                
-            default:
-                http_response_code(404);
-                echo json_encode(['error' => 'API route not found']);
-        }
-        ?>
-        EOF
-        
-        echo "Files prepared for deployment:"
-        find deploy -type f | wc -l
-        echo "Total size:"
-        du -sh deploy/
-        
-    - name: Deploy to cPanel via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: 162.0.232.190
-        username: global_sallaahh266@globalsalah.com
-        password: 2O7O-FjIapDC
-        local-dir: ./deploy/
-        server-dir: /home/teckezxd/globalsalah.com/
-        exclude: |
-          **/.git*
-          **/node_modules/**
-          **/.next/cache/**
-          **/.DS_Store
-          **/Thumbs.db
-        timeout: 900000
-        port: 21
-        protocol: ftp
-        log-level: verbose
-        dangerous-clean-slate: true
-        dry-run: false
-        security: loose
-        
-    - name: Verify deployment
-      run: |
-        echo "✅ Next.js 15 website deployed successfully to globalsalah.com"
-        echo "🚀 Deployment completed at $(date)"
-        echo "🌐 Your dynamic website is now live!"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 162.0.232.190
+          username: global_sallaahh266@globalsalah.com
+          password: 2O7O-FjIapDC
+          local-dir: ./
+          server-dir: /home/teckezxd/globalsalah.com/
+          exclude: |
+            **/node_modules/**
+            **/.git*/
+            **/.next/cache/**
+            **/.github/**
+            **/README.md
+            **/.env
+          log-level: verbose
