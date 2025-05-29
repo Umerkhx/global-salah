@@ -1,0 +1,25 @@
+name: Deploy to cPanel
+on:
+  push:
+    branches:
+      - main
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 192.250.232.90
+          username: testinglc2@testing.lc2swansea.online
+          password: LX3BAtubA4
+          port: 21
+          local-dir: ./
+          server-dir: /
+          protocol: ftp
+
