@@ -1,4 +1,4 @@
-name: Deploy to cPanel
+name: Deploy to FTP
 
 on:
   push:
@@ -6,26 +6,31 @@ on:
       - main
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP Deploy
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      # Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
 
+      # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
+      # Build the Next.js application
       - name: Build Next.js app
         run: npm run build
 
+      # Attempt FTP deployment
       - name: Deploy to FTP
+        id: ftp_deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: 192.250.232.90
@@ -35,11 +40,55 @@ jobs:
           protocol: ftp
           local-dir: ./
           server-dir: /
+          log-level: verbose # Enable verbose logging for debugging
           exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .next/cache/.rscinfo
-            .next/cache/config.json
-            .next/cache/webpack/**
-            .next/trace
+            .git*
+            .gitignore
+            node_modules/**
+            .next/cache/** # Exclude cache to reduce upload size
+        continue-on-error: true # Allow workflow to continue if FTP fails
+
+      # Check if FTP deployment failed
+      - name: Check FTP deployment status
+        if: steps.ftp_deploy.outcome == 'failure'
+        run: echo "FTP deployment failed, proceeding to delete .next folder"
+
+      # Delete .next folder on the server if deployment failed
+      - name: Delete .next folder on server
+        if: steps.ftp_deploy.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 192.250.232.90
+          username: testinglc2@testing.lc2swansea.online
+          password: LX3BAtubA4
+          port: 21
+          protocol: ftp
+          server-dir: /.next/ # Target the .next folder
+          state: absent # Delete the folder
+          local-dir: ./
+
+      # Rebuild and retry deployment if .next was deleted
+      - name: Rebuild and retry FTP deployment
+        if: steps.ftp_deploy.outcome == 'failure'
+        run: |
+          npm run build
+          echo "Re-running FTP deployment after deleting .next folder"
+
+      # Retry FTP deployment
+      - name: Retry Deploy to FTP
+        if: steps.ftp_deploy.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 192.250.232.90
+          username: testinglc2@testing.lc2swansea.online
+          password: LX3BAtubA4
+          port: 21
+          protocol: ftp
+          local-dir: ./
+          server-dir: /
+          log-level: verbose
+          exclude: |
+            .git*
+            .gitignore
+            node_modules/**
+            .next/cache/**
