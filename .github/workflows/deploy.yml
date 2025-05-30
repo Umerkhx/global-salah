@@ -25,7 +25,7 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Upload via FTP
+      - name: Upload to FTP (clean .next before upload)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: 192.250.232.90
@@ -33,12 +33,12 @@ jobs:
           password: LX3BAtubA4
           port: 21
           protocol: ftp
-          local-dir: ./
-          server-dir: /home/eduresea/testing.lc2swansea.online/
+          server-dir: /                 # ⚠️ Must be root of your server path
+          local-dir: ./                # Upload from project root
           exclude: |
-            .git*
-            **/.git*
             **/node_modules/**
+            **/.git*
             **/.next/cache/**
-            **/.next/**/*.map
-          dangerous-clean-slate: true
+            **/*.map
+          delete: true                 # 🧹 Remove unmatched files on server
+          delete-excluded: true        # 🔥 Delete old .next on server even if excluded
