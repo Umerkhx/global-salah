@@ -34,5 +34,11 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./
-          server-dir: /
-          
+          server-dir: /home/eduresea/testing.lc2swansea.online/
+          exclude: |
+            .git*
+            **/.git*
+            **/node_modules/**
+            **/.next/cache/**
+            **/.next/**/*.map
+          dangerous-clean-slate: true
