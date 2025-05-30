@@ -34,7 +34,7 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./
-          server-dir: /home/eduresea/testing.lc2swansea.online
+          server-dir: /home/eduresea/testing.lc2swansea.online/
           exclude: |
             .git*
             **/.git*
