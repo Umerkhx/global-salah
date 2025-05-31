@@ -28,9 +28,9 @@ jobs:
       - name: Upload to FTP (clean .next before upload)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: 192.250.232.90
-          username: testinglc2@testing.lc2swansea.online
-          password: LX3BAtubA4
+          server: business76.web-hosting.com
+          username: global_sallaahh266@globalsalah.com
+          password: 2O7O-FjIapDC
           port: 21
           protocol: ftp
           server-dir: /                 # ⚠️ Must be root of your server path
