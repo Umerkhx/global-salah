@@ -1,4 +1,4 @@
-name: Deploy to cPanel
+name: Deploy Next.js app to cPanel via SFTP
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  FTP-Deploy-Action:
-    name: SFTP Deploy
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,20 +24,15 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Upload to SFTP (clean .next before upload)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy .next and public folders via SFTP
+        uses: appleboy/scp-action@v0.1.3
         with:
-          server: business76.web-hosting.com
+          host: business76.web-hosting.com
           username: teckezxd
           password: ';Riy=O$=VQv%'
           port: 21098
-          protocol: sftp
-          server-dir: /home/teckezxd/globalsalah.com/    # exact remote path
-          local-dir: ./                                 # project root
-          exclude: |
-            **/node_modules/**
-            **/.git*
-            **/.next/cache/**
-            **/*.map
-          delete: true
-          delete-excluded: true
+          source: |
+            .next
+            public
+          target: /home/teckezxd/globalsalah.com/
+          recursive: true
