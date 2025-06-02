@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  SFTP-Deploy-Action:
+  SFTP-Deploy:
     name: SFTP Deploy
     runs-on: ubuntu-latest
 
@@ -25,19 +25,20 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Deploy via SFTP
-        uses: easingthemes/ssh-deploy@v2.2.11
+      - name: Deploy using SFTP
+        uses: shahrukhdev/sftp-deploy@v1.2
         with:
-          SSH_PRIVATE_KEY: ""
-          REMOTE_HOST: business76.web-hosting.com
-          REMOTE_PORT: 21098
-          REMOTE_USER: teckezxd
-          REMOTE_PASSWORD: ';Riy=O$=VQv%'
-          SOURCE: "./"
-          TARGET: "/home/teckezxd/globalsalah.com/"
-          EXCLUDE: |
+          host: business76.web-hosting.com
+          port: 21098
+          username: teckezxd
+          password: ';Riy=O$=VQv%'
+          localPath: ./                          # Local project root
+          remotePath: /home/teckezxd/globalsalah.com/  # **Exact remote path**
+          dryRun: false
+          deleteRemoteFiles: false
+          sftpOnly: true
+          exclude: |
             node_modules
             .git
             .next/cache
             *.map
-          ARGS: "-o StrictHostKeyChecking=no"
