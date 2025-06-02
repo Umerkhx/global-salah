@@ -1,4 +1,4 @@
-name: Deploy to cPanel
+name: Deploy to cPanel via SFTP
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP Deploy
+  SFTP-Deploy-Action:
+    name: SFTP Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -25,20 +25,19 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Upload to FTP (clean .next before upload)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy via SFTP
+        uses: easingthemes/ssh-deploy@v2.2.11
         with:
-          server: business76.web-hosting.com
-          username: global_sallaahh266@globalsalah.com
-          password: 2O7O-FjIapDC
-          port: 21
-          protocol: ftp
-          server-dir: /                 # ⚠️ Must be root of your server path
-          local-dir: ./                # Upload from project root
-          exclude: |
-            **/node_modules/**
-            **/.git*
-            **/.next/cache/**
-            **/*.map
-          delete: true                 # 🧹 Remove unmatched files on server
-          delete-excluded: true        # 🔥 Delete old .next on server even if excluded
+          SSH_PRIVATE_KEY: ""
+          REMOTE_HOST: business76.web-hosting.com
+          REMOTE_PORT: 21098
+          REMOTE_USER: teckezxd
+          REMOTE_PASSWORD: ';Riy=O$=VQv%'
+          SOURCE: "./"
+          TARGET: "/home/teckezxd/globalsalah.com/"
+          EXCLUDE: |
+            node_modules
+            .git
+            .next/cache
+            *.map
+          ARGS: "-o StrictHostKeyChecking=no"
