@@ -28,19 +28,20 @@ jobs:
       - name: Deploy via FTPES
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: business76.web-hosting.com
-          username: teckezxd
-          password: ';Riy=O$=VQv%'
-          port: 21098
-          protocol: ftps
-          security: explicit
-          local-dir: ./                     # Project root
-          server-dir: /home/teckezxd/globalsalah.com/    # Remote path
-          exclude: |
-            **/node_modules/**
-            **/.git*
-            **/.next/cache/**
-            **/*.map
-          state-name: .ftp-deploy-sync.json
-          dry-run: false
-          log-level: verbose
+            server: business76.web-hosting.com
+            username: teckezxd
+            password: ';Riy=O$=VQv%'
+            port: 21098
+            protocol: ftps
+            security: loose       # ✅ Use loose instead of invalid 'explicit'
+            local-dir: ./         
+            server-dir: /globalsalah.com/
+            exclude: |
+              **/node_modules/**
+              **/.git*
+              **/.next/cache/**
+              **/*.map
+            state-name: .ftp-deploy-sync.json
+            dry-run: false
+            log-level: verbose
+
