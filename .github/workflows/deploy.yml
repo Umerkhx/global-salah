@@ -7,7 +7,6 @@ on:
 
 jobs:
   SFTP-Deploy:
-    name: SFTP Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -25,18 +24,17 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Deploy using SFTP
-        uses: shahrukhdev/sftp-deploy@v1.2
+      - name: Deploy files via SFTP
+        uses: appleboy/scp-action@v0.1.3
         with:
           host: business76.web-hosting.com
-          port: 21098
           username: teckezxd
           password: ';Riy=O$=VQv%'
-          localPath: ./                          # Local project root
-          remotePath: /home/teckezxd/globalsalah.com/  # **Exact remote path**
-          dryRun: false
-          deleteRemoteFiles: false
-          sftpOnly: true
+          port: 21098
+          source: "./"
+          target: "/home/teckezxd/globalsalah.com/"
+          strip_components: 0
+          recursive: true
           exclude: |
             node_modules
             .git
