@@ -1,4 +1,4 @@
-name: Deploy to cPanel
+name: Deploy to cPanel via FTPES (Explicit FTPS)
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP Deploy
+  deploy:
+    name: FTPES Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -25,20 +25,22 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Upload to FTP (clean .next before upload)
+      - name: Deploy via FTPES
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: business76.web-hosting.com
-          username: global_sallaahh266@globalsalah.com
-          password: 2O7O-FjIapDC
-          port: 21
-          protocol: ftp
-          server-dir: /                 # ⚠️ Must be root of your server path
-          local-dir: ./                # Upload from project root
+          username: teckezxd
+          password: ';Riy=O$=VQv%'
+          port: 21098
+          protocol: ftps
+          security: explicit
+          local-dir: ./                     # Project root
+          server-dir: /home/teckezxd/globalsalah.com/    # Remote path
           exclude: |
             **/node_modules/**
             **/.git*
             **/.next/cache/**
             **/*.map
-          delete: true                 # 🧹 Remove unmatched files on server
-          delete-excluded: true        # 🔥 Delete old .next on server even if excluded
+          state-name: .ftp-deploy-sync.json
+          dry-run: false
+          log-level: verbose
