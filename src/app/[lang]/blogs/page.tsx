@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Head from "next/head";
 import Blogs from "./Blogs";
 
+
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const lang = params.lang;
 
@@ -17,6 +18,14 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       title = 'المدونات';
       description = 'جميع المدونات';
       break;
+    case 'es':
+      title = 'Blogs';
+      description = 'Todos los blogs';
+      break;
+    case 'zh-CN':
+      title = '博客';
+      description = '所有博客';
+      break;
     default:
       title = 'Blogs';
       description = 'All Blogs';
@@ -27,9 +36,18 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     description,
     alternates: {
       canonical: `https://globalsalah.com/${lang}/blogs`,
+      languages: {
+        en: 'https://globalsalah.com/en/blogs',
+        fr: 'https://globalsalah.com/fr/blogs',
+        ar: 'https://globalsalah.com/ar/blogs',
+        es: 'https://globalsalah.com/es/blogs',
+        'zh-CN': 'https://globalsalah.com/zh-CN/blogs',
+        'x-default': 'https://globalsalah.com/en/blogs',
+      },
     },
   };
 }
+
 
 type PageProps = {
   params: {

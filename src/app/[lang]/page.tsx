@@ -26,6 +26,14 @@ export async function generateMetadata({ params }: any) {
       title = `تابع جلوبال صلاح لتحقيق نواياك الدينية في الوقت المناسب`;
       description = `مرحبًا بك في جلوبال صلاح، استكشف خدماتنا وخبراتنا المصممة لمساعدتك على أداء الممارسات الدينية في الوقت المحدد حول العالم.`;
       break;
+    case 'es':
+      title = `Siga Global Salah para cumplir a tiempo sus intenciones religiosas`;
+      description = `Bienvenido a Global Salah, investigue nuestros servicios y experiencia que está diseñada para ofrecerle una actualización para realizar las prácticas religiosas a tiempo en todo el mundo.`;
+      break;
+    case 'zh-CN':
+      title = `关注全球萨拉赫，准时实现您的宗教愿望`;
+      description = `欢迎访问 全球萨拉赫，了解我们的服务和专业知识，这些服务和专业知识旨在为您提供升级服务，以便在全球范围内及时开展宗教活动。`;
+      break;
     default:
       title = `Follow Global Salah to accomplish your religious intentions timely`;
       description = `Welcome at Global Salah, investigate our services and expertise that is design to deliver you an update to perform religious practices on time across the world.`;
@@ -40,6 +48,8 @@ export async function generateMetadata({ params }: any) {
         en: 'https://www.globalsalah.com/en',
         fr: 'https://www.globalsalah.com/fr',
         ar: 'https://www.globalsalah.com/ar',
+        es: 'https://www.globalsalah.com/es',
+        'zh-CN': 'https://www.globalsalah.com/zh-CN',
       },
     },
     robots: {

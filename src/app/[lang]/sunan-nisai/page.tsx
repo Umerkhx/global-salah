@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: any) {
       title = `سنن النسائي – مجموعة الأحاديث الصحيحة | جلوبال صلاح`;
       description = `استعرض الأحاديث النبوية الصحيحة من سنن النسائي على جلوبال صلاح. مصدر موثوق لفهم تعاليم النبي ﷺ من خلال هذا الكتاب الحديثي الهام.`;
       break;
+    case 'es':
+      title = `Sunan Nisai – Colección Auténtica de Hadices | Global Salah`;
+      description = `Accede a los hadices auténticos de Sunan Nisai en Global Salah. Una valiosa colección de enseñanzas proféticas a través de hadices verificados.`;
+      break;
+    case 'zh-CN':
+      title = `Sunan Nisai – 真实的圣训合集 | 全球萨拉赫`;
+      description = `在 全球萨拉赫 上访问 Sunan Nisai 的真实圣训。通过经过验证的圣训，了解宝贵的先知教导。`;
+      break;
     default:
       title = `Sunan Nisai – Authentic Hadith Collection | Global Salah`;
       description = `Access authentic hadiths from Sunan Nisai on Global Salah. A valuable collection of prophetic teachings through verified hadiths.`;
@@ -29,6 +37,8 @@ export async function generateMetadata({ params }: any) {
       en: `https://www.globalsalah.com/en/sunan-nisai`,
       fr: `https://www.globalsalah.com/fr/sunan-nisai`,
       ar: `https://www.globalsalah.com/ar/sunan-nisai`,
+      es: `https://www.globalsalah.com/es/sunan-nisai`,
+      'zh-CN': `https://www.globalsalah.com/zh-CN/sunan-nisai`,
       'x-default': `https://www.globalsalah.com/en/sunan-nisai`,
     },
     robots: {
@@ -46,6 +56,8 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
+
 
 
 function page() {

@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: any) {
       title = `تحديد اتجاه القبلة – اعرف اتجاه مكة بدقة | جلوبال صلاح`;
       description = `استخدم أداة تحديد اتجاه القبلة لمعرفة الاتجاه الصحيح للصلاة أينما كنت حول العالم.`;
       break;
+    case 'es':
+      title = `Buscador de Qibla – Dirección Precisa de Oración | Global Salah`;
+      description = `Utiliza nuestra herramienta de búsqueda de la Qibla para determinar la dirección precisa de La Meca desde cualquier lugar del mundo. Alinea tus oraciones con precisión.`;
+      break;
+    case 'zh-CN':
+      title = `寻找朝拜方向 – 精确的祷告方向 | Global Salah`;
+      description = `使用我们的朝拜方向查找工具，从世界任何地方准确确定麦加的方向。精确调整您的祷告方向。`;
+      break;
     default:
       title = `Qibla Finder – Accurate Prayer Direction | Global Salah`;
       description = `Use our Qibla Finder tool to determine the accurate direction of Makkah from anywhere in the world. Align your prayers with precision.`;
@@ -29,6 +37,8 @@ export async function generateMetadata({ params }: any) {
       en: `https://www.globalsalah.com/en/qibla-finder`,
       fr: `https://www.globalsalah.com/fr/qibla-finder`,
       ar: `https://www.globalsalah.com/ar/qibla-finder`,
+      es: `https://www.globalsalah.com/es/qibla-finder`,
+      'zh-CN': `https://www.globalsalah.com/zh-CN/qibla-finder`,
       'x-default': `https://www.globalsalah.com/en/qibla-finder`,
     },
     robots: {
@@ -46,6 +56,8 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
+
 
 
 export default function Home() {

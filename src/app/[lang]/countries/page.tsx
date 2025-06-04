@@ -14,9 +14,17 @@ export async function generateMetadata({ params }: any) {
       title = `Horaires de prière dans le monde – Global Salah`;
       description = `Découvrez les horaires de prière pour les pays du monde entier avec Global Salah. Trouvez des horaires quotidiens et mensuels précis pour rester régulier dans vos prières partout.`;
       break;
+    case 'es':
+      title = `Horarios de oración en todo el mundo - Global Salah`;
+      description = `Explore los horarios de oración de países de todo el mundo con Global Salah. Encuentre horarios diarios y mensuales precisos para ser coherente con sus oraciones en cualquier lugar.`;
+      break;
     case 'ar':
       title = `مواقيت الصلاة حول العالم – جلوبال صلاح`;
       description = `استكشف مواقيت الصلاة في مختلف البلدان مع جلوبال صلاح. احصل على جداول يومية وشهرية دقيقة لتلتزم بصلواتك في أي مكان.`;
+      break;
+    case 'zh-CN':
+      title = `全球祷告时间 – 全球萨拉赫`;
+      description = `通过 全球萨拉赫 探索全球各国的祷告时间。查找准确的每日和每月时间表，让您无论身在何处都能坚持祷告。`;
       break;
     default:
       title = `Prayer Timings Worldwide – Global Salah`;
@@ -30,8 +38,10 @@ export async function generateMetadata({ params }: any) {
       canonical: `https://www.globalsalah.com/${lang}/countries`,
       languages: {
         en: 'https://www.globalsalah.com/en/countries',
+        es: 'https://www.globalsalah.com/es/countries',
         fr: 'https://www.globalsalah.com/fr/countries',
         ar: 'https://www.globalsalah.com/ar/countries',
+        'zh-CN': 'https://www.globalsalah.com/zh-CN/countries',
         'x-default': 'https://www.globalsalah.com/en/countries',
       },
     },
@@ -50,6 +60,7 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
 
 
 

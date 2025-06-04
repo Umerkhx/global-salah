@@ -1,6 +1,6 @@
 export async function GET(): Promise<Response> {
   const baseUrl = 'https://globalsalah.com';
-  const languages = ['en', 'fr', 'ar'];
+  const languages = ['en', 'fr', 'ar', 'es','zh-CN'];
 
   const sitemapIndexes = languages.flatMap((lang) => [
     `${baseUrl}/${lang}/sitemap.xml`,

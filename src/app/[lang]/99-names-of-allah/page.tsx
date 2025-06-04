@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: any) {
       title = `أسماء الله الحسنى – 99 اسمًا ومعانيها`;
       description = `اكتشف أسماء الله الحسنى ومعانيها. استكشف الصفات الإلهية التي تعكس رحمة الله وحكمته وقدرته.`;
       break;
+    case 'es':
+      title = `99 Nombres de Alá - Nombres hermosos y significados`;
+      description = `Descubre los 99 Nombres de Alá (Asma'ul Husna) y sus significados. Explora los atributos divinos de Allah que reflejan Su misericordia, sabiduría y poder.`;
+      break;
+    case 'zh-CN':
+      title = `真主的99个尊名——美丽的名字及其含义`;
+      description = `探索真主的99个尊名（Asma'ul Husna）及其含义。了解反映真主仁慈、智慧和力量的神圣属性。`;
+      break;
     default:
       title = `99 Names of Allah – Beautiful Names and Meanings`;
       description = `Discover the 99 Names of Allah (Asma'ul Husna) and their meanings. Explore the divine attributes of Allah that reflect His mercy, wisdom, and power.`;
@@ -31,6 +39,8 @@ export async function generateMetadata({ params }: any) {
         en: 'https://www.globalsalah.com/en/99-names-of-allah',
         fr: 'https://www.globalsalah.com/fr/99-names-of-allah',
         ar: 'https://www.globalsalah.com/ar/99-names-of-allah',
+        es: 'https://www.globalsalah.com/es/99-names-of-allah',
+        'zh-CN': 'https://www.globalsalah.com/zh-CN/99-names-of-allah',
         'x-default': 'https://www.globalsalah.com/en/99-names-of-allah',
       },
     },
@@ -54,7 +64,7 @@ export async function generateMetadata({ params }: any) {
 function page() {
   return (
     <div>
-        <NamesOfAllah/>
+      <NamesOfAllah />
     </div>
   )
 }

@@ -12,6 +12,8 @@ import { urlSplitter } from "@/lib"
 import englishLang from "../../../../public/locales/en.json"
 import frenchLang from "../../../../public/locales/fr.json"
 import arabicLang from "../../../../public/locales/ar.json"
+import spanishLang from "../../../../public/locales/es.json"
+import chineseLang from "../../../../public/locales/zh-CN.json"
 import { useTranslation } from "@/hooks/useTranslation"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -196,6 +198,12 @@ export default function DuasPage() {
     } else if (lang === "ar" || pathname === "/") {
       setDuasContent(arabicLang.duas.duasTranslation);
       setButtonLabel(arabicLang.duas.categories);
+    } else if (lang === "es" || pathname === "/") {
+      setDuasContent(spanishLang.duas.duasTranslation);
+      setButtonLabel(spanishLang.duas.categories);
+    } else if (lang === "zh-CN" || pathname === "/") {
+      setDuasContent(chineseLang.duas.duasTranslation);
+      setButtonLabel(chineseLang.duas.categories);
     }
   }, [lang]);
 

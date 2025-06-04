@@ -27,6 +27,14 @@ export async function generateMetadata({ params }: any) {
       title = `Heures de prière à ${countryName} – Global Salah`;
       description = `Obtenez les heures de prière précises à ${countryName} avec Global Salah. Accédez aux horaires quotidiens et mensuels pour rester régulier dans vos prières où que vous soyez.`;
       break;
+    case 'es':
+      title = `Horario de oración en ${countryName} - Global Salah`;
+      description = `Obtenga horarios de oración precisos en ${countryName} con Global Salah. Acceda a los horarios diarios y mensuales de Salah para ser coherente con sus oraciones en cualquier lugar del país.`;
+      break;
+    case 'zh-CN':
+      title = `在 ${countryName} 的祈祷时间 - 全球萨拉赫`;
+      description = `通过 全球萨拉赫 获取 ${countryName} 的准确祈祷时间表。访问每日和每月的萨拉赫时间表，让您在全国各地的祈祷保持一致。`;
+      break;
     case 'ar':
       title = `مواقيت الصلاة في ${countryName} – جلوبال صلاح`;
       description = `احصل على مواقيت الصلاة الدقيقة في ${countryName} مع جلوبال صلاح. تصفح الجداول اليومية والشهرية للصلاة لتبقى مواظبًا على عباداتك في أي مكان.`;
@@ -46,6 +54,7 @@ export async function generateMetadata({ params }: any) {
         en: `https://www.globalsalah.com/en/countries/${country}`,
         fr: `https://www.globalsalah.com/fr/countries/${country}`,
         ar: `https://www.globalsalah.com/ar/countries/${country}`,
+        'zh-CN': `https://www.globalsalah.com/zh-CN/countries/${country}`,
         'x-default': `https://www.globalsalah.com/en/countries/${country}`,
       },
     },

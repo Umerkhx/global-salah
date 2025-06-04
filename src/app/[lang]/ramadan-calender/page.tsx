@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: any) {
       title = `تقويم رمضان 2025 – مواعيد السحور والإفطار`;
       description = `ابقَ على اطلاع بتقويم رمضان 2025 الذي يحتوي على مواعيد السحور والإفطار اليومية. نظّم جدول صيامك بمواقيت الصلاة الدقيقة لشهر مبارك.`;
       break;
+    case 'es':
+      title = `Calendario de Ramadán 2025 – Horarios de Sehri e Iftar`;
+      description = `Manténgase informado con el calendario de Ramadán 2025, con horarios diarios de Sehri e Iftar. Planifique su ayuno con tiempos precisos de oración para un mes bendecido.`;
+      break;
+    case 'zh-CN':
+      title = `2025年斋月日历 – Sehri 和 Iftar 时间`;
+      description = `通过2025年斋月日历获取每日 Sehri 和 Iftar 时间的最新信息。用准确的祷告时间规划您的斋戒，迎接一个福气满满的月份。`;
+      break;
     default:
       title = `Ramadan Calendar 2025 – Sehri & Iftar Timings`;
       description = `Stay updated with the Ramadan 2025 calendar, featuring daily Sehri and Iftar timings. Plan your fasting schedule with accurate prayer times for a blessed month.`;
@@ -26,11 +34,13 @@ export async function generateMetadata({ params }: any) {
     title,
     description,
     alternates: {
-      canonical: `https://www.globalsalah.com/${lang}/ramadan-calender`,
-      en: `https://www.globalsalah.com/en/ramadan-calender`,
-      fr: `https://www.globalsalah.com/fr/ramadan-calender`,
-      ar: `https://www.globalsalah.com/ar/ramadan-calender`,
-      'x-default': `https://www.globalsalah.com/en/ramadan-calender`,
+      canonical: `https://www.globalsalah.com/${lang}/ramadan-calendar`,
+      en: `https://www.globalsalah.com/en/ramadan-calendar`,
+      fr: `https://www.globalsalah.com/fr/ramadan-calendar`,
+      ar: `https://www.globalsalah.com/ar/ramadan-calendar`,
+      es: `https://www.globalsalah.com/es/ramadan-calendar`,
+      'zh-CN': `https://www.globalsalah.com/zh-CN/ramadan-calendar`,
+      'x-default': `https://www.globalsalah.com/en/ramadan-calendar`,
     },
     robots: {
       index: true,
@@ -47,6 +57,8 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
+
 
 
 function page() {

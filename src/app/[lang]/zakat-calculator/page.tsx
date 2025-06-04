@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: any) {
       title = `حاسبة الزكاة – جلوبال صلاح`;
       description = `احسب زكاتك بسهولة وفق الشريعة الإسلامية. أدخل أصولك واحصل على المبلغ الواجب دفعه بدقة.`;
       break;
+    case 'es':
+      title = `Calculadora de Zakat – Global Salah`;
+      description = `Calcula tu Zakat fácilmente según las reglas islámicas. Ingresa tus bienes y obtén al instante la cantidad exacta a dar.`;
+      break;
+    case 'zh-CN':
+      title = `扎卡特计算器 – 全球萨拉赫`;
+      description = `根据伊斯兰教法轻松计算您的扎卡特。输入您的资产，即可准确获得应支付的金额。`;
+      break;
     default:
       title = `Zakat Calculator – Global Salah`;
       description = `Easily calculate your Zakat based on Islamic rules. Enter your assets and instantly get the accurate amount to give.`;
@@ -26,12 +34,12 @@ export async function generateMetadata({ params }: any) {
     description,
     alternates: {
       canonical: `https://www.globalsalah.com/${lang}/zakat-calculator`,
-      languages: {
-        en: `https://www.globalsalah.com/en/zakat-calculator`,
-        fr: `https://www.globalsalah.com/fr/zakat-calculator`,
-        ar: `https://www.globalsalah.com/ar/zakat-calculator`,
-        'x-default': `https://www.globalsalah.com/en/zakat-calculator`,
-      },
+      en: `https://www.globalsalah.com/en/zakat-calculator`,
+      fr: `https://www.globalsalah.com/fr/zakat-calculator`,
+      ar: `https://www.globalsalah.com/ar/zakat-calculator`,
+      es: `https://www.globalsalah.com/es/zakat-calculator`,
+      'zh-CN': `https://www.globalsalah.com/zh-CN/zakat-calculator`,
+      'x-default': `https://www.globalsalah.com/en/zakat-calculator`,
     },
     robots: {
       index: true,
@@ -48,6 +56,9 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
+
+
 
 function page() {
   return (

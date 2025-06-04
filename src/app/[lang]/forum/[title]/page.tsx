@@ -4,24 +4,30 @@ import { getQuestionByTitle } from "@/services/forum";
 
 export async function generateMetadata({ params }: any) {
   const lang = params.lang;
-  const title = params?.title as string;
+  const titleSlug = params?.title as string;
 
-  const metaslug = title
+  const metaslug = titleSlug
     ?.split("-")
     ?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
   try {
-    const response = await getQuestionByTitle(title);
+    const response = await getQuestionByTitle(titleSlug);
 
     if (response.status === 200) {
       const question = response.data;
 
       return {
         title: `${question?.title} – Global Salah Forum Discussion`,
-      description: `${question?.description} in the Global Salah Forum. Share your insights, ask follow-up questions, and connect with the community.`,
+        description: `${question?.description} in the Global Salah Forum. Share your insights, ask follow-up questions, and connect with the community.`,
         alternates: {
-          canonical: `https://www.globalsalah.com/${lang}/forum/${title}`,
+          canonical: `https://www.globalsalah.com/${lang}/forum/${titleSlug}`,
+          en: `https://www.globalsalah.com/en/forum/${titleSlug}`,
+          fr: `https://www.globalsalah.com/fr/forum/${titleSlug}`,
+          ar: `https://www.globalsalah.com/ar/forum/${titleSlug}`,
+          es: `https://www.globalsalah.com/es/forum/${titleSlug}`,
+          'zh-CN': `https://www.globalsalah.com/zh-CN/forum/${titleSlug}`,
+          'x-default': `https://www.globalsalah.com/en/forum/${titleSlug}`,
         },
         robots: {
           index: true,
@@ -39,9 +45,56 @@ export async function generateMetadata({ params }: any) {
       };
     }
   } catch (error) {
+    let fallbackTitle = '';
+    let fallbackDescription = '';
+
+    switch (lang) {
+      case 'fr':
+        fallbackTitle = `Question du Forum – Global Salah`;
+        fallbackDescription = `Trouvez des réponses à vos questions dans le forum Global Salah. Partagez vos idées et discutez avec la communauté.`;
+        break;
+      case 'ar':
+        fallbackTitle = `سؤال في المنتدى – جلوبال صلاح`;
+        fallbackDescription = `ابحث عن إجابات لأسئلتك في منتدى جلوبال صلاح. شارك أفكارك وتواصل مع المجتمع.`;
+        break;
+      case 'es':
+        fallbackTitle = `Pregunta del Foro – Global Salah`;
+        fallbackDescription = `Encuentra respuestas a tus preguntas en el foro de Global Salah. Comparte tus ideas y conecta con la comunidad.`;
+        break;
+      case 'zh-CN':
+        fallbackTitle = `论坛问题 - 全球萨拉赫`;
+        fallbackDescription = `在 全球萨拉赫 论坛上找到问题的答案。分享您的想法并与社区建立联系。`;
+        break;
+      default:
+        fallbackTitle = `Forum Question – Global Salah`;
+        fallbackDescription = `Find answers to your questions in the Global Salah Forum. Share your thoughts and connect with the community.`;
+    }
+
     return {
-      title: "Forum Question",
-      description: "Find answers to your questions.",
+      title: fallbackTitle,
+      description: fallbackDescription,
+      alternates: {
+        canonical: `https://www.globalsalah.com/${lang}/forum/${titleSlug}`,
+        en: `https://www.globalsalah.com/en/forum/${titleSlug}`,
+        fr: `https://www.globalsalah.com/fr/forum/${titleSlug}`,
+        ar: `https://www.globalsalah.com/ar/forum/${titleSlug}`,
+        es: `https://www.globalsalah.com/es/forum/${titleSlug}`,
+        'zh-CN': `https://www.globalsalah.com/zh-CN/forum/${titleSlug}`,
+        'x-default': `https://www.globalsalah.com/en/forum/${titleSlug}`,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        nocache: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          noimageindex: false,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
     };
   }
 }

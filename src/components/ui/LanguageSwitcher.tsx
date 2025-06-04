@@ -16,6 +16,8 @@ const languages: Language[] = [
   { code: "en", label: "English", flag: "/flag-dropdown/icons8-great-britain-48.png" },
   { code: "fr", label: "Français", flag: "/flag-dropdown/icons8-french-flag-48.png" },
   { code: "ar", label: "العربية", flag: "/flag-dropdown/icons8-sudan-circular-48.png" },
+  { code: "es", label: "Español", flag: "/flag-dropdown/icons8-spain-48.png" },
+  { code: "zh-CN", label: "普通话", flag: "/flag-dropdown/icons8-china-48.png" },
 ]
 
 export default function LanguageSwitcher() {
@@ -25,6 +27,14 @@ export default function LanguageSwitcher() {
   const [currentLang, setCurrentLang] = useState<Language>(languages[0])
   const [hasMounted, setHasMounted] = useState(false)
 
+  // Helper: check if current path is a blog detail page
+  const isBlogDetail = () => {
+    // Example: /en/blog/blog-title
+    const parts = pathname.split("/")
+    // ["", "en", "blog", "blog-title"]
+    return parts.length >= 4 && parts[2] === "blog" && !!parts[3]
+  }
+
   useEffect(() => {
     const updateLanguage = () => {
       localStorage.setItem("loading", "true")
@@ -33,35 +43,24 @@ export default function LanguageSwitcher() {
       if (pathLang) {
         const newLang = languages.find((lang) => lang.code === pathLang)!
 
-        // Check if this is the initial mount
         if (!hasMounted) {
-          console.log("🚀 Initial mount - saving initial language:", newLang.code)
-          // Save initial language on first mount
           localStorage.setItem("initialLanguage", newLang.code)
           localStorage.setItem("language", newLang.label)
           setHasMounted(true)
         } else {
-          // Language changed after initial mount
           const initialLang = localStorage.getItem("initialLanguage")
           const prevLang = localStorage.getItem("language")
 
-          console.log("🔄 Language change detected:")
-          console.log("  Initial language:", initialLang)
-          console.log("  Previous language:", prevLang)
-          console.log("  New language:", newLang.label)
-
           if (initialLang && newLang.code !== initialLang) {
-            // Save previous language before changing
             if (prevLang) {
               localStorage.setItem("prevLanguage", prevLang)
             }
-
-            // Update current language
             localStorage.setItem("language", newLang.label)
 
-            // Redirect to blogs page of new language
-            console.log(`✅ Redirecting to /${newLang.code}/blogs`)
-            router.push(`/${newLang.code}/blogs`)
+            // Only redirect to blogs page if on a blog detail page
+            if (isBlogDetail()) {
+              router.push(`/${newLang.code}/blogs`)
+            }
           }
         }
 
@@ -71,13 +70,11 @@ export default function LanguageSwitcher() {
           localStorage.setItem("loading", "false")
         }, 2000)
       } else {
-        // No language in path - detect browser language
         const browserLang = navigator.language.split("-")[0]
         const defaultLang = languages.find((lang) => lang.code === browserLang) ? browserLang : "en"
         const selectedLang = languages.find((lang) => lang.code === defaultLang)!
 
         if (!hasMounted) {
-          console.log("🚀 Initial mount (no lang in path) - saving initial language:", defaultLang)
           localStorage.setItem("initialLanguage", defaultLang)
           localStorage.setItem("language", selectedLang.label)
           setHasMounted(true)
@@ -97,33 +94,20 @@ export default function LanguageSwitcher() {
   }, [pathname, router, hasMounted])
 
   const changeLanguage = (lang: Language) => {
-    console.log("🎯 Manual language change triggered:", lang.code)
-
-    // Get current language info for localStorage
     const currentLanguageName = localStorage.getItem("language")
     const initialLang = localStorage.getItem("initialLanguage")
 
-    console.log("  Current language in storage:", currentLanguageName)
-    console.log("  Initial language:", initialLang)
-
-    // Save previous language
     if (currentLanguageName) {
       localStorage.setItem("prevLanguage", currentLanguageName)
-      console.log("  Saved previous language:", currentLanguageName)
     }
 
-    // Update current language
     localStorage.setItem("language", lang.label)
-    console.log("  Updated current language to:", lang.label)
 
-    // If changing from initial language, redirect to blogs
-    if (initialLang && lang.code !== initialLang) {
-      console.log(`✅ Redirecting to /${lang.code}/blogs (different from initial)`)
+    // Only redirect to blogs page if on a blog detail page
+    if (initialLang && lang.code !== initialLang && isBlogDetail()) {
       router.push(`/${lang.code}/blogs`)
     } else {
-      // Same as initial language, just navigate normally
       const newPathname = "/" + pathname.split("/").slice(2).join("/")
-      console.log(`➡️ Navigating to /${lang.code}${newPathname} (same as initial)`)
       router.push(`/${lang.code}${newPathname}`)
     }
 

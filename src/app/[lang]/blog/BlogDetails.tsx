@@ -19,6 +19,8 @@ const languageMap: Record<string, string> = {
   French: "fr",
   Français: "fr", 
   العربية: "ar",
+  Español: "es",
+  普通话: "zh-CN",
 }
 
 const BlogDetails = ({ blog }: BlogDetailsProps) => {

@@ -65,7 +65,7 @@ function Navbar() {
             <MainNav />
 
             <div className="flex items-center md:gap-5 gap-2 ">
-              {/* <SearchButton /> */}
+              <SearchButton />
               <div className="lg:flex gap-2 hidden">
                 <SidebarButton />
               </div>
@@ -82,4 +82,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar 
