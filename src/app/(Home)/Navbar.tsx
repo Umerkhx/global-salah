@@ -56,6 +56,7 @@ function Navbar() {
                     alt="global"
                     width={260}
                     height={230}
+                    fetchPriority="high"
                   />
                 </div>
                 <span className="text-lg font-semibold text-white md:block hidden"> {isLang ? t("navigation.title") : "Global Salah"} </span>

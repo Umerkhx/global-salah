@@ -284,7 +284,7 @@ export default async function EmailAction2(state: any, formData: FormData) {
                                </td>
                                <td valign="middle" style=" vertical-align: middle;">
                                  <p style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #505050; font-size: 15px; margin: 0;">
-                                   <a href="https://www.globalsalah.com" style="color: #1a7f64; text-decoration: none; font-weight: 500; ">www.globalsalah.com</a>
+                                   <a href="https://globalsalah.com" style="color: #1a7f64; text-decoration: none; font-weight: 500; ">www.globalsalah.com</a>
                                  </p>
                                </td>
                              </tr>
