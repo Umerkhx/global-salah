@@ -44,19 +44,21 @@ function CalculationPage() {
 
   return (
     <>
-    {isLoading ? <div className='px-8 mt-4'>
-      <Skeleton className="h-48 w-full mx-auto max-w-xl" />
-      <Skeleton className="mt-3 h-screen rounded-lg w-full mx-auto max-w-xl" />
-    </div> :(
+    
       <div className="min-h-screen ">
       <header className="bg-emerald-800 text-white shadow-lg">
+        {isLoading ? <div className='px-8 mt-4'>
+      <Skeleton className="h-24 w-full " />
+    </div> :(
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center space-x-3">
             <CalculateIcon size={28} />
             <h1 className="text-2xl md:text-3xl font-bold">{t("inheritance.title")}</h1>
           </div>
           <p className="mt-2 text-emerald-100">{t("inheritance.desc")}</p>
+
         </div>
+        )}
       </header>
 
       <main className="container mx-auto px-4 py-8">
@@ -67,7 +69,7 @@ function CalculationPage() {
       </main>
 
 
-    </div>)}
+    </div>
 </>
 )}
 
