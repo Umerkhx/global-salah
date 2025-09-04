@@ -58,7 +58,7 @@ function Navbar() {
                     height={230}
                   />
                 </div>
-                <span className="text-lg font-semibold text-white"> {isLang ? t("navigation.title") : "Global Salah"} </span>
+                <span className="text-lg font-semibold text-white md:block hidden"> {isLang ? t("navigation.title") : "Global Salah"} </span>
               </Link>
             </div>
 

@@ -33,14 +33,14 @@ const InheritanceResults: React.FC<InheritanceResultsProps> = ({ result, propert
                     {isLoading ? <div className=' mt-4'>
                         <Skeleton className="h-10 mb-4" />
                     </div> : (
-                        <h2 className="text-2xl font-bold  mb-4"> {t("inheritance.title2")}</h2>
+                        <h2 className="md:text-2xl text-xl font-bold  mb-4"> {t("inheritance.title2")}</h2>
                     )}
                 </>
                   <>
                     {isLoading ? <div className=' mt-4'>
                         <Skeleton className="h-8 " />
                     </div> : (
-                <p className="text-muted-foreground">{t("inheritance.desc2")}</p>
+                <p className="text-muted-foreground md:text-base text-sm">{t("inheritance.desc2")}</p>
                        )}
                 </>
             </div>

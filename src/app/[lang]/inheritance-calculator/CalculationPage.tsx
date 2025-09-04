@@ -53,9 +53,9 @@ function CalculationPage() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center space-x-3">
             <CalculateIcon size={28} />
-            <h1 className="text-2xl md:text-3xl font-bold">{t("inheritance.title")}</h1>
+            <h1 className="text-xl md:text-3xl font-bold">{t("inheritance.title")}</h1>
           </div>
-          <p className="mt-2 text-emerald-100">{t("inheritance.desc")}</p>
+          <p className="mt-2 text-emerald-100 md:text-base text-sm">{t("inheritance.desc")}</p>
 
         </div>
         )}

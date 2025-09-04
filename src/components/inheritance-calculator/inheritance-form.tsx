@@ -117,12 +117,12 @@ const InheritanceForm: React.FC<InheritanceFormProps> = ({ onCalculate }) => {
   return (
     <>
       <div className="bg-white dark:bg-black rounded-lg shadow-md p-6 mb-6">
-        {isLoading ? <div className='px-8 mt-4'>
-          <Skeleton className="h-10 w-full mb-6 " />
+        {isLoading ? <div className=' mt-4'>
+          <Skeleton className="h-10 w-full mb-6"/>
         </div> : (
-          <h2 className="text-2xl font-bold  mb-6">{t("inheritance.heading")} </h2>
+          <h2 className="md:text-2xl text-xl font-bold  md:mb-6">{t("inheritance.heading")} </h2>
         )}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="md:space-y-4 space-y-6 scale-90 md:scale-100">
           <div className="grid md:grid-cols-1 gap-6">
             <div className="space-y-2">
               {isLoading ? (

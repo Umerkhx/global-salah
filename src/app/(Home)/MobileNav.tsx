@@ -21,7 +21,6 @@ export function MobileNav() {
   const isActive = (path: string) => pathname === path
   const getText = (key: string) => (isLang ? t(`navigation.${key}`) : key)
   
-  // Function to close the navigation
   const closeNav = () => setOpen(false)
 
   return (
