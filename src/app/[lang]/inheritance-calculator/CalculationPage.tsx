@@ -19,7 +19,7 @@ function CalculationPage() {
     const timer = setTimeout(() => {
       localStorage.setItem("loading", "false");
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
