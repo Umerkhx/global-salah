@@ -692,15 +692,6 @@ export const countriesData: { [country: string]: CountryData } = {
             { name: "Dundalk" }
         ]
     },
-    "Ivory Coast": {
-        cities: [
-            { name: "Abidjan" },
-            { name: "Bouaké" },
-            { name: "San Pedro" },
-            { name: "Yamoussoukro" },
-            { name: "Daloa" }
-        ]
-    },
     "Iraq": {
         cities: [
             { name: "Baghdad" },

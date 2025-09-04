@@ -65,12 +65,12 @@ export async function generateMetadata({ params }: any) {
       'x-default': `https://www.globalsalah.com/en/verify-email`,
     },
     robots: {
-      index: true,
-      follow: true,
-      nocache: true,
+      index: false,
+      follow: false,
+      nocache: false,
       googleBot: {
-        index: true,
-        follow: true,
+        index: false,
+        follow: false,
         noimageindex: false,
         "max-video-preview": -1,
         "max-image-preview": "large",

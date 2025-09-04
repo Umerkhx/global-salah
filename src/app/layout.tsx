@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   title: "Global Salah",
   description: "Global Salah is a platform that helps you find the most accurate prayer times for your location.",
   robots: {
-    index: true,
-    follow: true,
-    nocache: true,
+    index: false,
+    follow: false,
+    nocache: false,
     googleBot: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
       noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
