@@ -1,9 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { InfoIcon, Calendar, Clock, AlertCircle, RefreshCw } from "lucide-react"
+import { InfoIcon, Clock, AlertCircle, RefreshCw } from "lucide-react"
 import type { CalculationResult } from "@/lib/calculator-types"
-import { TbPointFilled } from "react-icons/tb";
 import { Button } from "../ui/button"
 import { useTranslation } from "@/hooks/useTranslation"
 import { useEffect, useState } from "react"

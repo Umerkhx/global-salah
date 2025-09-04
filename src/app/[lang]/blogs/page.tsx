@@ -14,6 +14,10 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       title = 'Blogues';
       description = 'Tous les blogues';
       break;
+    case 'ru':
+      title = 'Блоги';
+      description = 'Все блоги';
+      break;
     case 'ar':
       title = 'المدونات';
       description = 'جميع المدونات';
@@ -25,6 +29,22 @@ export async function generateMetadata({ params }: { params: { lang: string } })
     case 'zh-CN':
       title = '博客';
       description = '所有博客';
+      break;
+    case 'tr':
+      title = 'Bloglar';
+      description = 'Tüm bloglar';
+      break;
+    case 'de':
+      title = 'Blogs';
+      description = 'Alle Blogs';
+      break;
+    case 'pt':
+      title = 'Blogs';
+      description = 'Todos os blogs';
+      break;
+    case 'ur':
+      title = 'بلاگز';
+      description = 'تمام بلاگز';
       break;
     default:
       title = 'Blogs';
@@ -42,6 +62,11 @@ export async function generateMetadata({ params }: { params: { lang: string } })
         ar: 'https://globalsalah.com/ar/blogs',
         es: 'https://globalsalah.com/es/blogs',
         'zh-CN': 'https://globalsalah.com/zh-CN/blogs',
+        tr: 'https://globalsalah.com/tr/blogs',
+        de: 'https://globalsalah.com/de/blogs',
+        pt: 'https://globalsalah.com/pt/blogs',
+        ur: 'https://globalsalah.com/ur/blogs',
+        ru: 'https://globalsalah.com/ru/blogs',
         'x-default': 'https://globalsalah.com/en/blogs',
       },
     },

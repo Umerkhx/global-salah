@@ -15,22 +15,47 @@ export async function GET(request: Request) {
   }
 
   const normalizedCountry = country.toLowerCase().replace(/-/g, ' ');
-  const countryData = countriesData.find(c => 
+  // Find all matching countries instead of just the first one
+  const matchingCountries = countriesData.filter(c =>
     c.name.toLowerCase() === normalizedCountry ||
     c.code.toLowerCase() === normalizedCountry
   );
-
+  
+  // Try to find the country that contains the requested city
+  let countryData = null;
+  let cityData = null;
+  
+  for (const country of matchingCountries) {
+    const normalizedCity = city.toLowerCase().replace(/-/g, ' ');
+    const foundCity = country.cities.find(c =>
+      c.name.toLowerCase() === normalizedCity
+    );
+    if (foundCity) {
+      countryData = country;
+      cityData = foundCity;
+      break;
+    }
+  }
+  
+  // If we couldn't find the city in any matching country, use the first match
+  if (!countryData && matchingCountries.length > 0) {
+    countryData = matchingCountries[0];
+  }
+  
   if (!countryData) {
     return NextResponse.json(
       { error: 'Country not found' },
       { status: 404 }
     );
   }
-
-  const normalizedCity = city.toLowerCase().replace(/-/g, ' ');
-  const cityData = countryData.cities.find(c => 
-    c.name.toLowerCase() === normalizedCity
-  );
+  
+  // If we haven't found the city yet, try to find it in the selected country
+  if (!cityData) {
+    const normalizedCity = city.toLowerCase().replace(/-/g, ' ');
+    cityData = countryData.cities.find(c =>
+      c.name.toLowerCase() === normalizedCity
+    );
+  }
 
   if (!cityData) {
     return NextResponse.json(

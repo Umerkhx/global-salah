@@ -14,6 +14,10 @@ export async function generateMetadata({ params }: any) {
       title = `Horaires de prière dans le monde – Global Salah`;
       description = `Découvrez les horaires de prière pour les pays du monde entier avec Global Salah. Trouvez des horaires quotidiens et mensuels précis pour rester régulier dans vos prières partout.`;
       break;
+    case 'ru':
+      title = `Время молитв по всему миру - Глобальный салах`;
+      description = `Узнайте время молитв в разных странах мира с помощью Global Salah. Найдите точное время ежедневных и ежемесячных молитв, чтобы ваши молитвы были регулярными везде.`;
+      break;
     case 'es':
       title = `Horarios de oración en todo el mundo - Global Salah`;
       description = `Explore los horarios de oración de países de todo el mundo con Global Salah. Encuentre horarios diarios y mensuales precisos para ser coherente con sus oraciones en cualquier lugar.`;
@@ -25,6 +29,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `全球祷告时间 – 全球萨拉赫`;
       description = `通过 全球萨拉赫 探索全球各国的祷告时间。查找准确的每日和每月时间表，让您无论身在何处都能坚持祷告。`;
+      break;
+    case 'tr':
+      title = `Dünya Çapında Namaz Vakitleri – Global Salah`;
+      description = `Global Salah ile dünya genelindeki ülkelerin namaz vakitlerini keşfedin. Nerede olursanız olun, dualarınıza düzenli bir şekilde devam edebilmeniz için doğru günlük ve aylık programları bulun.`;
+      break;
+    case 'de':
+      title = `Gebetszeiten weltweit – Global Salah`;
+      description = `Entdecken Sie mit Global Salah die Gebetszeiten für Länder auf der ganzen Welt. Finden Sie präzise tägliche und monatliche Zeitpläne, um Ihre Gebete überall konsequent einzuhalten.`;
+      break;
+    case 'pt':
+      title = `Horários de oração em todo o mundo – Global Salah`;
+      description = `Explore os horários de oração de vários países com o Global Salah. Encontre cronogramas diários e mensais precisos para manter a consistência em suas orações em qualquer lugar.`;
+      break;
+    case 'ur':
+      title = `دنیا بھر میں نماز کے اوقات – گلوبل صلاح`;
+      description = `گلوبل صلاح کے ساتھ دنیا بھر کے ممالک کے نماز کے اوقات دریافت کریں۔ جہاں کہیں بھی ہوں، اپنی نمازوں کی پابندی کے لیے درست یومیہ اور ماہانہ نظام الاوقات حاصل کریں۔`;
       break;
     default:
       title = `Prayer Timings Worldwide – Global Salah`;
@@ -42,6 +62,11 @@ export async function generateMetadata({ params }: any) {
         fr: 'https://www.globalsalah.com/fr/countries',
         ar: 'https://www.globalsalah.com/ar/countries',
         'zh-CN': 'https://www.globalsalah.com/zh-CN/countries',
+        tr: 'https://www.globalsalah.com/tr/countries',
+        de: 'https://www.globalsalah.com/de/countries',
+        pt: 'https://www.globalsalah.com/pt/countries',
+        ur: 'https://www.globalsalah.com/ur/countries',
+        ru: 'https://www.globalsalah.com/ru/countries',
         'x-default': 'https://www.globalsalah.com/en/countries',
       },
     },
@@ -60,7 +85,6 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
-
 
 
 
@@ -225,7 +249,6 @@ const page = () => {
     { name: 'Tajikistan', code: 'TJ', timezone: 'Asia/Dushanbe', offset: '+05:00' },
     { name: 'Tanzania', code: 'TZ', timezone: 'Africa/Dar_es_Salaam', offset: '+03:00' },
     { name: 'Thailand', code: 'TH', timezone: 'Asia/Bangkok', offset: '+07:00' },
-    { name: 'Timor-Leste', code: 'TL', timezone: 'Asia/Dili', offset: '+09:00' },
     { name: 'Tokelau', code: 'TK', timezone: 'Pacific/Fakaofo', offset: '+13:00' },
     { name: 'Tonga', code: 'TO', timezone: 'Pacific/Tongatapu', offset: '+13:00' },
     { name: 'Trinidad and Tobago', code: 'TT', timezone: 'America/Port_of_Spain', offset: '-04:00' },

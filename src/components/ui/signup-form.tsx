@@ -8,14 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, Loader2 } from "lucide-react";
+import { User, Mail, Lock, Loader2, Eye, EyeOff } from "lucide-react";
 import { signUp } from "@/services/authentication";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { urlSplitter } from "@/lib";
-import axios from "axios";
-import CustomCaptcha from "./common/CustomCaptcha";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface SignupFormProps {
@@ -126,7 +123,7 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
                   className="border-none"
                   required
                 />
-                {viewPassword ? <FaEye onClick={() => setViewPassword(false)} /> : <FaEyeSlash onClick={() => setViewPassword(true)} />}
+                {viewPassword ? <Eye onClick={() => setViewPassword(false)} /> : <EyeOff onClick={() => setViewPassword(true)} />}
               </div>
               <p className="text-xs text-muted-foreground">
                 {t("forum.pwlimit")}

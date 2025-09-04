@@ -95,61 +95,63 @@ const RamadanCalender = () => {
   }
 
   const calculateRamadanTimings = async () => {
-    const coordinates = await fetchLocation()
-    if (!coordinates) return
+  const coordinates = await fetchLocation()
+  if (!coordinates) return
 
-    const { lat, lon, country } = coordinates
-    const calculationMethod = getCalculationMethod(country)
-    const madhab = school === "hanafi" ? Madhab.Hanafi : Madhab.Shafi
+  const { lat, lon, country } = coordinates
+  const calculationMethod = getCalculationMethod(country)
+  const madhab = school === "hanafi" ? Madhab.Hanafi : Madhab.Shafi
+  calculationMethod.madhab = madhab
 
-    const now = new Date()
-    const year = now.getFullYear()
+  // ✅ Explicit Ramadan 2026 start & end dates
+  const ramadanStart = moment("2026-02-17", "YYYY-MM-DD") // Tue Feb 17 2026
+  const ramadanEnd = moment("2026-03-18", "YYYY-MM-DD")   // Wed Mar 18 2026
 
-    const ramadanStart = moment(`${year}-03-02`, "YYYY-MM-DD") // Start of Ramadan in March
-    const ramadanEnd = moment(ramadanStart).add(29, "days") // Ramadan lasts 29 or 30 days
+  const newTimings: NamazTiming[] = []
 
-    const newTimings: NamazTiming[] = []
+  for (
+    let date = ramadanStart.clone();
+    date.isSameOrBefore(ramadanEnd);
+    date.add(1, "day")
+  ) {
+    const jsDate = date.toDate()
+    const prayerTimes = new PrayerTimes(new Coordinates(lat, lon), jsDate, calculationMethod)
 
-    for (let day = 0; day <= 29; day++) {
-      const date = moment(ramadanStart).add(day, "days").toDate()
-
-      const prayerTimes = new PrayerTimes(new Coordinates(lat, lon), date, calculationMethod)
-
-      calculationMethod.madhab = madhab
-      if (day === 0) {
-        const hijri = moment(date)
-          .locale(isArabic === "ar" ? "ar-SA" : "en")
-          .format(isArabic === "ar" ? "iD iMMMM iYYYY" : "iD iMMMM iYYYY")
-        setHijriDate(hijri)
-      }
-
-      const formatTime = (time: Date) =>
-        time.toLocaleTimeString("en-US", {
-          timeZone: location?.timezone,
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        })
-
-      const formattedDate = moment(date).locale("en").format("DD-MMM-YYYY dddd")
-
-      newTimings.push({
-        date: date.toISOString().split("T")[0],
-        formattedDate: formattedDate,
-        timings: {
-          Fajr: formatTime(prayerTimes.fajr),
-          Sunrise: formatTime(prayerTimes.sunrise),
-          Dhuhr: formatTime(prayerTimes.dhuhr),
-          Asr: formatTime(prayerTimes.asr),
-          Maghrib: formatTime(prayerTimes.maghrib),
-          Isha: formatTime(prayerTimes.isha),
-        },
-      })
+    if (date.isSame(ramadanStart)) {
+      const hijri = moment(jsDate)
+        .locale(isArabic === "ar" ? "ar-SA" : "en")
+        .format(isArabic === "ar" ? "iD iMMMM iYYYY" : "iD iMMMM iYYYY")
+      setHijriDate(hijri)
     }
 
-    setTimings(newTimings)
-    setLoading(false)
+    const formatTime = (time: Date) =>
+      time.toLocaleTimeString("en-US", {
+        timeZone: location?.timezone,
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      })
+
+    const formattedDate = moment(jsDate).locale("en").format("DD-MMM-YYYY dddd")
+
+    newTimings.push({
+      date: jsDate.toISOString().split("T")[0],
+      formattedDate: formattedDate,
+      timings: {
+        Fajr: formatTime(prayerTimes.fajr),
+        Sunrise: formatTime(prayerTimes.sunrise),
+        Dhuhr: formatTime(prayerTimes.dhuhr),
+        Asr: formatTime(prayerTimes.asr),
+        Maghrib: formatTime(prayerTimes.maghrib),
+        Isha: formatTime(prayerTimes.isha),
+      },
+    })
   }
+
+  setTimings(newTimings)
+  setLoading(false)
+}
+
 
   useEffect(() => {
     setLoading(true)

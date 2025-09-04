@@ -15,7 +15,7 @@ const BlogCard = ({ blog }: Props) => {
   const short_description = `${blog?.blog_description.slice(0, 150)}...`;
 
   return (
-    <Link href={`/${lang}/blog/${blog.blog_slug}`}>
+    <Link href={`/${lang}/blog/${encodeURIComponent(blog.blog_slug)}`}>
       <Card className="cursor-pointer pb-4 hover:scale-105 transition-all duration-150 delay-150 shadow-sm shadow-black rounded-md">
       <Image
         className="m-auto h-[300px] w-full object-cover rounded-md"

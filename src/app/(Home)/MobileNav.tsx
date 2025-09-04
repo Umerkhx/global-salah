@@ -2,16 +2,13 @@
 import React, { useState } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { ChevronDown, Calendar, Tv, Book, Calculator, CompassIcon, Menu, Home, Globe2 } from "lucide-react"
-import { MdOutlineForum } from "react-icons/md";
-import { IoNewspaperSharp } from "react-icons/io5";
+import { ChevronDown, Calendar, Tv, Book, Calculator, CompassIcon, Menu, Home, Globe2, BookMarked, Newspaper, Laptop } from "lucide-react"
 import { motion } from "framer-motion"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useTranslation } from "@/hooks/useTranslation"
 import { checkIsPathnameIsEqualToLang, urlSplitter } from "@/lib"
 import { Button } from "@/components/ui/button"
-import { FaLaptopHouse } from "react-icons/fa"
 
 export function MobileNav() {
   const pathname = usePathname()
@@ -89,7 +86,7 @@ export function MobileNav() {
               }`}
             onClick={closeNav}
           >
-            <MdOutlineForum  className="h-4 w-4" />
+            <BookMarked className="h-4 w-4" />
             <span>{getText("forum")}</span>
             {isActive(createPath("/forum")) && <span className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600"></span>}
           </Link>
@@ -100,7 +97,7 @@ export function MobileNav() {
               }`}
             onClick={closeNav}
           >
-            <IoNewspaperSharp  className="h-4 w-4" />
+            <Newspaper  className="h-4 w-4" />
             <span>{getText("blogs")}</span>
             {isActive(createPath("/blogs")) && <span className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600"></span>}
           </Link>
@@ -133,7 +130,7 @@ export function MobileNav() {
               }`}
             onClick={closeNav}
           >
-            <FaLaptopHouse className="h-4 w-4" />
+            <Laptop className="h-4 w-4" />
             <span>{getText("inheritance")}</span>
             {isActive(createPath("/inheritance-calculator")) && <span className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600"></span>}
           </Link>

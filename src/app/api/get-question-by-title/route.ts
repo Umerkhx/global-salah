@@ -6,7 +6,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
 
 
-    let title = searchParams.get("title") || ""
+    let title = searchParams.get("title") || "" 
 
     title = decodeURIComponent(title)
 
@@ -44,7 +44,6 @@ export async function GET(req: Request) {
     )
 
     if (!question || question.length === 0) {
-      // Log the title for debugging
       console.log("No question found for title:", title)
 
       return NextResponse.json({ message: "Question Not Found" }, { status: 404 })

@@ -5,14 +5,13 @@ import { addDays, subDays } from "date-fns";
 import { PrayerTimes, Coordinates, CalculationMethod, Madhab, CalculationParameters } from "adhan";
 import "swiper/css";
 import "swiper/css/navigation";
-import { CloudSun, LucideSunset, MoonStarIcon, SunDimIcon, SunMediumIcon, SunriseIcon, } from "lucide-react";
+import { ArrowLeft, ArrowRight, CloudSun, LucideSunset, MoonStarIcon, SunDimIcon, SunMediumIcon, SunriseIcon, } from "lucide-react";
 import moment from "moment-hijri";
 const MonthlyNamazTimings = dynamic(() => import("./MonthlyNamaz"), {
-  ssr: true, 
+  ssr: true,
 });
 import { useTranslation } from "@/hooks/useTranslation";
 import { Navigation } from "swiper/modules";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import dynamic from "next/dynamic";
 
 
@@ -32,7 +31,10 @@ function DateTimingDisplay() {
     const fetchLocation = async () => {
       try {
         const response = await fetch(
-          `https://pro.ip-api.com/json/?key=kHg84ht9eNasCRN&fields=lat,lon,city,country,timezone`, { cache: "reload" }
+          `https://pro.ip-api.com/json/?key=kHg84ht9eNasCRN&fields=lat,lon,city,country,timezone`,
+          {
+            cache: "no-store",
+          }
         );
         const { lat, lon, city, country, timezone } = await response.json();
 
@@ -281,10 +283,10 @@ function DateTimingDisplay() {
         {/* Header with date tabs */}
         <div className="flex flex-col lg:flex-row lg:justify-between gap-4 items-center p-4 border-b-2 border-muted">
           <div className="flex md:flex-row flex-col md:space-y-0 space-y-2 space-x-4">
-          <label htmlFor="options" className="sr-only">Select an option</label>
+            <label htmlFor="options" className="sr-only">Select an option</label>
             <select className=" mx-auto lg:w-[205px] w-[90%] px-4 py-2 rounded-lg dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-800 outline-none text-white"
               value={selectedMadhab} onChange={(e) => setSelectedMadhab(e.target.value)}>
-              <option  className="rounded-lg dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-800 outline-none "
+              <option className="rounded-lg dark:bg-zinc-200 dark:text-zinc-800 bg-zinc-800 outline-none "
                 value="Hanafi">{t("city.hanafi")}</option>
               <option className="rounded-lg dark:bg-zinc-200 px-4 dark:text-zinc-800 bg-zinc-800 outline-none"
                 value="Shafi">{t("city.shafi")}</option>
@@ -402,10 +404,10 @@ function DateTimingDisplay() {
               ))}
               <div className="flex justify-center items-center gap-2">
                 <button aria-label="prevBtn" className="z-10 p-2 bg-[#1e8e67] text-zinc-100 rounded-full shadow-lg transition"
-                  id="prevBtn"> <FaArrowLeft size={24} /></button>
+                  id="prevBtn"> <ArrowLeft className="w-5 h-5" /></button>
 
                 <button aria-label="nextBtn" className="z-10 p-2 bg-[#1e8e67] text-zinc-100 rounded-full shadow-lg transition"
-                  id="nextBtn"><FaArrowRight size={24} /></button>
+                  id="nextBtn"><ArrowRight className="w-5 h-5" /> </button>
               </div>
             </Swiper>
 

@@ -12,6 +12,10 @@ export async function generateMetadata({ params }: any) {
       title = `Invocations pour Chaque Occasion – Global Salah`;
       description = `Découvrez une collection puissante de duas islamiques pour chaque occasion avec Global Salah. Renforcez votre foi avec des invocations et des prières quotidiennes.`;
       break;
+    case 'ru':
+      title = `Приглашения на все случаи жизни - Глобальный Салах`;
+      description = `Откройте для себя мощную коллекцию исламских дуа на все случаи жизни с Global Salah. Укрепляйте свою веру ежедневными призывами и молитвами.`;
+      break;
     case 'ar':
       title = `أدعية لكل مناسبة – جلوبال صلاح`;
       description = `اكتشف مجموعة قوية من الأدعية الإسلامية لكل مناسبة مع جلوبال صلاح. قوّ إيمانك بالأدعية والصلوات اليومية.`;
@@ -23,6 +27,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `适合各种场合的杜斯 - 全球礼赞`;
       description = `通过 全球萨拉赫 发现适合各种场合的强大伊斯兰祈祷文集。通过每天的祈求和祷告来加强您的信仰。`;
+      break;
+    case 'tr':
+      title = `Her Durum İçin Dualar – Global Salah`;
+      description = `Global Salah ile her durum için güçlü İslami dualar koleksiyonunu keşfedin. İnancınızı günlük dualar ve yakarışlarla güçlendirin.`;
+      break;
+    case 'de':
+      title = `Duas für Jede Gelegenheit – Global Salah`;
+      description = `Entdecken Sie mit Global Salah eine kraftvolle Sammlung islamischer Duas für jeden Anlass. Stärken Sie Ihren Glauben mit täglichen Bittgebeten und Gebeten.`;
+      break;
+    case 'pt':
+      title = `Duas para Toda Ocasião – Global Salah`;
+      description = `Descubra uma coleção poderosa de duas islâmicas para toda ocasião com Global Salah. Fortaleça sua fé com súplicas e orações diárias.`;
+      break;
+    case 'ur':
+      title = `ہر موقع کے لیے دعائیں – گلوبل صلاح`;
+      description = `گلوبل صلاح کے ساتھ ہر موقع کے لیے طاقتور اسلامی دعاؤں کا مجموعہ دریافت کریں۔ اپنی ایمان کو روزانہ کی دعاؤں اور عبادات سے مضبوط کریں۔`;
       break;
     default:
       title = `Duas for Every Occasion – Global Salah`;
@@ -39,6 +59,11 @@ export async function generateMetadata({ params }: any) {
       ar: `https://www.globalsalah.com/ar/duas`,
       es: `https://www.globalsalah.com/es/duas`,
       'zh-CN': `https://www.globalsalah.com/zh-CN/duas`,
+      tr: `https://www.globalsalah.com/tr/duas`,
+      de: `https://www.globalsalah.com/de/duas`,
+      pt: `https://www.globalsalah.com/pt/duas`,
+      ur: `https://www.globalsalah.com/ur/duas`,
+      ru: `https://www.globalsalah.com/ru/duas`,
       'x-default': `https://www.globalsalah.com/en/duas`,
     },
     robots: {
@@ -56,6 +81,7 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
 
 
 function page() {

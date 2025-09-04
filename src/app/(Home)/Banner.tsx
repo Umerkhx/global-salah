@@ -102,7 +102,7 @@ function Banner() {
         src="/banner-img-salah.webp"
         alt="Banner background"
         fill
-        priority
+        fetchPriority="high"
         sizes="100vw"
         className="object-cover object-center z-0"
       />

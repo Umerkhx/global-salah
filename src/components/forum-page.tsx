@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { urlSplitter } from "@/lib";
 import { refactorDate } from "@/lib/date";
-import { getAllQuestions } from "@/services/forum";
 import { motion } from "framer-motion";
 import { MessageSquare, Plus, Search, User } from "lucide-react";
 import Link from "next/link";
@@ -42,8 +41,7 @@ export default function ForumPage({
   const [filteredQuestions, setFilteredQuestions] = useState(() =>
     questions
       ? questions.filter(
-        (question: any) => question.question_status === "approved"
-      )
+        (question: any) => question.question_status === "approved")
       : []
   );
   const [currentPage, setCurrentPage] = useState(1);

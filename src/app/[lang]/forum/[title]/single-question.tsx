@@ -19,11 +19,10 @@ import { refactorDate } from "@/lib/date";
 import { verifyEmail } from "@/services/authentication";
 import { addAnswerLike, getQuestionByTitle } from "@/services/forum";
 import { motion } from "framer-motion";
-import { MessageSquare, Share2 } from "lucide-react";
+import { MessageSquare, Share2, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { toast } from "sonner";
 
 export default function QuestionPage() {
@@ -358,9 +357,9 @@ export default function QuestionPage() {
                         onClick={() => handleAddAnswerLike(answer?.id)}
                       >
                         {likedAnswers[answer.id] ? (
-                          <AiFillLike className="h-4 w-4 text-blue-500" /> // Outline when not liked
+                          <ThumbsUp className="h-4 w-4 stroke-blue-500" /> // Outline when not liked
                         ) : (
-                          <AiOutlineLike className="h-4 w-4 text-blue-500" /> // Filled color when liked
+                          <ThumbsUp className="h-4 w-4 text-blue-500" /> // Filled color when liked
                         )}
                         <span>{Math.max(answer.like_count, 0)}</span>
                       </Button>

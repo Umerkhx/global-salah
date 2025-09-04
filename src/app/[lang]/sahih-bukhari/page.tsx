@@ -13,6 +13,10 @@ export async function generateMetadata({ params }: any) {
       title = `Sahih Bukhari – Recueil Authentique de Hadiths | Global Salah`;
       description = `Découvrez les hadiths authentiques du Sahih Bukhari sur Global Salah. Approfondissez votre compréhension des enseignements du Prophète à travers l’un des recueils les plus fiables de l’Islam.`;
       break;
+    case 'ru':
+      title = `Сахих Бухари - аутентичный сборник хадисов | Глобальный салах`;
+      description = `Откройте для себя достоверные хадисы из Сахиха Бухари на сайте Global Salah. Углубите свое понимание учения Пророка с помощью одного из самых надежных сборников ислама.`;
+      break;
     case 'ar':
       title = `صحيح البخاري – مجموعة الأحاديث الصحيحة | جلوبال صلاح`;
       description = `استكشف الأحاديث النبوية الصحيحة من صحيح البخاري على جلوبال صلاح. تعمق في فهمك لتعاليم النبي ﷺ من خلال أحد أصح كتب الحديث في الإسلام.`;
@@ -24,6 +28,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `萨希赫布哈里 – 真实圣训集 | 全球萨拉赫`;
       description = `在 全球萨拉赫 探索萨希赫布哈里的真实圣训。通过伊斯兰最可靠的圣训集之一，深入理解先知的教导。`;
+      break;
+    case 'tr':
+      title = `Sahih Buhari – Otantik Hadis Koleksiyonu | Global Salah`;
+      description = `Global Salah'da Sahih Buhari'nin otantik hadislerini keşfedin. İslam'ın en güvenilir koleksiyonlarından biri aracılığıyla Peygamber’in öğretilerini derinlemesine anlayın.`;
+      break;
+    case 'de':
+      title = `Sahih Bukhari – Authentische Hadith Sammlung | Global Salah`;
+      description = `Entdecken Sie die authentischen Hadithe aus Sahih Bukhari auf Global Salah. Vertiefen Sie Ihr Verständnis der Lehren des Propheten durch eine der vertrauenswürdigsten Sammlungen im Islam.`;
+      break;
+    case 'pt':
+      title = `Sahih Bukhari – Coleção Autêntica de Hadiths | Global Salah`;
+      description = `Explore os hadiths autênticos do Sahih Bukhari no Global Salah. Aprofunde sua compreensão dos ensinamentos do Profeta através de uma das coleções mais confiáveis do Islã.`;
+      break;
+    case 'ur':
+      title = `صحیح بخاری – مستند احادیث کا مجموعہ | گلوبل صلاح`;
+      description = `گلوبل صلاح پر صحیح بخاری کی مستند احادیث دریافت کریں۔ اسلام کی سب سے معتبر مجموعوں میں سے ایک کے ذریعے نبی ﷺ کی تعلیمات کو گہرائی سے سمجھیں۔`;
       break;
     default:
       title = `Sahih Bukhari – Authentic Hadith Collection | Global Salah`;
@@ -40,6 +60,11 @@ export async function generateMetadata({ params }: any) {
       ar: `https://www.globalsalah.com/ar/sahih-bukhari`,
       es: `https://www.globalsalah.com/es/sahih-bukhari`,
       'zh-CN': `https://www.globalsalah.com/zh-CN/sahih-bukhari`,
+      tr: `https://www.globalsalah.com/tr/sahih-bukhari`,
+      de: `https://www.globalsalah.com/de/sahih-bukhari`,
+      pt: `https://www.globalsalah.com/pt/sahih-bukhari`,
+      ur: `https://www.globalsalah.com/ur/sahih-bukhari`,
+      ru: `https://www.globalsalah.com/ru/sahih-bukhari`,
       'x-default': `https://www.globalsalah.com/en/sahih-bukhari`,
     },
     robots: {

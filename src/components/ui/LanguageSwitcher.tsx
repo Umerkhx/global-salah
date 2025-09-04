@@ -18,6 +18,11 @@ const languages: Language[] = [
   { code: "ar", label: "العربية", flag: "/flag-dropdown/icons8-sudan-circular-48.png" },
   { code: "es", label: "Español", flag: "/flag-dropdown/icons8-spain-48.png" },
   { code: "zh-CN", label: "普通话", flag: "/flag-dropdown/icons8-china-48.png" },
+  { code: "de", label: "Deutsch", flag: "/flag-dropdown/icons8-germany-48.png" },
+  { code: "tr", label: "Turkish", flag: "/flag-dropdown/icons8-turkey-48.png" },
+  { code: "pt", label: "Português", flag: "/flag-dropdown/icons8-portugal-48.png" },
+  { code: "ur", label: "اردو", flag: "/flag-dropdown/icons8-pakistan-48.png" },
+  { code: "ru", label: "русский", flag: "/flag-dropdown/icons8-russia-48.png" },
 ]
 
 export default function LanguageSwitcher() {
@@ -134,25 +139,27 @@ export default function LanguageSwitcher() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="w-[180px] p-2 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg mt-2"
-        >
+          className={cn(
+            "w-[180px] p-2 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg mt-2 ",
+          )}
+        >  
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
               onClick={() => changeLanguage(lang)}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer outline-none group",
-                currentLang.code === lang.code
-                  ? "bg-gray-100 dark:bg-gray-700"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-950",
+          "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer outline-none group",
+          currentLang.code === lang.code
+            ? "bg-gray-100 dark:bg-gray-700"
+            : "hover:bg-gray-50 dark:hover:bg-gray-950",
               )}
             >
               <Image
-                src={lang.flag || "/placeholder.svg"}
-                alt={`${lang.label} flag`}
-                width={30}
-                height={30}
-                className="rounded-full"
+          src={lang.flag || "/placeholder.svg"}
+          alt={`${lang.label} flag`}
+          width={30}
+          height={30}
+          className="rounded-full"
               />
               <span className="text-sm font-medium text-black dark:text-zinc-100">{lang.label}</span>
             </DropdownMenuItem>

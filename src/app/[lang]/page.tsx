@@ -8,11 +8,12 @@ import DuaSection from '../(Home)/dua-section';
 import IslamicCalculators from '../(Home)/islamic-calculators';
 import HadithSection from '../(Home)/hadith-section';
 import NamesOfAllahSection from '../(Home)/names-of-Allah-section';
+import { notFound } from 'next/navigation';
 
+export const revalidate = 3600;
 
-
-export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+export  async  function generateMetadata({ params }: any) {
+  const lang = await params.lang;
 
   let title = '';
   let description = '';
@@ -21,6 +22,10 @@ export async function generateMetadata({ params }: any) {
     case 'fr':
       title = `Suivez Global Salah pour accomplir vos intentions religieuses à temps`;
       description = `Bienvenue chez Global Salah, découvrez nos services et notre expertise conçus pour vous tenir informé afin de pratiquer vos rituels religieux à l'heure partout dans le monde.`;
+      break;
+    case 'ru':
+      title = `Следите за глобальным саляхом, чтобы вовремя исполнять свои религиозные намерения`;
+      description = `Добро пожаловать на сайт Global Salah. Откройте для себя наши услуги и опыт, чтобы вы могли вовремя выполнять свои религиозные ритуалы в любой точке мира.`;
       break;
     case 'ar':
       title = `تابع جلوبال صلاح لتحقيق نواياك الدينية في الوقت المناسب`;
@@ -33,6 +38,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `关注全球萨拉赫，准时实现您的宗教愿望`;
       description = `欢迎访问 全球萨拉赫，了解我们的服务和专业知识，这些服务和专业知识旨在为您提供升级服务，以便在全球范围内及时开展宗教活动。`;
+      break;
+    case 'tr':
+      title = `Global Salah'ı takip ederek dini niyetlerinizi zamanında gerçekleştirin`;
+      description = `Global Salah'a hoş geldiniz, dini uygulamalarınızı dünya genelinde zamanında yapabilmeniz için tasarlanmış hizmetlerimizi ve uzmanlığımızı keşfedin.`;
+      break;
+    case 'de':
+      title = `Folgen Sie Global Salah, um Ihre religiösen Absichten rechtzeitig zu erfüllen`;
+      description = `Willkommen bei Global Salah, entdecken Sie unsere Dienstleistungen und Fachkenntnisse, die darauf ausgelegt sind, Ihnen Updates zu bieten, um religiöse Praktiken weltweit pünktlich auszuführen.`;
+      break;
+    case 'pt':
+      title = `Siga Global Salah para cumprir suas intenções religiosas em tempo`;
+      description = `Bem-vindo ao Global Salah, conheça nossos serviços e expertise que são projetados para fornecer atualizações para realizar práticas religiosas pontualmente em todo o mundo.`;
+      break;
+    case 'ur':
+      title = `گلوبل صلاح کو فالو کریں تاکہ اپنے مذہبی مقاصد بروقت پورے کر سکیں`;
+      description = `گلوبل صلاح میں خوش آمدید، ہمارے خدمات اور مہارت کا جائزہ لیں جو آپ کو دنیا بھر میں مذہبی عبادات وقت پر انجام دینے کے لیے اپ ڈیٹ فراہم کرنے کے لیے ڈیزائن کی گئی ہے۔`;
       break;
     default:
       title = `Follow Global Salah to accomplish your religious intentions timely`;
@@ -50,6 +71,11 @@ export async function generateMetadata({ params }: any) {
         ar: 'https://www.globalsalah.com/ar',
         es: 'https://www.globalsalah.com/es',
         'zh-CN': 'https://www.globalsalah.com/zh-CN',
+        tr: 'https://www.globalsalah.com/tr',
+        de: 'https://www.globalsalah.com/de',
+        pt: 'https://www.globalsalah.com/pt',
+        ur: 'https://www.globalsalah.com/ur',
+        ru: 'https://www.globalsalah.com/ru',
       },
     },
     robots: {
@@ -69,7 +95,13 @@ export async function generateMetadata({ params }: any) {
 }
 
 
-export default function Home() {
+const supportedLangs = ['en', 'ar', 'fr', 'es', 'de', 'zh-CN', 'ur', 'pt', 'tr','ru']
+
+
+export default function Home({ params }: { params: { lang: string } }) {
+  if (!supportedLangs.includes(params.lang)) {
+    notFound() 
+  }
 
 
 

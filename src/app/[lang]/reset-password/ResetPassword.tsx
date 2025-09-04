@@ -1,28 +1,19 @@
 "use client";
 
 import type React from "react";
-
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ArrowLeft, Loader2, Mail, Send, User2 } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import { ArrowLeft, Eye, EyeOff, Loader2, Mail, Send, User2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { urlSplitter } from "@/lib";
-import { resetPassword, updateUserDetails } from "@/services/authentication";
+import { resetPassword } from "@/services/authentication";
 import { toast } from "sonner";
 import CustomCaptcha from "@/components/ui/common/CustomCaptcha";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ResetPassword() {
@@ -142,7 +133,7 @@ export default function ResetPassword() {
                     className="border-none"
                     required
                   />
-                  {viewPassword ? <FaEye onClick={() => setViewPassword(false)} /> : <FaEyeSlash onClick={() => setViewPassword(true)} />}
+                  {viewPassword ? <Eye onClick={() => setViewPassword(false)} /> : <EyeOff onClick={() => setViewPassword(true)} />}
                 </div>
                 {error && <p className="text-sm text-destructive">{error}</p>}
               </div>
@@ -162,7 +153,7 @@ export default function ResetPassword() {
                 ) : (
                   <>
                     <Send className="mr-2 h-4 w-4" />
-                   {t('forum.confirmedpw')}
+                    {t('forum.confirmedpw')}
                   </>
                 )}
               </Button>
@@ -172,7 +163,7 @@ export default function ResetPassword() {
             <Link href={`/${lang}/forum`}>
               <Button variant="ghost" size="sm" className="gap-1">
                 <ArrowLeft className="h-4 w-4" />
-               {t('forum.backtologin')}
+                {t('forum.backtologin')}
               </Button>
             </Link>
           </CardFooter>

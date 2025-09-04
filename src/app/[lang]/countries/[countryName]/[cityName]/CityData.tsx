@@ -104,8 +104,6 @@ const CityPage = () => {
           `/api/city-data?country=${encodeURIComponent(countryName)}&city=${encodeURIComponent(cityName)}`
         );
 
-        
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -134,7 +132,6 @@ const CityPage = () => {
     fetchCityData();
   }, [countryName, cityName]);
 
-  // Calculate prayer times
   const updateCurrentTime = (timezone: string) => {
     const formatter = new Intl.DateTimeFormat("en-US", {
       timeZone: timezone,

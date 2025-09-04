@@ -649,7 +649,6 @@ export const countriesData: { [country: string]: CountryData } = {
     "Haiti": {
         cities: [
             { name: "Port-au-Prince" },
-            { name: "Cap-Haïtien" },
             { name: "Les Cayes" }
         ]
     },
@@ -1804,10 +1803,5 @@ export const countriesData: { [country: string]: CountryData } = {
             { name: "Masvingo" }
         ]
     }
-
-
-
-
-
 
 };

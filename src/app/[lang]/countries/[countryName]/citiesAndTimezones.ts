@@ -308,10 +308,9 @@ export const countriesData: { [country: string]: CountryData } = {
       "America/Hermosillo": [
         { "name": "Hermosillo", latitude: 29.072967, longitude: -110.955919 },
         { "name": "Nogales", latitude: 31.2994, longitude: -110.9398 },
-        { "name": "San Luis Río Colorado", latitude: 32.4822, longitude: -113.0789 },
         { "name": "Agua Prieta", latitude: 31.3234, longitude: -109.5486 },
         { "name": "Cananea", latitude: 30.3034, longitude: -110.0811 },
-        { "name": "Puerto Peñasco", latitude: 31.3200, longitude: -113.5281 }
+        { "name": "Puerto Penasco", latitude: 31.3200, longitude: -113.5281 }
       ]
     }
   },
@@ -327,7 +326,7 @@ export const countriesData: { [country: string]: CountryData } = {
   },
   "Argentina": {
     timezones: ["America/Argentina/Buenos_Aires", "America/Argentina/Cordoba", "America/Argentina/Salta",
-      "America/Argentina/Ushuaia"],
+      "America/Argentina/Tucuman"],
     cities: {
       "America/Argentina/Buenos_Aires": [
         { "name": "Buenos Aires", latitude: -34.6037, longitude: -58.3816 },
@@ -344,10 +343,8 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "San Salvador de Jujuy", latitude: -24.1853, longitude: -65.2990 },
         { "name": "Tartagal", latitude: -23.8437, longitude: -63.7884 }
       ],
-      "America/Argentina/Ushuaia": [
-        { "name": "Ushuaia", latitude: -54.8019, longitude: -68.3030 },
-        { "name": "Rio Grande", latitude: -53.7732, longitude: -67.7034 },
-        { "name": "Tolhuin", latitude: -54.5200, longitude: -67.3500 }
+      "America/Argentina/Tucuman": [
+        { "name": "San Miguel de Tucuman", latitude: -26.8241, longitude: -65.2226 }
       ]
     }
   },
@@ -654,8 +651,8 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Constantine", latitude: 36.3650, longitude: 6.6147 },
         { "name": "Annaba", latitude: 36.9039, longitude: 7.7322 },
         { "name": "Batna", latitude: 35.5559, longitude: 6.1742 },
-        { "name": "Sétif", latitude: 36.1904, longitude: 5.4136 },
-        { "name": "Sidi Bel Abbès", latitude: 35.1939, longitude: -0.6417 }
+        { "name": "Setif", latitude: 36.1904, longitude: 5.4136 },
+        { "name": "Sidi Bel Abbes", latitude: 35.1939, longitude: -0.6417 }
       ]
     }
   },
@@ -876,9 +873,8 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Debrecen", latitude: 47.5316, longitude: 21.6273 },
         { "name": "Szeged", latitude: 46.2530, longitude: 20.1414 },
         { "name": "Miskolc", latitude: 48.1035, longitude: 20.7784 },
-        { "name": "Pécs", latitude: 46.0727, longitude: 18.2323 },
-        { "name": "Győr", latitude: 47.6875, longitude: 17.6504 },
-        { "name": "Nyíregyháza", latitude: 47.9556, longitude: 21.7168 }
+        { "name": "Pecs", latitude: 46.0727, longitude: 18.2323 },
+        { "name": "Gyr", latitude: 47.6875, longitude: 17.6504 },
       ]
     }
   },
@@ -932,7 +928,6 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Cluj-Napoca", latitude: 46.7712, longitude: 23.6236 },
         { "name": "Timisoara", latitude: 45.7489, longitude: 21.2087 },
         { "name": "Iasi", latitude: 47.1585, longitude: 27.6014 },
-        { "name": "Constanta", latitude: 44.1807, longitude: 28.6343 },
         { "name": "Craiova", latitude: 44.3302, longitude: 23.7946 },
         { "name": "Brasov", latitude: 45.6556, longitude: 25.6100 }
       ]
@@ -1029,8 +1024,7 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Tallinn", latitude: 59.4370, longitude: 24.7536 },
         { "name": "Tartu", latitude: 58.3780, longitude: 26.7299 },
         { "name": "Narva", latitude: 59.3772, longitude: 28.1900 },
-        { "name": "Pärnu", latitude: 58.3859, longitude: 24.4971 },
-        { "name": "Kohtla-Järve", latitude: 59.3986, longitude: 27.2736 },
+        { "name": "Parnu", latitude: 58.3859, longitude: 24.4971 },
         { "name": "Viljandi", latitude: 58.3639, longitude: 25.5903 },
         { "name": "Maardu", latitude: 59.4764, longitude: 25.0246 }
       ]
@@ -1089,7 +1083,7 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Tunis", latitude: 36.8065, longitude: 10.1815 },
         { "name": "Sfax", latitude: 34.745, longitude: 10.7603 },
         { "name": "Sousse", latitude: 35.8256, longitude: 10.6346 },
-        { "name": "Gabès", latitude: 33.8815, longitude: 10.0982 },
+        { "name": "Gabes", latitude: 33.8815, longitude: 10.0982 },
       ]
     }
   },
@@ -1141,25 +1135,13 @@ export const countriesData: { [country: string]: CountryData } = {
       ]
     }
   },
-  "Ivory Coast": {
-    timezones: ["Africa/Abidjan"],
-    cities: {
-      "Africa/Abidjan": [
-        { name: "Abidjan", latitude: 5.3590, longitude: -4.0083 },
-        { name: "Bouaké", latitude: 7.6900, longitude: -5.0370 },
-        { name: "San Pedro", latitude: 4.7500, longitude: -6.6370 },
-        { name: "Yamoussoukro", latitude: 6.8195, longitude: -5.2765 },
-        { name: "Daloa", latitude: 6.8780, longitude: -6.4790 }
-      ]
-    }
-  },
   "Senegal": {
     timezones: ["Africa/Dakar"],
     cities: {
       "Africa/Dakar": [
         { "name": "Dakar", latitude: 14.6928, longitude: -17.4467 },
         { "name": "Saint-Louis", latitude: 16.0012, longitude: -16.4987 },
-        { "name": "Thiès", latitude: 14.788, longitude: -16.9397 },
+        { "name": "Thies", latitude: 14.788, longitude: -16.9397 },
         { "name": "Kaolack", latitude: 14.1458, longitude: -16.0711 },
         { "name": "Ziguinchor", latitude: 12.5883, longitude: -16.2819 }
       ]
@@ -1497,7 +1479,7 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Moundou", latitude: 8.5792, longitude: 15.6167 },
         { "name": "Sarh", latitude: 9.1500, longitude: 15.7500 },
         { "name": "Abeche", latitude: 13.8333, longitude: 20.8333 },
-        { "name": "Kélo", latitude: 9.5000, longitude: 15.5000 }
+        { "name": "Kelo", latitude: 9.5000, longitude: 15.5000 }
       ]
     }
   },
@@ -1704,7 +1686,6 @@ export const countriesData: { [country: string]: CountryData } = {
     cities: {
       "America/Port-au-Prince": [
         { "name": "Port-au-Prince", latitude: 18.5944, longitude: -72.3074 },
-        { "name": "Cap-Haitien", latitude: 19.7592, longitude: -72.2047 },
         { "name": "Les Cayes", latitude: 18.198, longitude: -74.1212 }
       ]
     }
@@ -1812,7 +1793,7 @@ export const countriesData: { [country: string]: CountryData } = {
     "Asia/Bishkek": [
       { "name": "Bishkek", latitude: 42.8746, longitude: 74.6123 },
       { "name": "Osh", latitude: 40.5137, longitude: 72.7853 },
-      { "name": "Jalal-Abad", latitude: 40.9453, longitude: 73.0922 },
+      { "name": "Jalalabad", latitude: 40.9453, longitude: 73.0922 },
       { "name": "Karakol", latitude: 42.4997, longitude: 78.3934 },
       { "name": "Tokmok", latitude: 42.8289, longitude: 75.2433 }
     ]
@@ -1849,7 +1830,7 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Managua", latitude: 12.1364, longitude: -86.2512 },
         { "name": "Leon", latitude: 12.4351, longitude: -86.8784 },
         { "name": "Masaya", latitude: 11.9733, longitude: -86.1017 },
-        { "name": "Estelí", latitude: 13.0846, longitude: -86.3554 },
+        { "name": "Estel", latitude: 13.0846, longitude: -86.3554 },
         { "name": "Chinandega", latitude: 12.6206, longitude: -87.1261 }
       ]
     }
@@ -2284,18 +2265,6 @@ export const countriesData: { [country: string]: CountryData } = {
     ]
   }
 },
-"Timor-Leste": {
-  timezones: ["Asia/Dili"],
-  cities: {
-    "Asia/Dili": [
-      { "name": "Dili", latitude: -8.5569, longitude: 125.5594 },
-      { "name": "Baucau", latitude: -8.4608, longitude: 126.4800 },
-      { "name": "Maliana", latitude: -8.6319, longitude: 125.2522 },
-      { "name": "Viqueque", latitude: -8.5242, longitude: 126.2958 },
-      { "name": "Lospalos", latitude: -8.5447, longitude: 126.2639 }
-    ]
-  }
-},
 "Tokelau": {
   timezones: ["Pacific/Fakaofo"],
   cities: {
@@ -2431,7 +2400,6 @@ export const countriesData: { [country: string]: CountryData } = {
   cities: {
     "Europe/Andorra": [
       { name: "Andorra la Vella", latitude: 42.506317, longitude: 1.521835 },
-      { name: "Escaldes-Engordany", latitude: 42.5078, longitude: 1.5341 },
       { name: "Sant Julià de Lòria", latitude: 42.46372, longitude: 1.49129 },
       { name: "La Massana", latitude: 42.54499, longitude: 1.51483 },
       { name: "Ordino", latitude: 42.55623, longitude: 1.53319 }

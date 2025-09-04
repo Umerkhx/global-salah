@@ -35,57 +35,34 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
   const hasRedirectedRef = useRef(false) // Prevent multiple redirects
 
   useEffect(() => {
-    console.log("🌀 USEEFFECT TRIGGERED")
-    console.log("Current lang:", lang)
-    console.log("isLang:", isLang)
-    console.log("Has redirected:", hasRedirectedRef.current)
+
 
     if (!hasMountedRef.current) {
-      // First render: store the initial language but do not redirect
-      console.log("⏳ First mount — storing initial language")
       hasMountedRef.current = true
       prevLangRef.current = lang
 
-      // Save initial language to localStorage for reference
       localStorage.setItem("initialLanguage", lang)
       return
     }
 
-    // Skip if we've already redirected
     if (hasRedirectedRef.current) {
-      console.log("⏭️ Skipping - already redirected")
       return
     }
 
-    // Get language from localStorage
     const storedLanguage = localStorage.getItem("language")
     const initialLanguage = localStorage.getItem("initialLanguage")
 
-    console.log("📦 Language from localStorage:", storedLanguage)
-    console.log("🏠 Initial language:", initialLanguage)
 
     if (storedLanguage && initialLanguage) {
-      // Convert stored language to abbreviation
       const storedLangCode = languageMap[storedLanguage] || storedLanguage.toLowerCase()
-      console.log("🔄 Converted stored language to code:", storedLangCode)
 
-      // Only redirect if:
-      // 1. Stored language is different from initial language
-      // 2. Current URL language is not the target language
-      // 3. We haven't redirected yet
+
       const shouldRedirect =
         storedLangCode !== initialLanguage && lang !== storedLangCode && isLang && !hasRedirectedRef.current
 
-      console.log("🔁 Should redirect:", shouldRedirect)
-      console.log("   Stored lang code:", storedLangCode)
-      console.log("   Initial language:", initialLanguage)
-      console.log("   Current URL lang:", lang)
-
       if (shouldRedirect) {
-        console.log(`✅ Redirecting to /${storedLangCode}/blogs`)
         hasRedirectedRef.current = true // Mark as redirected
 
-        // Use router.push instead of window.location.href for cleaner navigation
         window.location.href = `/${storedLangCode}/blogs`
       } else {
         console.log("❌ Not redirecting")
@@ -100,11 +77,8 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
         }
       }
 
-      // Update previous lang reference
       prevLangRef.current = lang
     } else {
-      console.log("⚠️ Missing language data in localStorage")
-      // Update previous lang with current lang if no stored language
       prevLangRef.current = lang
     }
   }, [lang, isLang])

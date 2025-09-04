@@ -15,6 +15,10 @@ export async function generateMetadata({ params }: any) {
       title = `Portail de prière fiable et ultime pour les musulmans à travers le monde`;
       description = `Global Salah existe pour guider les musulmans du monde entier à accomplir leurs pratiques religieuses à l’heure. Nous offrons des mises à jour précises et vous envoyons des rappels à l’heure exacte des prières.`;
       break;
+    case 'ru':
+      title = `Самый надежный молитвенный портал для мусульман всего мира`;
+      description = `Global Salah существует для того, чтобы помочь мусульманам всего мира вовремя совершать свои религиозные обряды. Мы предоставляем точную информацию и отправляем вам напоминания о точном времени молитв.`;
+      break;
     case 'ar':
       title = `البوابة الموثوقة والأفضل لأوقات الصلاة للمسلمين حول العالم`;
       description = `توجد جلوبال صلاح لتوجيه المسلمين في جميع أنحاء العالم لأداء عباداتهم في الوقت المناسب. نقدم تحديثات دقيقة ونرسل لك تذكيرات في وقت الصلاة بالضبط.`;
@@ -26,6 +30,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `全球穆斯林最信赖的祈祷时间门户网站`;
       description = `全球萨拉赫 的存在是为了指导世界各地的穆斯林按时进行宗教活动。我们提供准确的最新信息，并在准确的祈祷时间向您发送提醒。`;
+      break;
+    case 'tr':
+      title = `Dünyadaki Müslümanlar için en güvenilir namaz vakti portalı`;
+      description = `Global Salah, dünya çapındaki Müslümanların dini görevlerini zamanında yerine getirmelerine rehberlik etmek için vardır. Doğru güncellemeler sunar ve namaz vaktinde size hatırlatmalar göndeririz.`;
+      break;
+    case 'de':
+      title = `Das vertrauenswürdigste Gebetszeiten-Portal für Muslime weltweit`;
+      description = `Global Salah hilft Muslimen weltweit, ihre religiösen Pflichten pünktlich zu erfüllen. Wir bieten genaue Updates und senden Gebetszeit-Erinnerungen.`;
+      break;
+    case 'pt':
+      title = `O portal mais confiável de horários de oração para muçulmanos ao redor do mundo`;
+      description = `A Global Salah existe para guiar os muçulmanos em todo o mundo a praticarem sua fé religiosamente no tempo certo. Oferecemos atualizações precisas e enviamos lembretes nos horários exatos das orações.`;
+      break;
+    case 'ur':
+      title = `دنیا بھر کے مسلمانوں کے لیے سب سے قابل اعتماد نماز کا وقت پورٹل`;
+      description = `گلوبل صلاح دنیا بھر کے مسلمانوں کی بروقت عبادات میں رہنمائی کے لیے موجود ہے۔ ہم درست معلومات فراہم کرتے ہیں اور عین نماز کے وقت پر یاد دہانی بھیجتے ہیں۔`;
       break;
     default:
       title = `Ultimate trusted prayer time portal by Muslims across the world`;
@@ -43,6 +63,11 @@ export async function generateMetadata({ params }: any) {
         fr: 'https://www.globalsalah.com/fr/about-us',
         ar: 'https://www.globalsalah.com/ar/about-us',
         'zh-CN': 'https://www.globalsalah.com/zh-CN/about-us',
+        tr: 'https://www.globalsalah.com/tr/about-us',
+        de: 'https://www.globalsalah.com/de/about-us',
+        pt: 'https://www.globalsalah.com/pt/about-us',
+        ur: 'https://www.globalsalah.com/ur/about-us',
+        ru: 'https://www.globalsalah.com/ru/about-us',
         'x-default': 'https://www.globalsalah.com/en/about-us',
       },
     },

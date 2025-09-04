@@ -2,12 +2,12 @@ import React from 'react'
 import CityData from './CityData'
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
-  const country = params.countryName;
-  const city = params.cityName;
-  
+  const lang = await params.lang;
+  const country = await params.countryName;
+  const city = await params.cityName;
+
   const cityName = city.charAt(0).toUpperCase() + city.slice(1);
-  
+
   let title = '';
   let description = '';
 
@@ -15,6 +15,10 @@ export async function generateMetadata({ params }: any) {
     case 'fr':
       title = `Heures de prière à ${cityName} – Global Salah`;
       description = `Trouvez les heures de prière précises pour ${cityName} avec Global Salah. Accédez aux horaires quotidiens et mensuels pour rester régulier dans vos prières.`;
+      break;
+    case 'ru':
+      title = `Время молитвы в ${cityName} - Глобальный салах`;
+      description = `Узнайте точное время молитвы для ${cityName} с помощью Global Salah. Получите доступ к ежедневным и ежемесячным расписаниям, чтобы не отставать от своих молитв.`;
       break;
     case 'es':
       title = `Horario de oración de ${cityName} - Salah global`;
@@ -27,6 +31,22 @@ export async function generateMetadata({ params }: any) {
     case 'ar':
       title = `مواقيت الصلاة في ${cityName} – جلوبال صلاح`;
       description = `اكتشف مواقيت الصلاة الدقيقة في ${cityName} مع جلوبال صلاح. تصفح الجداول اليومية والشهرية للحفاظ على التزامك بالصلاة.`;
+      break;
+    case 'tr':
+      title = `${cityName} Namaz Vakitleri – Global Salah`;
+      description = `Global Salah ile ${cityName} için doğru namaz vakitlerini bulun. Günlük ve aylık takvimlerle namazlarınızı düzenli kılın.`;
+      break;
+    case 'de':
+      title = `Gebetszeiten in ${cityName} – Global Salah`;
+      description = `Finden Sie präzise Gebetszeiten für ${cityName} mit Global Salah. Greifen Sie auf tägliche und monatliche Zeitpläne zu, um regelmäßig zu beten.`;
+      break;
+    case 'pt':
+      title = `Horários de oração em ${cityName} – Global Salah`;
+      description = `Encontre horários precisos de oração para ${cityName} com a Global Salah. Acesse agendas diárias e mensais para manter sua regularidade.`;
+      break;
+    case 'ur':
+      title = `${cityName} کے نماز کے اوقات – گلوبل صلاۃ`;
+      description = `گلوبل صلاۃ کے ساتھ ${cityName} کے درست نماز کے اوقات معلوم کریں۔ روزانہ اور ماہانہ شیڈول تک رسائی حاصل کریں تاکہ آپ کی نماز میں تسلسل برقرار رہے۔`;
       break;
     default:
       title = `${cityName} Prayer Timings – Global Salah`;
@@ -42,6 +62,11 @@ export async function generateMetadata({ params }: any) {
       es: `https://www.globalsalah.com/es/countries/${country}/${city}`,
       ar: `https://www.globalsalah.com/ar/countries/${country}/${city}`,
       'zh-CN': `https://www.globalsalah.com/zh-CN/countries/${country}/${city}`,
+      tr: `https://www.globalsalah.com/tr/countries/${country}/${city}`,
+      de: `https://www.globalsalah.com/de/countries/${country}/${city}`,
+      pt: `https://www.globalsalah.com/pt/countries/${country}/${city}`,
+      ur: `https://www.globalsalah.com/ur/countries/${country}/${city}`,
+      ru: `https://www.globalsalah.com/ru/countries/${country}/${city}`,
       'x-default': `https://www.globalsalah.com/en/countries/${country}/${city}`,
     },
     robots: {

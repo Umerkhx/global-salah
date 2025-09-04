@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,11 +8,10 @@ import { Label } from "@/components/ui/label";
 import { urlSplitter } from "@/lib";
 import { getAdmin, login } from "@/services/authentication";
 import { motion } from "framer-motion";
-import { Loader2, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "sonner";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -147,9 +145,9 @@ export default function LoginForm({
                   required
                 />
                 {viewPassword ? (
-                  <FaEye onClick={() => setViewPassword(false)} />
+                  <Eye onClick={() => setViewPassword(false)} />
                 ) : (
-                  <FaEyeSlash onClick={() => setViewPassword(true)} />
+                  <EyeOff onClick={() => setViewPassword(true)} />
                 )}
               </div>
             </div>

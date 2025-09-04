@@ -14,9 +14,8 @@ export async function dbConnection() {
         connectionLimit: 10,
         queueLimit: 0,
       });
-      console.log("Database pool created successfully.");
     } catch (error: any) {
-      console.log("Error while creating the database pool:", error.message);
+      console.error("Error while creating the database pool:", error.message);
       throw error;
     }
   }

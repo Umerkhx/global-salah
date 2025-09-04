@@ -14,6 +14,11 @@ import frenchLang from "../../../../public/locales/fr.json"
 import arabicLang from "../../../../public/locales/ar.json"
 import spanishLang from "../../../../public/locales/es.json"
 import chineseLang from "../../../../public/locales/zh-CN.json"
+import germanLang from "../../../../public/locales/de.json"
+import portugueseLang from "../../../../public/locales/pt.json"
+import turkishLang from "../../../../public/locales/tr.json"
+import urduLang from "../../../../public/locales/ur.json"
+import russianLang from "../../../../public/locales/ru.json"
 import { useTranslation } from "@/hooks/useTranslation"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -181,10 +186,10 @@ export default function DuasPage() {
 
     const timer = setTimeout(() => {
       localStorage.setItem("loading", "false");
-      setIsLoading(false); // This will now execute AFTER 2 seconds
+      setIsLoading(false);
     }, 800);
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
+    return () => clearTimeout(timer); 
   }, []);
 
   useEffect(() => {
@@ -204,6 +209,21 @@ export default function DuasPage() {
     } else if (lang === "zh-CN" || pathname === "/") {
       setDuasContent(chineseLang.duas.duasTranslation);
       setButtonLabel(chineseLang.duas.categories);
+    } else if (lang === "de" || pathname === "/") {
+      setDuasContent(germanLang.duas.duasTranslation);
+      setButtonLabel(germanLang.duas.categories);
+    } else if (lang === "tr" || pathname === "/") {
+      setDuasContent(turkishLang.duas.duasTranslation);
+      setButtonLabel(turkishLang.duas.categories);
+    } else if (lang === "pt" || pathname === "/") {
+      setDuasContent(portugueseLang.duas.duasTranslation);
+      setButtonLabel(portugueseLang.duas.categories);
+    } else if (lang === "ur" || pathname === "/") {
+      setDuasContent(urduLang.duas.duasTranslation);
+      setButtonLabel(urduLang.duas.categories);
+    } else if (lang === "ru" || pathname === "/") {
+      setDuasContent(russianLang.duas.duasTranslation);
+      setButtonLabel(russianLang.duas.categories);
     }
   }, [lang]);
 

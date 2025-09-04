@@ -101,9 +101,16 @@ export const countriesData: CountryData[] = [
         countryCode: "DZ"
       },
       {
-        name: "Blida",
-        latitude: 36.4700,
-        longitude: 2.8333,
+        name: "Sidi Bel Abbes",
+        latitude: 35.1939,
+        longitude: -0.6417,
+        timezone: "Africa/Algiers",
+        countryCode: "DZ"
+      },
+      {
+        name: "Setif",
+        latitude: 36.1904,
+        longitude: 5.4136,
         timezone: "Africa/Algiers",
         countryCode: "DZ"
       },
@@ -165,13 +172,6 @@ export const countriesData: CountryData[] = [
         name: "Andorra la Vella",
         latitude: 42.5078,
         longitude: 1.5211,
-        timezone: "Europe/Andorra",
-        countryCode: "AD"
-      },
-      {
-        name: "Escaldes-Engordany",
-        latitude: 42.5075,
-        longitude: 1.5341,
         timezone: "Europe/Andorra",
         countryCode: "AD"
       },
@@ -347,9 +347,23 @@ export const countriesData: CountryData[] = [
         countryCode: "AR"
       },
       {
-        name: "Rosario",
-        latitude: -32.950001,
-        longitude: -60.666668,
+        name: "Villa Maria",
+        latitude: -32.4116,
+        longitude: -63.2416,
+        timezone: "America/Argentina/Cordoba",
+        countryCode: "AR"
+      },
+      {
+        name: "Rio Cuarto",
+        latitude: -33.1344,
+        longitude: -64.3505,
+        timezone: "America/Argentina/Cordoba",
+        countryCode: "AR"
+      },
+      {
+        name: "Mar del Plata",
+        latitude: -38.0023,
+        longitude: -57.5572,
         timezone: "America/Argentina/Buenos_Aires",
         countryCode: "AR"
       },
@@ -372,6 +386,27 @@ export const countriesData: CountryData[] = [
         latitude: -26.8241,
         longitude: -65.2226,
         timezone: "America/Argentina/Tucuman",
+        countryCode: "AR"
+      },
+      {
+        name: "Tartagal",
+        latitude: -23.8437,
+        longitude: -63.7884,
+        timezone: "America/Argentina/Salta",
+        countryCode: "AR"
+      },
+      {
+        name: "San Salvador de Jujuy",
+        latitude: -24.1853,
+        longitude: -65.2990,
+        timezone: "America/Argentina/Salta",
+        countryCode: "AR"
+      },
+      {
+        name: "Salta",
+        latitude: -24.7821,
+        longitude: -65.4115,
+        timezone: "America/Argentina/Salta",
         countryCode: "AR"
       }
     ]
@@ -770,9 +805,9 @@ export const countriesData: CountryData[] = [
         countryCode: "AZ"
       },
       {
-        name: "Sheki",
-        latitude: 41.1919,
-        longitude: 47.1706,
+        name: "Nakhchivan",
+        latitude: 39.2089,
+        longitude: 45.4122,
         timezone: "Asia/Baku",
         countryCode: "AZ"
       }
@@ -1073,61 +1108,6 @@ export const countriesData: CountryData[] = [
       },
       {
         name: "Liège",
-        latitude: 50.6333,
-        longitude: 5.5667,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Bruges",
-        latitude: 51.2093,
-        longitude: 3.2247,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Namur",
-        latitude: 50.4669,
-        longitude: 4.8675,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      }
-    ]
-  },
-  {
-    name: "Belgium",
-    code: "BE",
-    cities: [
-      {
-        name: "Brussels",
-        latitude: 50.8503,
-        longitude: 4.3517,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Antwerp",
-        latitude: 51.2194,
-        longitude: 4.4025,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Ghent",
-        latitude: 51.0543,
-        longitude: 3.7174,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Charleroi",
-        latitude: 50.4114,
-        longitude: 4.4447,
-        timezone: "Europe/Brussels",
-        countryCode: "BE"
-      },
-      {
-        name: "Liege",
         latitude: 50.6333,
         longitude: 5.5667,
         timezone: "Europe/Brussels",
@@ -1772,9 +1752,16 @@ export const countriesData: CountryData[] = [
         countryCode: "TD"
       },
       {
-        name: "Kélo",
+        name: "Kelo",
         latitude: 9.3080,
         longitude: 15.8069,
+        timezone: "Africa/Ndjamena",
+        countryCode: "TD"
+      },
+      {
+        name: "Sarh",
+        latitude: 9.1500,
+        longitude: 15.7500,
         timezone: "Africa/Ndjamena",
         countryCode: "TD"
       },
@@ -2635,16 +2622,9 @@ export const countriesData: CountryData[] = [
         countryCode: "EE"
       },
       {
-        name: "Pärnu",
+        name: "Parnu",
         latitude: 58.3859,
         longitude: 24.4971,
-        timezone: "Europe/Tallinn",
-        countryCode: "EE"
-      },
-      {
-        name: "Kohtla-Järve",
-        latitude: 59.3986,
-        longitude: 27.2731,
         timezone: "Europe/Tallinn",
         countryCode: "EE"
       },
@@ -3264,37 +3244,9 @@ export const countriesData: CountryData[] = [
         countryCode: "HT"
       },
       {
-        name: "Cap-Haitien",
-        latitude: 19.7553,
-        longitude: -72.2081,
-        timezone: "America/Port-au-Prince",
-        countryCode: "HT"
-      },
-      {
-        name: "Gonaïves",
-        latitude: 19.4525,
-        longitude: -72.6828,
-        timezone: "America/Port-au-Prince",
-        countryCode: "HT"
-      },
-      {
         name: "Les Cayes",
         latitude: 18.2206,
         longitude: -73.7544,
-        timezone: "America/Port-au-Prince",
-        countryCode: "HT"
-      },
-      {
-        name: "Jacmel",
-        latitude: 18.2375,
-        longitude: -72.5336,
-        timezone: "America/Port-au-Prince",
-        countryCode: "HT"
-      },
-      {
-        name: "Saint-Marc",
-        latitude: 19.0667,
-        longitude: -72.7167,
         timezone: "America/Port-au-Prince",
         countryCode: "HT"
       }
@@ -3383,14 +3335,14 @@ export const countriesData: CountryData[] = [
         countryCode: "HU"
       },
       {
-        name: "Pécs",
+        name: "Pecs",
         latitude: 46.0727,
         longitude: 18.2292,
         timezone: "Europe/Budapest",
         countryCode: "HU"
       },
       {
-        name: "Győr",
+        name: "Gyr",
         latitude: 47.6869,
         longitude: 17.6500,
         timezone: "Europe/Budapest",
@@ -3948,11 +3900,11 @@ export const countriesData: CountryData[] = [
         longitude: 135.5023
       },
       {
-        name: "Kyoto",
+        name: "Nagoya",
         countryCode: "JP",
         timezone: "Asia/Tokyo",
-        latitude: 35.0116,
-        longitude: 135.7681
+        latitude: 35.1815,
+        longitude: 136.9066
       },
       {
         name: "Yokohama",
@@ -4187,7 +4139,7 @@ export const countriesData: CountryData[] = [
         longitude: 72.7985
       },
       {
-        name: "Jalal-Abad",
+        name: "Jalalabad",
         countryCode: "KG",
         timezone: "Asia/Bishkek",
         latitude: 40.9333,
@@ -4206,7 +4158,7 @@ export const countriesData: CountryData[] = [
         timezone: "Asia/Bishkek",
         latitude: 42.8419,
         longitude: 75.3015
-      }
+      },
     ]
   },
   {
@@ -5010,13 +4962,6 @@ export const countriesData: CountryData[] = [
         longitude: -110.933
       },
       {
-        name: "San Luis Río Colorado",
-        countryCode: "MX",
-        timezone: "America/Hermosillo",
-        latitude: 32.456,
-        longitude: -114.771
-      },
-      {
         name: "Agua Prieta",
         countryCode: "MX",
         timezone: "America/Hermosillo",
@@ -5031,7 +4976,7 @@ export const countriesData: CountryData[] = [
         longitude: -110.3003
       },
       {
-        name: "Puerto Peñasco",
+        name: "Puerto Penasco",
         countryCode: "MX",
         timezone: "America/Hermosillo",
         latitude: 31.3167,
@@ -5063,6 +5008,13 @@ export const countriesData: CountryData[] = [
         timezone: "Europe/Chisinau",
         latitude: 46.8316,
         longitude: 29.4772
+      },
+      {
+        name: "Briceni",
+        countryCode: "MD",
+        timezone: "Europe/Chisinau",
+        latitude: 48.2997,
+        longitude: 26.5231
       },
       {
         name: "Tiraspol",
@@ -5304,11 +5256,11 @@ export const countriesData: CountryData[] = [
         longitude: 96.4797
       },
       {
-        name: "Magway",
+        name: "Taunggyi",
         countryCode: "MM",
         timezone: "Asia/Yangon",
-        latitude: 20.1500,
-        longitude: 94.9167
+        latitude: 20.7880,
+        longitude: 97.0322
       }
     ]
   },
@@ -5619,7 +5571,7 @@ export const countriesData: CountryData[] = [
         longitude: -87.1510
       },
       {
-        name: "Estelí",
+        name: "Estel",
         countryCode: "NI",
         timezone: "America/Managua",
         latitude: 13.0867,
@@ -6532,14 +6484,7 @@ export const countriesData: CountryData[] = [
         longitude: 27.6014
       },
       {
-        name: "Constanța",
-        countryCode: "RO",
-        timezone: "Europe/Bucharest",
-        latitude: 44.4268,
-        longitude: 28.1592
-      },
-      {
-        name: "Brașov",
+        name: "Brasov",
         countryCode: "RO",
         timezone: "Europe/Bucharest",
         latitude: 45.6576,
@@ -6985,7 +6930,7 @@ export const countriesData: CountryData[] = [
         longitude: 20.3820
       },
       {
-        name: "Pančevo",
+        name: "Pancevo",
         countryCode: "RS",
         timezone: "Europe/Belgrade",
         latitude: 44.8742,
@@ -7231,7 +7176,7 @@ export const countriesData: CountryData[] = [
         longitude: 43.6469
       },
       {
-        name: "Bossaso",
+        name: "Bosaso",
         countryCode: "SO",
         timezone: "Africa/Mogadishu",
         latitude: 11.2833,
@@ -7539,7 +7484,7 @@ export const countriesData: CountryData[] = [
         longitude: 11.9746
       },
       {
-        name: "Malmö",
+        name: "Malmo",
         countryCode: "SE",
         timezone: "Europe/Stockholm",
         latitude: 55.6050,
@@ -7595,6 +7540,47 @@ export const countriesData: CountryData[] = [
       }
     ]
   },
+  {
+  name: "Syria",
+  code: "SY",
+  cities: [
+    {
+      name: "Damascus",
+      countryCode: "SY",
+      timezone: "Asia/Damascus",
+      latitude: 33.5138,
+      longitude: 36.2765
+    },
+    {
+      name: "Aleppo",
+      countryCode: "SY",
+      timezone: "Asia/Damascus",
+      latitude: 36.2021,
+      longitude: 37.1343
+    },
+    {
+      name: "Homs",
+      countryCode: "SY",
+      timezone: "Asia/Damascus",
+      latitude: 34.7311,
+      longitude: 36.7184
+    },
+    {
+      name: "Latakia",
+      countryCode: "SY",
+      timezone: "Asia/Damascus",
+      latitude: 35.51,
+      longitude: 35.7796
+    },
+    {
+      name: "Daraa",
+      countryCode: "SY",
+      timezone: "Asia/Damascus",
+      latitude: 32.6167,
+      longitude: 36.07
+    }
+  ]
+},
   {
     name: "Taiwan",
     code: "TW",
@@ -7774,47 +7760,6 @@ export const countriesData: CountryData[] = [
     ]
   },
   {
-    name: "Timor-Leste",
-    code: "TL",
-    cities: [
-      {
-        name: "Dili",
-        countryCode: "TL",
-        timezone: "Asia/Dili",
-        latitude: -8.5569,
-        longitude: 125.5603
-      },
-      {
-        name: "Baucau",
-        countryCode: "TL",
-        timezone: "Asia/Dili",
-        latitude: -8.4667,
-        longitude: 126.4794
-      },
-      {
-        name: "Maliana",
-        countryCode: "TL",
-        timezone: "Asia/Dili",
-        latitude: -8.2806,
-        longitude: 126.4172
-      },
-      {
-        name: "Lospalos",
-        countryCode: "TL",
-        timezone: "Asia/Dili",
-        latitude: -8.5481,
-        longitude: 127.0600
-      },
-      {
-        name: "Viqueque",
-        countryCode: "TL",
-        timezone: "Asia/Dili",
-        latitude: -8.8775,
-        longitude: 126.5811
-      }
-    ]
-  },
-  {
     name: "Tokelau",
     code: "TK",
     cities: [
@@ -7949,7 +7894,7 @@ export const countriesData: CountryData[] = [
         longitude: 10.6369
       },
       {
-        name: "Gabès",
+        name: "Gabes",
         countryCode: "TN",
         timezone: "Africa/Tunis",
         latitude: 33.8800,
@@ -8148,11 +8093,11 @@ export const countriesData: CountryData[] = [
         longitude: -81.3792
       },
       {
-        name: "Charlotte",
+        name: "Tampa",
         countryCode: "US",
         timezone: "US/Eastern",
-        latitude: 35.2271,
-        longitude: -80.8431
+        latitude: 27.9506,
+        longitude: -82.4572
       },
       {
         name: "Los Angeles",
@@ -8638,25 +8583,11 @@ export const countriesData: CountryData[] = [
         longitude: 167.1994
       },
       {
-        name: "Norsup",
+        name: "Santo",
         countryCode: "VU",
         timezone: "Pacific/Efate",
-        latitude: -15.3711,
-        longitude: 167.9897
-      },
-      {
-        name: "Isangel",
-        countryCode: "VU",
-        timezone: "Pacific/Efate",
-        latitude: -19.5500,
-        longitude: 169.2750
-      },
-      {
-        name: "Sola",
-        countryCode: "VU",
-        timezone: "Pacific/Efate",
-        latitude: -13.8667,
-        longitude: 167.5500
+        latitude: -15.0225,
+        longitude: 167.0180
       },
       {
         name: "Lenakel",

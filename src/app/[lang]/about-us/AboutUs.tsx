@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { motion } from "framer-motion"
-import { FaGlobe, FaHeart, FaPrayingHands, FaBrain, FaBalanceScale, FaClock, FaUsers, FaCalendar, FaBook } from "react-icons/fa"
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePathname } from 'next/navigation'
 import { Book, BookOpen, Calendar, FileText, Globe, Heart, Loader2, MessageSquare, Tv } from 'lucide-react'

@@ -12,6 +12,10 @@ export async function generateMetadata({ params }: any) {
       title = `Calculateur de Zakat – Global Salah`;
       description = `Calculez votre Zakat rapidement et facilement selon la loi islamique. Entrez vos actifs et obtenez le montant exact à donner.`;
       break;
+    case 'ru':
+      title = `Калькулятор закята - Глобальный салах`;
+      description = `Рассчитайте свой закят быстро и легко в соответствии с исламским законодательством. Введите данные о своем имуществе и получите точную сумму, которую нужно отдать.`;
+      break;
     case 'ar':
       title = `حاسبة الزكاة – جلوبال صلاح`;
       description = `احسب زكاتك بسهولة وفق الشريعة الإسلامية. أدخل أصولك واحصل على المبلغ الواجب دفعه بدقة.`;
@@ -23,6 +27,22 @@ export async function generateMetadata({ params }: any) {
     case 'zh-CN':
       title = `扎卡特计算器 – 全球萨拉赫`;
       description = `根据伊斯兰教法轻松计算您的扎卡特。输入您的资产，即可准确获得应支付的金额。`;
+      break;
+    case 'tr':
+      title = `Zekat Hesaplayıcı – Global Salah`;
+      description = `İslami kurallara göre zekatınızı kolayca hesaplayın. Varlıklarınızı girin ve vermeniz gereken doğru miktarı anında öğrenin.`;
+      break;
+    case 'de':
+      title = `Zakat Rechner – Global Salah`;
+      description = `Berechnen Sie Ihren Zakat einfach und schnell nach islamischen Regeln. Geben Sie Ihre Vermögenswerte ein und erhalten Sie sofort den genauen Betrag.`;
+      break;
+    case 'pt':
+      title = `Calculadora de Zakat – Global Salah`;
+      description = `Calcule seu Zakat facilmente com base nas regras islâmicas. Insira seus bens e obtenha instantaneamente o valor exato a ser doado.`;
+      break;
+    case 'ur':
+      title = `زکات کیلکولیٹر – گلوبل صلاح`;
+      description = `اسلامی اصولوں کے مطابق اپنی زکات آسانی سے حساب کریں۔ اپنی دولت درج کریں اور صحیح رقم فوری حاصل کریں۔`;
       break;
     default:
       title = `Zakat Calculator – Global Salah`;
@@ -39,6 +59,11 @@ export async function generateMetadata({ params }: any) {
       ar: `https://www.globalsalah.com/ar/zakat-calculator`,
       es: `https://www.globalsalah.com/es/zakat-calculator`,
       'zh-CN': `https://www.globalsalah.com/zh-CN/zakat-calculator`,
+      tr: `https://www.globalsalah.com/tr/zakat-calculator`,
+      de: `https://www.globalsalah.com/de/zakat-calculator`,
+      pt: `https://www.globalsalah.com/pt/zakat-calculator`,
+      ur: `https://www.globalsalah.com/ur/zakat-calculator`,
+      ru: `https://www.globalsalah.com/ru/zakat-calculator`,
       'x-default': `https://www.globalsalah.com/en/zakat-calculator`,
     },
     robots: {
@@ -56,6 +81,7 @@ export async function generateMetadata({ params }: any) {
     },
   };
 }
+
 
 
 

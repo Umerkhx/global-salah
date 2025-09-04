@@ -1,9 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa"
 import { useTranslation } from '@/hooks/useTranslation'
 import { motion } from "framer-motion"
-import { Loader2, Loader2Icon } from 'lucide-react'
+import { Loader2Icon, MailIcon } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner';
@@ -178,7 +177,7 @@ function ContactPage({ lang }: ContactPageProps) {
                 </div>
               </div> */}
               <div className="flex items-start space-x-3">
-                <FaEnvelope className="text-green-600 text-xl mt-1" />
+                <MailIcon className="text-green-600 text-xl mt-1" />
                 <div>
                   <h3 className="font-semibold">{t("contact.formemail")}</h3>
                   <Link href={'mailto:support@globalsalah.com'} className="">support@globalsalah.com</Link>
