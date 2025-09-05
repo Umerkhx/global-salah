@@ -34,12 +34,12 @@ export async function generateMetadata({ params }: any) {
           'x-default': `https://globalsalah.com/en/forum/${titleSlug}`,
         },
         robots: {
-          index: true,
-          follow: true,
+          index: false,
+          follow: false,
           nocache: true,
           googleBot: {
-            index: true,
-            follow: true,
+            index: false,
+            follow: false,
             noimageindex: false,
             "max-video-preview": -1,
             "max-image-preview": "large",
@@ -112,12 +112,12 @@ export async function generateMetadata({ params }: any) {
         'x-default': `https://globalsalah.com/en/forum/${titleSlug}`,
       },
       robots: {
-        index: true,
-        follow: true,
+        index: false,
+        follow: false,
         nocache: true,
         googleBot: {
-          index: true,
-          follow: true,
+          index: false,
+          follow: false,
           noimageindex: false,
           "max-video-preview": -1,
           "max-image-preview": "large",
