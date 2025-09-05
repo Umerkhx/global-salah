@@ -23,13 +23,11 @@ function Banner() {
   const lang = urlSplitter(pathname)
   const { t } = useTranslation("banner")
 
-  // Load selected language from localStorage
   useEffect(() => {
     const language = localStorage.getItem("language")
     setSelectedLanguage(language)
   }, [])
 
-  // Handle content rotation
   useEffect(() => {
     const today = new Date().toDateString()
     const storedDate = localStorage.getItem("lastContentChange")
@@ -46,14 +44,12 @@ function Banner() {
     }
   }, [])
 
-  // 🔄 Dynamically load language file
   useEffect(() => {
     const loadLanguageData = async () => {
       try {
         const langToLoad = lang || "en"
         const data = await import(`../../../public/locales/${langToLoad}.json`)
         setLanguageData(data.default)
-        // Set loading to false after language data is loaded
         setIsLoading(false)
       } catch (error) {
         console.error("Error loading language file:", error)
@@ -64,7 +60,6 @@ function Banner() {
     loadLanguageData()
   }, [lang])
 
-  // Set content based on loaded data
   useEffect(() => {
     if (!languageData) return
 
@@ -97,7 +92,6 @@ function Banner() {
 
   return (
     <div className={`relative ${bannerHeight} bg-[#FAFAFF] dark:bg-[#0a1f0b] text-zinc-100 overflow-hidden`}>
-      {/* Background Image for LCP - Always render this */}
       <Image
         src="/banner-img-salah.webp"
         alt="Banner background"
@@ -111,13 +105,12 @@ function Banner() {
 
       {/* Content Area - Use a placeholder with same dimensions while loading */}
       <div className="container relative z-20 lg:mx-auto px-4 lg:pt-20 pt-6 h-full">
-      {isLoading ? (
-        <div className="max-w-3xl lg:mt-12 py-2 lg:mx-auto">
-        <Skeleton className="h-12 w-3/4 bg-gray-700/30" /> </div> ) :(
+      
+    
         <h1 className="text-2xl text-center lg:text-5xl font-bold my-5">
           {lang && t("banner.title") ? t("banner.title") : "Welcome to Global Salah"}
         </h1>
-        )}
+      
 
         <div className="max-w-3xl lg:mt-12 py-2 lg:mx-auto">
           {isLoading ? (
