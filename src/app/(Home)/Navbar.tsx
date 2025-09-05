@@ -45,7 +45,7 @@ function Navbar() {
         animate={{ y: 0 }}
         className="sticky top-0 z-[9999999999] border-b border-white/10 bg-[#003422] backdrop-blur dark:supports-[backdrop-filter]:bg-[#000717]"
       >
-            {isLoading ? <div className='px-8 mt-4'>
+            {isLoading ? <div className='px-8 my-4'>
             <Skeleton className="h-10 w-full " />
           </div> : (
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
