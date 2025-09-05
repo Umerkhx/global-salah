@@ -101,6 +101,7 @@ useEffect(() => {
         alt="Banner background"
         fill
         fetchPriority="high"
+        loading="lazy"
         sizes="100vw"
         className="object-cover object-center z-0"
       />
