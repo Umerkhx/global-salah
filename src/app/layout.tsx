@@ -47,7 +47,24 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="alternate" hrefLang="fr" href="https://globalsalah.com/fr" />
         <link rel="alternate" hrefLang="ar" href="https://globalsalah.com/ar" />
-
+        <link rel="preload" as="fetch" href="/locales/en.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/ar.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/fr.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/es.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/de.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/ur.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/tr.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/pt.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/ru.json" crossOrigin="anonymous" />
+        <link rel="preload" as="fetch" href="/locales/zh-CN.json" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="image"
+          href="/banner-img-salah.webp"
+          fetchPriority="high"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-KVK6TX0YCX"
