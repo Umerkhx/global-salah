@@ -7,6 +7,11 @@ export function middleware(request: NextRequest) {
 
 
 
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/en", request.url));
+  }
+
+
   if (pathname.includes("/forum/")) {
     const forumTitle = segments[segments.length - 1]
     const url = new URL("/api/get-question-by-title", request.url)

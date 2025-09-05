@@ -78,6 +78,9 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  
+compress: true, 
+
 };
 
 export default withBundleAnalyzer(nextConfig);
