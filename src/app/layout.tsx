@@ -47,9 +47,7 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="alternate" hrefLang="fr" href="https://globalsalah.com/fr" />
         <link rel="alternate" hrefLang="ar" href="https://globalsalah.com/ar" />
- 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-KVK6TX0YCX"
