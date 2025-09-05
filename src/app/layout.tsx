@@ -12,6 +12,8 @@ const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-poppins-sans',
+  display: "swap",
+  preload: true
 });
 
 export const metadata: Metadata = {
@@ -49,9 +51,9 @@ export default function RootLayout({
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-KVK6TX0YCX"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics"  strategy="lazyOnload">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -62,12 +64,12 @@ export default function RootLayout({
 
         <Script
           src="https://cdn.jsdelivr.net/gh/manuelmhtr/countries-and-timezones@latest/dist/index.min.js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
         <Script
           id="cookieyes"
           src="https://cdn-cookieyes.com/client_data/5dcbb80ae3d7d4ff3df3c423/script.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
 
         <Script
@@ -95,6 +97,7 @@ export default function RootLayout({
               ]
             })
           }}
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${poppins.variable} antialiased`}>
