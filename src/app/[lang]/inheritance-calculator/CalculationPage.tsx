@@ -46,20 +46,25 @@ function CalculationPage() {
     <>
     
       <div className="min-h-screen ">
-      <header className="bg-emerald-800 text-white shadow-lg">
-        {isLoading ? <div className='px-8 mt-4'>
-      <Skeleton className="h-24 w-full " />
-    </div> :(
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center space-x-3">
-            <CalculateIcon size={28} />
-            <h1 className="text-xl md:text-3xl font-bold">{t("inheritance.title")}</h1>
-          </div>
-          <p className="mt-2 text-emerald-100 md:text-base text-sm">{t("inheritance.desc")}</p>
-
-        </div>
-        )}
-      </header>
+ <header className="bg-emerald-800 text-white shadow-lg">
+  <div className="container mx-auto px-4 py-6">
+    <div className="flex items-center space-x-3">
+      <CalculateIcon size={28} />
+      <h1 className="text-xl md:text-3xl font-bold">
+        {t("inheritance.title")}
+      </h1>
+    </div>
+    {isLoading ? (
+      <div className="mt-2">
+        <Skeleton className="h-5 w-1/2" />
+      </div>
+    ) : (
+      <p className="mt-2 text-emerald-100 md:text-base text-sm">
+        {t("inheritance.desc")}
+      </p>
+    )}
+  </div>
+</header>
 
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
