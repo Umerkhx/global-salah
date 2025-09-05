@@ -30,7 +30,7 @@ function Navbar() {
     const timer = setTimeout(() => {
       localStorage.setItem("loading", "false");
       setIsLoading(false);
-    }, 2000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [])
