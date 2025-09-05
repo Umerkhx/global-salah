@@ -10,10 +10,9 @@ import HadithSection from '../(Home)/hadith-section';
 import NamesOfAllahSection from '../(Home)/names-of-Allah-section';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 3600;
 
-export  async  function generateMetadata({ params }: any) {
-  const lang = await params.lang;
+export async function generateMetadata({ params }: any) {
+  const lang = params.lang;
 
   let title = '';
   let description = '';
@@ -79,12 +78,12 @@ export  async  function generateMetadata({ params }: any) {
       },
     },
     robots: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
       nocache: false,
       googleBot: {
-        index: false,
-        follow: false,
+        index: true,
+        follow: true,
         noimageindex: false,
         'max-video-preview': -1,
         'max-image-preview': 'large',
@@ -94,28 +93,24 @@ export  async  function generateMetadata({ params }: any) {
   };
 }
 
-
-const supportedLangs = ['en', 'ar', 'fr', 'es', 'de', 'zh-CN', 'ur', 'pt', 'tr','ru']
-
+const supportedLangs = ['en', 'ar', 'fr', 'es', 'de', 'zh-CN', 'ur', 'pt', 'tr', 'ru'];
 
 export default function Home({ params }: { params: { lang: string } }) {
   if (!supportedLangs.includes(params.lang)) {
-    notFound() 
+    notFound();
   }
-
-
 
   return (
     <>
-    <Banner/>
-    <DateTimingDisplay/>
-    <StoryImageSec/>
-    <CountrySection/>
-    <DuaSection/>
-    <IslamicCalculators/>
-    <HadithSection/>
-    <NamesOfAllahSection/>
-    <HijirDivider/>
-    </>   
+      <Banner />
+      <DateTimingDisplay />
+      <StoryImageSec />
+      <CountrySection />
+      <DuaSection />
+      <IslamicCalculators />
+      <HadithSection />
+      <NamesOfAllahSection />
+      <HijirDivider />
+    </>
   );
 }
