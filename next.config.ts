@@ -1,18 +1,13 @@
 import type { NextConfig } from "next";
-import bundleAnalyzer from '@next/bundle-analyzer';
-
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-  openAnalyzer: true,            // optional: auto-open
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: true,
 });
 
 const nextConfig: NextConfig = {
-
-  
-  
   images: {
-      
     remotePatterns: [
       {
         protocol: "https",
@@ -33,44 +28,56 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
   eslint: {
-    ignoreDuringBuilds: true, // Disables ESLint during the build
+    ignoreDuringBuilds: true,
   },
+
   typescript: {
     ignoreBuildErrors: true,
   },
+
   async rewrites() {
     return [
       {
-        source: '/api/proxy/:path*', // Adjust this path as needed
-        destination: 'https://pro.ip-api.com/:path*', // External API URL
+        source: "/api/proxy/:path*",
+        destination: "https://pro.ip-api.com/:path*",
       },
     ];
   },
-  
+
   async headers() {
     return [
       {
-        source: '/api/proxy/:path*', // For your API proxy route
+        source: "/api/proxy/:path*",
         headers: [
           {
-            key: 'Access-Control-Allow-Origin',
-            value: '*', // Allow all domains (adjust as needed)
+            key: "Access-Control-Allow-Origin",
+            value: "*",
           },
           {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET, POST, OPTIONS',
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, OPTIONS",
           },
           {
-            key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type, Authorization',
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization",
           },
         ],
       },
     ];
   },
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+        path: false,
+        os: false,
+      };
+    }
+    return config;
+  },
 };
-
-
 
 export default withBundleAnalyzer(nextConfig);

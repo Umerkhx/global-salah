@@ -80,7 +80,7 @@ export default function RootLayout({
               "@type": "Organization",
               "name": "Global Salah",
               "url": "https://globalsalah.com/en/",
-              "logo": "https://globalsalah.com/global-salah-logo.png",
+              "logo": "https://globalsalah.com/global-salah-logo.webp",
               "alternateName": "Global Salah",
               "sameAs": [
                 "https://www.facebook.com/globalsalahofficial/",

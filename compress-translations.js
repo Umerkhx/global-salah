@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuration - adjust these paths to match your project structure
 const INPUT_DIR = './public/locales';
 const OUTPUT_DIR = './public/locales'; // Same directory to replace the files
 
@@ -46,5 +45,4 @@ async function compressTranslations() {
   }
 }
 
-// Run the compression
 compressTranslations();

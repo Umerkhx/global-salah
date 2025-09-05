@@ -51,12 +51,12 @@ function Navbar() {
             <div className="flex items-center gap-2">
               <Link href={isLang ? `/${currentLang}` : "/"} className="flex items-center gap-2">
                 <div className="relative h-8 w-8 overflow-hidden rounded-lg">
-                  <img
-                    src="/global-salah-logo.png"
-                    alt="global"
+                  <Image
+                    src="/global-salah-logo.webp"
+                    alt="globalsalah"
                     width={260}
                     height={230}
-                    fetchPriority="high"
+                    priority
                   />
                 </div>
                 <span className="text-lg font-semibold text-white md:block hidden"> {isLang ? t("navigation.title") : "Global Salah"} </span>
