@@ -8,6 +8,16 @@ import Image from "next/image"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { AnimatePresence, motion } from "framer-motion"
+import en from "../../../public/locales/en.json"
+import ar from "../../../public/locales/ar.json"
+import ur from "../../../public/locales/ur.json"
+import es from "../../../public/locales/es.json"
+import ru from "../../../public/locales/ru.json"
+import fr from "../../../public/locales/fr.json"
+import tr from "../../../public/locales/tr.json"
+import pt from "../../../public/locales/pt.json"
+import de from "../../../public/locales/de.json"
+import zhCN from "../../../public/locales/zh-CN.json"
 
 function Banner() {
   const [isLoading, setIsLoading] = useState(true)
@@ -44,21 +54,15 @@ function Banner() {
     }
   }, [])
 
-  useEffect(() => {
-    const loadLanguageData = async () => {
-      try {
-        const langToLoad = lang || "en"
-        const data = await import(`../../../public/locales/${langToLoad}.json`)
-        setLanguageData(data.default)
-        setIsLoading(false)
-      } catch (error) {
-        console.error("Error loading language file:", error)
-        setIsLoading(false)
-      }
-    }
+  const languages: Record<string, any> = { en, ar, ur, es, ru, pt, tr, fr, de, zhCN }
 
-    loadLanguageData()
-  }, [lang])
+useEffect(() => {
+  const langToLoad = lang || "en"
+  const data = languages[langToLoad] || en
+  setLanguageData(data)
+  setIsLoading(false)
+}, [lang])
+
 
   useEffect(() => {
     if (!languageData) return
