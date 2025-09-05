@@ -16,7 +16,7 @@ import { SearchButton } from "@/components/ui/search-button"
 
 function Navbar() {
   const [isLoading, setIsLoading] = useState(true);
-  const { t } = useTranslation("navigation")
+  const { t, isLoading: translationLoading } = useTranslation("navigation")
   const pathname = usePathname()
   const currentLang = urlSplitter(pathname)
 
@@ -34,6 +34,7 @@ function Navbar() {
 
     return () => clearTimeout(timer);
   }, [])
+
 
   return (
 

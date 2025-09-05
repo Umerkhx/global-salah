@@ -1,54 +1,139 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState, useCallback, useMemo } from "react"
+import { usePathname } from "next/navigation"
 
-type Translations = Record<string, any>;
+type Translations = Record<string, any>
 
-const defaultLang = "en";
+const defaultLang = "en"
 
-const cache: Record<string, Translations> = {};
+const memoryCache: Record<string, Translations> = {}
+const loadingStates: Record<string, Promise<Translations>> = {}
 
+const loadTranslations = async (lang: string): Promise<Translations> => {
+  // Return cached version if available
+  if (memoryCache[lang]) {
+    return memoryCache[lang]
+  }
 
-export function useTranslation(p0?: string) {
+  // Deduplicate concurrent requests
+  if (await loadingStates[lang]) {
+    return loadingStates[lang]
+  }
 
+  const loadPromise = (async () => {
+    try {
+      let stored: string | null = null
+      if (typeof window !== "undefined") {
+        try {
+          stored = localStorage.getItem(`translations:${lang}`)
+        } catch (error) {
+          console.warn("Failed to read from localStorage:", error)
+        }
+      }
 
-  const pathname = usePathname();
-  const lang = pathname.split("/")[1] || defaultLang
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        memoryCache[lang] = parsed
+        return parsed
+      }
 
-    const [translations, setTranslations] = useState<Translations>(
-    cache[lang] || {}
-  );
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-useEffect(() => {
-    const loadTranslations = async () => {
-      if (cache[lang]) {
-        setTranslations(cache[lang]);
-        return;
+      const res = await fetch(`/locales/${lang}.json`, {
+        signal: controller.signal,
+        cache: "force-cache",
+      })
+
+      clearTimeout(timeoutId)
+
+      if (!res.ok) {
+        throw new Error(`Failed to load translations: ${res.status}`)
+      }
+
+      const data = await res.json()
+      memoryCache[lang] = data
+
+      if (typeof window !== "undefined") {
+        requestIdleCallback(() => {
+          try {
+            localStorage.setItem(`translations:${lang}`, JSON.stringify(data))
+          } catch (error) {
+            console.warn("Failed to cache translations:", error)
+          }
+        })
+      }
+
+      return data
+    } catch (error: any) {
+      console.error("Error loading translations", error.message)
+      // Return empty object as fallback
+      return {}
+    } finally {
+      delete loadingStates[lang]
+    }
+  })()
+
+  loadingStates[lang] = loadPromise
+  return loadPromise
+}
+
+export function useTranslation(namespace?: string) {
+  const pathname = usePathname()
+
+  const lang = useMemo(() => {
+    return pathname.split("/")[1] || defaultLang
+  }, [pathname])
+
+  const [translations, setTranslations] = useState<Translations>(() => memoryCache[lang] || {})
+  const [isLoading, setIsLoading] = useState(() => !memoryCache[lang])
+
+  const t = useCallback(
+    (key: string) => {
+      if (!key) return key
+
+      const result = key.split(".").reduce((o: any, i) => o?.[i], translations)
+      return result || key
+    },
+    [translations],
+  )
+
+  useEffect(() => {
+    let isMounted = true
+
+    const loadLangTranslations = async () => {
+      if (memoryCache[lang]) {
+        if (isMounted && translations !== memoryCache[lang]) {
+          setTranslations(memoryCache[lang])
+          setIsLoading(false)
+        }
+        return
+      }
+
+      if (isMounted) {
+        setIsLoading(true)
       }
 
       try {
-        const stored = localStorage.getItem(`translations:${lang}`);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          cache[lang] = parsed;
-          setTranslations(parsed);
-          return;
+        const data = await loadTranslations(lang)
+        if (isMounted) {
+          setTranslations(data)
+          setIsLoading(false)
         }
-
-        const res = await fetch(`/locales/${lang}.json`);
-        const data = await res.json();
-
-        cache[lang] = data;
-        localStorage.setItem(`translations:${lang}`, JSON.stringify(data));
-        setTranslations(data);
-      } catch (error: any) {
-        console.error("Error loading translations", error.message);
+      } catch (error) {
+        if (isMounted) {
+          setIsLoading(false)
+        }
       }
-    };
+    }
 
-    loadTranslations();
-  }, [lang]);
+    loadLangTranslations()
 
-  return { t: (key: string) => key?.split(".").reduce((o: any, i) => o?.[i], translations) || key, lang };
+    return () => {
+      isMounted = false
+    }
+  }, [lang, translations])
+
+  return { t, lang, isLoading }
 }
