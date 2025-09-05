@@ -56,12 +56,12 @@ function Banner() {
 
   const languages: Record<string, any> = { en, ar, ur, es, ru, pt, tr, fr, de, zhCN }
 
-useEffect(() => {
-  const langToLoad = lang || "en"
-  const data = languages[langToLoad] || en
-  setLanguageData(data)
-  setIsLoading(false)
-}, [lang])
+  useEffect(() => {
+    const langToLoad = lang || "en"
+    const data = languages[langToLoad] || en
+    setLanguageData(data)
+    setIsLoading(false)
+  }, [lang])
 
 
   useEffect(() => {
@@ -107,14 +107,15 @@ useEffect(() => {
 
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#101110] via-emerald-950 to-[#000000]/60 backdrop-blur-sm" />
 
-      {/* Content Area - Use a placeholder with same dimensions while loading */}
       <div className="container relative z-20 lg:mx-auto px-4 lg:pt-20 pt-6 h-full">
-      
-    
-        <h1 className="text-2xl text-center lg:text-5xl font-bold my-5">
-          {lang && t("banner.title") ? t("banner.title") : "Welcome to Global Salah"}
-        </h1>
-      
+        {isLoading ? (
+          <Skeleton className="h-12 w-2/4 mx-auto bg-gray-700/30" />
+        ) : (
+          <h1 className="text-xl text-center lg:text-5xl font-bold my-5">
+            {lang && t("banner.title") ? t("banner.title") : "Welcome to Global Salah"}
+          </h1>
+        )}
+
 
         <div className="max-w-3xl lg:mt-12 py-2 lg:mx-auto">
           {isLoading ? (

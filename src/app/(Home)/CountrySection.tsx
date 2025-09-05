@@ -16,91 +16,91 @@ const destinations = [
   {
     id: 1,
     name: 'Turkey',
-    image: '/country-slider/turkey.jpg',
+    image: '/country-slider/turkey.webp',
     alt: 'Scenic view of a mosque in Turkey during sunset'
   },
   {
     id: 2,
     name: 'Pakistan',
-    image: '/country-slider/pakistan.jpg',
+    image: '/country-slider/pakistan.webp',
     alt: 'Historic street in Pakistan with traditional architecture'
   },
   {
     id: 3,
     name: 'India',
-    image: '/country-slider/india.jpg',
+    image: '/country-slider/india.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 4,
     name: 'Libya',
-    image: '/country-slider/libya.jpg',
+    image: '/country-slider/libya.webp',
     alt: 'Libya cityscape with historic temples and architecture'
   },
   {
     id: 5,
     name: 'Lebanon',
-    image: '/country-slider/lebanon.jpg',
+    image: '/country-slider/lebanon.webp',
     alt: 'Lebanon cityscape with historic temples and architecture'
   },
   {
     id: 6,
     name: 'Jordan',
-    image: '/country-slider/jordan.jpg',
+    image: '/country-slider/jordan.webp',
     alt: 'Jordan cityscape with historic temples and architecture'
   },
   {
     id: 7,
     name: 'Palestine',
-    image: '/country-slider/palestine.jpg',
+    image: '/country-slider/palestine.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 8,
     name: 'Iraq',
-    image: '/country-slider/iraq.jpg',
+    image: '/country-slider/iraq.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 9,
     name: 'Bangladesh',
-    image: '/country-slider/bangladesh.jpg',
+    image: '/country-slider/bangladesh.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 10,
     name: 'Afghanistan',
-    image: '/country-slider/afghanistan.jpg',
+    image: '/country-slider/afghanistan.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 11,
     name: 'Germany',
-    image: '/country-slider/germany.jpg',
+    image: '/country-slider/germany.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 12,
     name: 'Spain',
-    image: '/country-slider/spain.jpg',
+    image: '/country-slider/spain.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 13,
     name: 'Indonesia',
-    image: '/country-slider/indonesia.jpg',
+    image: '/country-slider/indonesia.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 14,
     name: 'Philippines',
-    image: '/country-slider/philippines.jpg',
+    image: '/country-slider/philippines.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
     id: 15,
     name: 'Switzerland',
-    image: '/country-slider/switzerland.jpg',
+    image: '/country-slider/switzerland.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   }
 ]
@@ -144,6 +144,7 @@ function CountrySection() {
                     src={destination.image}
                     alt={destination.alt}
                     fill
+                    priority
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                   />
