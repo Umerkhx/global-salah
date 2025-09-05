@@ -20,10 +20,8 @@ export function MainNav() {
   return (
     <div className="flex items-center space-x-6">
       <nav className="hidden space-x-6 md:flex items-center">
-        {/* Home Link */}
         <NavLink href={createPath("/")} isActive={isActive(createPath("/"))} text={getText("home")} />
 
-        {/* About Us Link */}
         <NavLink
           href={createPath("/about-us")}
           isActive={isActive(createPath("/about-us"))}
