@@ -25,7 +25,7 @@ export default function NamesOfAllahSection() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <section className="lg:py-16 px-4 md:px-8 lg:px-12 relative overflow-hidden lg:scale-100 scale-90">
+    <section className="lg:py-16 px-4 md:px-8 lg:px-12 relative overflow-hidden lg:scale-100 scale-90 lg:mt-0 -mt-12">
       {/* Decorative elements */}
 
 

@@ -26,7 +26,7 @@ export default function HadithSection() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <section className="lg:py-10 px-4 md:px-8 lg:px-12 relative overflow-hidden lg:scale-100 scale-90">
+    <section className="lg:py-10 px-4 md:px-8 lg:px-12 relative overflow-hidden lg:scale-100 scale-90 lg:mt-0 -mt-28">
       <div className="max-w-5xl mx-auto relative">
         {/* Heading with decorative elements */}
         <div className="text-center mb-12 relative">

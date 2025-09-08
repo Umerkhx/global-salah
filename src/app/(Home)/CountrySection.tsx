@@ -112,7 +112,7 @@ function CountrySection() {
   const isLang = checkIsPathnameIsEqualToLang(currentLang)
 
   return (
-    <div className='mx-auto max-w-screen-xl my-8 p-4 lg:scale-100 scale-90'>
+    <div className='mx-auto max-w-screen-xl my-8 p-4 lg:scale-100 scale-90 lg:mt-0 -mt-7'>
       <h2 className='lg:text-3xl text-2xl font-bold text-center'>{t("CountrySection.country")} </h2>
       <p className='lg:text-base text-sm text-center font-semibold text-muted-foreground pt-1'>{t("CountrySection.countryline")}</p>
 

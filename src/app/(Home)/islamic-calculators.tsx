@@ -27,7 +27,7 @@ function IslamicCalculators() {
   }, []);
 
   return (
-    <main className=" lg:py-10 px-4 lg:scale-100 scale-90">
+    <main className=" lg:py-10 px-4 lg:scale-100 scale-90 lg:mt-0 -mt-28">
       <div className="max-w-5xl mx-auto">
         <div className="text-center max-w-2xl mx-auto lg:mb-12 mb-6">
           <h2 className="text-2xl md:text-3xl font-bold  mb-4"> {t('calculatiorsection.title')} </h2>
