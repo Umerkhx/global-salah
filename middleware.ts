@@ -7,9 +7,9 @@ export function middleware(request: NextRequest) {
 
 
 
-  if (pathname === "/") {
-    return NextResponse.rewrite(new URL("/en", request.url));
-  }
+  // if (pathname === "/") {
+  //   return NextResponse.rewrite(new URL("/en", request.url));
+  // }
 
 
   if (pathname.includes("/forum/")) {
