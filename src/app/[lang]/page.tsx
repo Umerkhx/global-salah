@@ -1,14 +1,30 @@
 import React from 'react';
 import DateTimingDisplay from '../(Home)/DateTimingDisplay';
-import StoryImageSec from '../(Home)/StoryImageSec';
-import CountrySection from '../(Home)/CountrySection';
-import HijirDivider from '../(Home)/HijirDivider';
 import Banner from '../(Home)/Banner';
-import DuaSection from '../(Home)/dua-section';
-import IslamicCalculators from '../(Home)/islamic-calculators';
-import HadithSection from '../(Home)/hadith-section';
-import NamesOfAllahSection from '../(Home)/names-of-Allah-section';
-import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const StoryImageSec = dynamic(() => import("../(Home)/StoryImageSec"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const CountrySection = dynamic(() => import("../(Home)/CountrySection"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const DuaSection = dynamic(() => import("../(Home)/dua-section"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const IslamicCalculators = dynamic(() => import("../(Home)/islamic-calculators"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const HadithSection = dynamic(() => import("../(Home)/hadith-section"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const NamesOfAllahSection = dynamic(() => import("../(Home)/names-of-Allah-section"), {
+  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+})
+const HijirDivider = dynamic(() => import("../(Home)/HijirDivider"), {
+  loading: () => <div className="h-10 bg-gray-100 animate-pulse rounded-xl" />,
+})
+
 
 
 export async function generateMetadata({ params }: any) {
@@ -93,12 +109,9 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-const supportedLangs = ['en', 'ar', 'fr', 'es', 'de', 'zh-CN', 'ur', 'pt', 'tr', 'ru'];
 
-export default function Home({ params }: { params: { lang: string } }) {
-  if (!supportedLangs.includes(params.lang)) {
-    notFound();
-  }
+export default function Home() {
+
 
   return (
     <>
