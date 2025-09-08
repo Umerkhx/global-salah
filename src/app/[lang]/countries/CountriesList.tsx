@@ -21,21 +21,15 @@ export default function CountriesList({ countries }: any) {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState<string>("")
   const [imagesLoaded, setImagesLoaded] = useState<Set<string>>(new Set())
-  const [isContentLoaded, setIsContentLoaded] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date())
-    }, 1000)
+    }, 500)
     return () => clearInterval(timer)
   }, [])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsContentLoaded(true)
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [])
+
 
   const handleSearch = useCallback(
     (query: string) => {
@@ -87,18 +81,13 @@ export default function CountriesList({ countries }: any) {
   const isLang = checkIsPathnameIsEqualToLang(currentLang)
   const isArabic = pathname.split("/")[1]
 
-  const TextSkeleton = ({ className }: { className?: string }) => (
-    <div className={`animate-pulse bg-gray-200 dark:bg-gray-700 rounded ${className}`} />
-  )
+
 
   return (
     <div>
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
         <div
-          className={`mb-6 flex items-center text-sm text-muted-foreground ${isArabic === "ar" ? "justify-end text-right" : "justify-start text-left"}`}
-        >
-          {isContentLoaded ? (
+          className={`mb-6 flex items-center text-sm text-muted-foreground ${isArabic === "ar" ? "justify-end text-right" : "justify-start text-left"}`}>
             <>
               <Link href="/" className="hover:text-green-500">
                 {t("navigation.home")}
@@ -106,28 +95,16 @@ export default function CountriesList({ countries }: any) {
               <ChevronRight className="h-4 w-4 mx-2" />
               <span className="text-foreground">{t("navigation.countries")}</span>
             </>
-          ) : (
-            <div className="flex items-center gap-2">
-              <TextSkeleton className="h-4 w-12" />
-              <ChevronRight className="h-4 w-4 mx-2" />
-              <TextSkeleton className="h-4 w-20" />
-            </div>
-          )}
+    
         </div>
 
         {/* Header */}
         <div className={`mb-8 ${isArabic === "ar" ? "justify-end text-right" : "justify-start text-left"}`}>
-          {isContentLoaded ? (
             <>
               <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{t("countrieslist.title")}</h1>
               <p className="text-gray-600 dark:text-gray-400">{t("countrieslist.desc")}</p>
             </>
-          ) : (
-            <>
-              <TextSkeleton className="h-9 w-64 mb-2" />
-              <TextSkeleton className="h-5 w-96" />
-            </>
-          )}
+         
         </div>
 
         {/* Search input */}
@@ -135,12 +112,11 @@ export default function CountriesList({ countries }: any) {
           <div className="relative">
             <Input
               type="text"
-              placeholder={isContentLoaded ? t("countrieslist.placeholder") : ""}
+              placeholder={t("countrieslist.placeholder") }
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               className={`w-full pl-10 pr-10 ${isArabic === "ar" ? "justify-end text-right" : "justify-start text-left"}`}
-              disabled={!isContentLoaded}
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             {searchQuery && (
@@ -230,23 +206,20 @@ export default function CountriesList({ countries }: any) {
             ))}
           </div>
 
-          {/* Alphabet navigation */}
           <div className="sticky h-fit scale-95 lg:block hidden">
             <div className="flex lg:flex-col items-center justify-center lg:justify-start bg-white dark:bg-gray-800 rounded-lg p-2 shadow-md">
-              {!isContentLoaded
-                ? Array.from({ length: 26 }).map((_, index) => <TextSkeleton key={index} className="w-6 h-6 m-1" />)
-                : alphabet.map((letter) => (
-                    <a
-                      key={letter}
-                      href={`#${letter}`}
-                      className={`p-2 text-sm hover:text-green-500 transition-colors ${
-                        selectedLetter === letter ? "text-green-700 font-bold" : "text-gray-500 dark:text-gray-400"
-                      }`}
-                      onClick={() => setSelectedLetter(letter)}
-                    >
-                      {letter}
-                    </a>
-                  ))}
+              {alphabet.map((letter) => (
+                <a
+                  key={letter}
+                  href={`#${letter}`}
+                  className={`p-2 text-sm hover:text-green-500 transition-colors ${
+                    selectedLetter === letter ? "text-green-700 font-bold" : "text-gray-500 dark:text-gray-400"
+                  }`}
+                  onClick={() => setSelectedLetter(letter)}
+                >
+                  {letter}
+                </a>
+              ))}
             </div>
           </div>
         </div>
