@@ -94,6 +94,7 @@ export default function CountriesList({ countries }: any) {
   return (
     <div>
       <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
         <div
           className={`mb-6 flex items-center text-sm text-muted-foreground ${isArabic === "ar" ? "justify-end text-right" : "justify-start text-left"}`}
         >
@@ -185,68 +186,48 @@ export default function CountriesList({ countries }: any) {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Countries list */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 flex-grow">
-            {!isContentLoaded
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} className="mb-8">
-                    <TextSkeleton className="h-8 w-8 mb-4" />
-                    <div className="grid gap-4">
-                      {Array.from({ length: 3 }).map((_, countryIndex) => (
-                        <div
-                          key={countryIndex}
-                          className="flex items-center justify-between scale-95 bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg p-4"
-                        >
-                          <div className="flex items-center gap-4">
-                            <TextSkeleton className="w-8 h-6 rounded" />
-                            <TextSkeleton className="h-4 w-24" />
+            {Object.entries(groupedCountries).map(([letter, countries]: any) => (
+              <div key={letter} id={letter} className="mb-8">
+                <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white scale-90">{letter}</h2>
+                <div className="grid gap-4">
+                  {countries.map((country: any) => (
+                    <Link
+                      href={
+                        isLang
+                          ? `/${currentLang}/countries/${country.name.toLowerCase().replaceAll(" ", "-")}`
+                          : `/countries/${country.name.toLowerCase().replaceAll(" ", "-")}`
+                      }
+                      key={country.code}
+                    >
+                      <div
+                        className={`flex items-center justify-between scale-95 bg-transparent border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-400 hover:scale-100 rounded-lg p-4 transition ease-in duration-200 hover:shadow-lg ${
+                          selectedCountry === country.name
+                            ? "text-zinc-100 dark:text-zinc-900 dark:bg-zinc-100 bg-zinc-900 font-semibold"
+                            : ""
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="relative w-8 h-6 flex-shrink-0">
+                            <img
+                              src={`https://flagcdn.com/48x36/${country.code.toLowerCase()}.png`}
+                              alt={`${country.name} flag`}
+                              sizes="32px"
+                              className="object-cover rounded"
+                              fetchPriority="high"
+                              onLoad={() => handleImageLoad(country.code)}
+                            />
                           </div>
-                          <TextSkeleton className="h-4 w-16" />
+                          <div>
+                            <h3 className="text-sm">{country.name}</h3>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              : Object.entries(groupedCountries).map(([letter, countries]: any) => (
-                  <div key={letter} id={letter} className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white scale-90">{letter}</h2>
-                    <div className="grid gap-4">
-                      {countries.map((country: any) => (
-                        <Link
-                          href={
-                            isLang
-                              ? `/${currentLang}/countries/${country.name.toLowerCase().replaceAll(" ", "-")}`
-                              : `/countries/${country.name.toLowerCase().replaceAll(" ", "-")}`
-                          }
-                          key={country.code}
-                        >
-                          <div
-                            className={`flex items-center justify-between scale-95 bg-transparent border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-400 hover:scale-100 rounded-lg p-4 transition ease-in duration-200 hover:shadow-lg ${
-                              selectedCountry === country.name
-                                ? "text-zinc-100 dark:text-zinc-900 dark:bg-zinc-100 bg-zinc-900 font-semibold"
-                                : ""
-                            }`}
-                          >
-                            <div className="flex items-center gap-4">
-                              <div className="relative w-8 h-6 flex-shrink-0">
-                                <img
-                                  src={`https://flagcdn.com/48x36/${country.code.toLowerCase()}.png`}
-                                  alt={`${country.name} flag`}
-                                  sizes="32px"
-                                  className="object-cover rounded"
-                                  fetchPriority="high"
-                                  onLoad={() => handleImageLoad(country.code)}
-                                />
-                              </div>
-                              <div>
-                                <h3 className="text-sm">{country.name}</h3>
-                              </div>
-                            </div>
-                            <div className="text-base">{formatTime(country.offset)}</div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                        <div className="text-base">{formatTime(country.offset)}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Alphabet navigation */}
