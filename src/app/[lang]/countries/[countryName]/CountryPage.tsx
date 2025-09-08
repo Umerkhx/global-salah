@@ -1,12 +1,12 @@
 "use client";
-import { notFound, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Banner } from "./Banner";
 import { PrayerTimesTable } from "./PrayerTimeTable";
 import { CountryInfo } from "./CountryInfo";
 import CustomSkeleton from "@/components/ui/CustomSkeleton";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight} from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { timezoneMapping } from "../timzone";
 
@@ -733,7 +733,7 @@ export default function CountryPage() {
                 />
               </div>
 
-              <div className="space-y-8">
+              <div className="">
 
                 {isArabic === "ar" ? (<div className={`mb-6 flex items-center text-sm text-muted-foreground justify-end text-right `}>
 
@@ -761,11 +761,11 @@ export default function CountryPage() {
                 }
 
                 {isArabic === "ar" ? (
-                  <h2 className="text-2xl font-bold lg:text-right text-center">
+                  <h2 className="lg:text-2xl text-xl font-bold lg:text-right text-center">
                     <span className="capitalize">{country.name}</span> {t("country.title")}
                   </h2>
                 ) : (
-                  <h2 className="text-2xl font-bold lg:text-left text-center">
+                  <h2 className="lg:text-2xl text-xl font-bold lg:text-left text-center">
                     {t("country.title")} <span className="capitalize">{country.name}</span>
                   </h2>
                 )}
@@ -783,10 +783,10 @@ export default function CountryPage() {
                 </h2>
               )}
 
-              <p className="mt-1 text-muted-foreground text-base pb-3 lg:text-left text-center">
+              <p className="mt-1 text-muted-foreground lg:text-base text-sm pb-3 lg:text-left text-center">
                 {t("country.subparagraph_1")}
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-10 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:my-10 mt-10 max-w-6xl mx-auto">
                 {/* First Column */}
                 <div className="bg-transparent border border-muted rounded-lg shadow-md p-6">
                   <h3 className="text-xl lg:text-left text-center font-semibold text-blue-900 dark:text-zinc-100 ">{t("country.subheading_2")}</h3>

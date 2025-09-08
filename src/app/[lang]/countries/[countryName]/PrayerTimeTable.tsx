@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { PrayerTimes, CalculationMethod, Madhab } from "adhan"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Moon, Sun, Sunrise, Sunset } from "lucide-react"
 import { countriesData, type City } from "./citiesAndTimezones"
 import Link from "next/link"
@@ -239,7 +238,7 @@ export function PrayerTimesTable({ country, timezoneMapping, countryCode, timezo
       </div>
 
       {/* Mobile view */}
-      <div className="grid gap-4 md:hidden px-4">
+      <div className="grid gap-4 md:hidden px-2">
         {cities.map((city) => (
           <Link onClick={() => saveCityDetails(city)} key={city.name} href={isLang ? `/${currentLang}/countries/${country.toLowerCase().replaceAll(" ", "-")}/${city.name.toLowerCase().replaceAll(" ", "-")}` : `/countries/${country.toLowerCase().replaceAll(" ", "-")}/${city.name.toLowerCase().replaceAll(" ", "-")}`}
             className="block rounded-xl shadow-md bg-zinc-50 dark:bg-gray-800 p-4 border border-gray-200 transition hover:shadow-xl scale-95 hover:scale-100 duration-200 delay-200 ">
