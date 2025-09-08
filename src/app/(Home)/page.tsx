@@ -1,7 +1,7 @@
 
-import { redirect } from 'next/navigation';
+import HomePage from '../[lang]/page';
 
 export default function Home() {
-redirect("/en");
+return <HomePage params={{ lang: "en" }} />
 
 }

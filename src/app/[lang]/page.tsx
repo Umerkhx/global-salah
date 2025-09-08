@@ -110,8 +110,8 @@ export async function generateMetadata({ params }: any) {
 }
 
 
-export default function Home() {
-
+export default function HomePage({ params }: { params: { lang: string } }) {
+const { lang } = params;
 
   return (
     <>
