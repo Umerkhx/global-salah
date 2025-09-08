@@ -144,7 +144,7 @@ function CountrySection() {
                     src={destination.image}
                     alt={destination.alt}
                     fill
-                    loading='lazy'
+                    priority
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                   />
