@@ -10,6 +10,16 @@
     "start": "NODE_ENV=production node app.js",
     "lint": "next lint"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11",
+    "not op_mini all",
+    "not safari < 14",
+    "not chrome < 90",
+    "not firefox < 88"
+  ],
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-avatar": "^1.1.3",

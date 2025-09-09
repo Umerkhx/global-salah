@@ -8,16 +8,25 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizeCss: true,
+    reactCompiler: true,
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
-  swcMinify: true,
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
     emotion: true,
   },
 
-  output: 'standalone',
+  transpilePackages: [],
+
+  // output: 'standalone',
 
   images: {
     remotePatterns: [
@@ -90,7 +99,12 @@ const nextConfig: NextConfig = {
       };
     }
     
-    config.target = ['web', 'es2020'];
+    config.target = ['web', 'es2022'];
+    
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': '.',
+    };
     
     return config;
   },
