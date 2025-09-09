@@ -7,26 +7,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
-  experimental: {
-    reactCompiler: true,
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
-  },
-
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-    emotion: true,
+    removeConsole: process.env.NODE_ENV === "production",
   },
-
-  transpilePackages: [],
-
-  // output: 'standalone',
 
   images: {
     remotePatterns: [
@@ -38,26 +21,19 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "blogs.globalsalah.com",
-        port: "",
         pathname: "/wp-content/uploads/**",
       },
       {
         protocol: "https",
         hostname: "secure.gravatar.com",
-        port: "",
         pathname: "/avatar/**",
       },
     ],
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
   },
 
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
 
   async rewrites() {
     return [
@@ -73,18 +49,9 @@ const nextConfig: NextConfig = {
       {
         source: "/api/proxy/:path*",
         headers: [
-          {
-            key: "Access-Control-Allow-Origin",
-            value: "*",
-          },
-          {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, POST, OPTIONS",
-          },
-          {
-            key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
-          },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
         ],
       },
     ];
@@ -92,23 +59,11 @@ const nextConfig: NextConfig = {
 
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.fallback = {
-        fs: false,
-        path: false,
-        os: false,
-      };
+      config.resolve.fallback = { fs: false, path: false, os: false };
     }
-    
-    config.target = ['web', 'es2022'];
-    
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': '.',
-    };
-    
     return config;
   },
-  
+
   compress: true,
 };
 
