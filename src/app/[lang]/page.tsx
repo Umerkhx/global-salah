@@ -6,9 +6,9 @@ import dynamic from 'next/dynamic';
 const StoryImageSec = dynamic(() => import("../(Home)/StoryImageSec"), {
   loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
 })
-const CountrySection = dynamic(() => import("../(Home)/CountrySection"), {
-  loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
-})
+// const CountrySection = dynamic(() => import("../(Home)/CountrySection"), {
+//   loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
+// })
 const DuaSection = dynamic(() => import("../(Home)/dua-section"), {
   loading: () => <div className="h-40 bg-gray-100 animate-pulse rounded-xl" />,
 })
@@ -118,7 +118,7 @@ export default function HomePage() {
       <Banner />
       <DateTimingDisplay />
       <StoryImageSec />
-      <CountrySection />
+      {/* <CountrySection /> */}
       <DuaSection />
       <IslamicCalculators />
       <HadithSection />
