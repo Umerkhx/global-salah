@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTranslation } from '@/hooks/useTranslation';
+import CityContent from './CityContent';
 
 // Types
 interface PrayerTime {
@@ -63,7 +64,6 @@ const formatMonthlyDate = (dateString: string): string => {
 };
 
 const CityPage = () => {
-  // State
   const [prayerTimes, setPrayerTimes] = useState<PrayerTime | null>(null);
   const [monthlyTimes, setMonthlyTimes] = useState<PrayerTime[] | null>(null);
   const [selectedMadhab, setSelectedMadhab] = useState<keyof typeof Madhab>("Shafi");
@@ -433,7 +433,6 @@ const CityPage = () => {
             </CardContent>
           </Card>
 
-          {/* Monthly Prayer Times */}
           <div className="mt-4 md:mt-8 w-full">
             <h2
               className={`text-lg md:text-2xl font-bold mb-4 md:mb-6 flex items-center ${isArabic ? "justify-end" : "justify-start"
@@ -502,7 +501,6 @@ const CityPage = () => {
                   })}
                 </div>
 
-                {/* Desktop View */}
                 <div className="hidden md:block">
                   <Card className="rounded-lg px-5 py-4">
                     <Table>
@@ -553,7 +551,9 @@ const CityPage = () => {
             )}
           </div>
 
-          {/* Other Cities */}
+          <CityContent country={countryName} city={cityName}  arabic={isArabic}/>
+
+
           {isArabic ? (
             <div className="view-forarabic">
               <div className="my-6">
@@ -644,6 +644,13 @@ const CityPage = () => {
               )}
             </div>
           )}
+
+            <div className="mt-12 pt-6 border-t border-gray-200 text-center">
+        <p className="text-muted-foreground italic">
+          {t("city.footerline1")} <span className='capitalize'>{cityName}, {countryName}</span>. {t("city.footerline2")}
+        </p>
+      </div>
+
         </div>
       )}
     </>

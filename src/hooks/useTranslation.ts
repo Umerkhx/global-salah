@@ -10,8 +10,10 @@ const defaultLang = "en"
 const memoryCache: Record<string, Translations> = {}
 const loadingStates: Record<string, Promise<Translations>> = {}
 
+const CACHE_VERSION = Date.now() // Change this when you update translations
+const CACHE_DURATION = 1000 * 60 * 5 // 5 minutes
+
 const loadTranslations = async (lang: string): Promise<Translations> => {
-  // Return cached version if available
   if (memoryCache[lang]) {
     return memoryCache[lang]
   }
@@ -24,15 +26,33 @@ const loadTranslations = async (lang: string): Promise<Translations> => {
   const loadPromise = (async () => {
     try {
       let stored: string | null = null
+      let shouldUseCache = false
+
       if (typeof window !== "undefined") {
         try {
-          stored = localStorage.getItem(`translations:${lang}`)
+          const cacheKey = `translations:${lang}:${CACHE_VERSION}`
+          const timestampKey = `translations_timestamp:${lang}`
+
+          stored = localStorage.getItem(cacheKey)
+          const timestamp = localStorage.getItem(timestampKey)
+
+          if (stored && timestamp) {
+            const cacheAge = Date.now() - Number.parseInt(timestamp)
+            shouldUseCache = cacheAge < CACHE_DURATION
+          }
+
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i)
+            if (key?.startsWith(`translations:${lang}:`) && key !== cacheKey) {
+              localStorage.removeItem(key)
+            }
+          }
         } catch (error) {
           console.warn("Failed to read from localStorage:", error)
         }
       }
 
-      if (stored) {
+      if (stored && shouldUseCache) {
         const parsed = JSON.parse(stored)
         memoryCache[lang] = parsed
         return parsed
@@ -41,9 +61,9 @@ const loadTranslations = async (lang: string): Promise<Translations> => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-      const res = await fetch(`/locales/${lang}.json`, {
+      const res = await fetch(`/locales/${lang}.json?v=${CACHE_VERSION}`, {
         signal: controller.signal,
-        cache: "force-cache",
+        cache: "no-cache", // Changed from "force-cache"
       })
 
       clearTimeout(timeoutId)
@@ -58,7 +78,11 @@ const loadTranslations = async (lang: string): Promise<Translations> => {
       if (typeof window !== "undefined") {
         requestIdleCallback(() => {
           try {
-            localStorage.setItem(`translations:${lang}`, JSON.stringify(data))
+            const cacheKey = `translations:${lang}:${CACHE_VERSION}`
+            const timestampKey = `translations_timestamp:${lang}`
+
+            localStorage.setItem(cacheKey, JSON.stringify(data))
+            localStorage.setItem(timestampKey, Date.now().toString())
           } catch (error) {
             console.warn("Failed to cache translations:", error)
           }
@@ -68,7 +92,6 @@ const loadTranslations = async (lang: string): Promise<Translations> => {
       return data
     } catch (error: any) {
       console.error("Error loading translations", error.message)
-      // Return empty object as fallback
       return {}
     } finally {
       delete loadingStates[lang]
@@ -77,6 +100,40 @@ const loadTranslations = async (lang: string): Promise<Translations> => {
 
   loadingStates[lang] = loadPromise
   return loadPromise
+}
+
+export const clearTranslationCache = (lang?: string) => {
+  if (lang) {
+    delete memoryCache[lang]
+    if (typeof window !== "undefined") {
+      try {
+        // Clear all versions of this language from localStorage
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const key = localStorage.key(i)
+          if (key?.startsWith(`translations:${lang}:`) || key === `translations_timestamp:${lang}`) {
+            localStorage.removeItem(key)
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to clear localStorage:", error)
+      }
+    }
+  } else {
+    // Clear all caches
+    Object.keys(memoryCache).forEach((key) => delete memoryCache[key])
+    if (typeof window !== "undefined") {
+      try {
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const key = localStorage.key(i)
+          if (key?.startsWith("translations:") || key?.startsWith("translations_timestamp:")) {
+            localStorage.removeItem(key)
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to clear localStorage:", error)
+      }
+    }
+  }
 }
 
 export function useTranslation(namespace?: string) {
@@ -98,6 +155,19 @@ export function useTranslation(namespace?: string) {
     },
     [translations],
   )
+
+  const refreshTranslations = useCallback(async () => {
+    clearTranslationCache(lang)
+    setIsLoading(true)
+    try {
+      const data = await loadTranslations(lang)
+      setTranslations(data)
+    } catch (error) {
+      console.error("Failed to refresh translations:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [lang])
 
   useEffect(() => {
     let isMounted = true
@@ -135,5 +205,5 @@ export function useTranslation(namespace?: string) {
     }
   }, [lang, translations])
 
-  return { t, lang, isLoading }
+  return { t, lang, isLoading, refreshTranslations }
 }
