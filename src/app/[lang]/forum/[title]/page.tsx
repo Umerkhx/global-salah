@@ -112,8 +112,8 @@ export async function generateMetadata({ params }: any) {
         'x-default': `https://globalsalah.com/en/forum/${titleSlug}`,
       },
       robots: {
-        index: false,
-        follow: false,
+      index: false,
+      follow: false,
         nocache: true,
         googleBot: {
           index: false,

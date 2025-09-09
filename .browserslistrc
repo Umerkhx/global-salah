@@ -1,5 +1,6 @@
-last 2 Chrome versions
-last 2 Firefox versions
-last 2 Edge versions
-last 2 Safari versions
-not IE 11
+# This tells build tools to avoid polyfills for older browsers
+> 0.5%
+last 2 versions
+not dead
+not ie 11
+not op_mini all

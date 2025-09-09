@@ -7,6 +7,18 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizeCss: true,
+  },
+  swcMinify: true,
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+    emotion: true,
+  },
+
+  output: 'standalone',
+
   images: {
     remotePatterns: [
       {
@@ -27,6 +39,7 @@ const nextConfig: NextConfig = {
         pathname: "/avatar/**",
       },
     ],
+    formats: ['image/webp', 'image/avif'],
   },
 
   eslint: {
@@ -76,11 +89,13 @@ const nextConfig: NextConfig = {
         os: false,
       };
     }
+    
+    config.target = ['web', 'es2020'];
+    
     return config;
   },
   
-compress: true, 
-
+  compress: true,
 };
 
 export default withBundleAnalyzer(nextConfig);

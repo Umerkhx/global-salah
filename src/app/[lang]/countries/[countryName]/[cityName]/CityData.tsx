@@ -352,7 +352,7 @@ const CityPage = () => {
               </div>
               <div>
                 <h1 className="lg:text-3xl md:text-xl text-lg font-bold mb-2 capitalize">
-                  {data?.city?.name} {t("country.title")}
+                  {data?.city?.name} {t("city.heading")}
                 </h1>
                 <div className="flex items-center space-x-2">
                   <p className="lg:text-lg text-xs font-medium text-muted-foreground">
@@ -365,7 +365,7 @@ const CityPage = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="lg:text-3xl md:text-xl text-lg font-bold mb-2 capitalize">
-                  {t("country.title")} {data?.city?.name}
+                  {t("city.heading")} {data?.city?.name}
                 </h1>
                 <div className="flex items-center space-x-2">
                   <p className="lg:text-lg text-xs text-muted-foreground">
