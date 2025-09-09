@@ -16,11 +16,6 @@ const images = [
   { src: "/hadees-images/hadees-img-5.webp", alt: "Masjid al-Nabawi golden hour" },
   { src: "/hadees-images/hadees-img-6.webp", alt: "Minaret silhouettes at sunset" },
   { src: "/hadees-images/hadees-img-7.webp", alt: "Minaret silhouettes at sunset" },
-  { src: "/hadees-images/hadees-img-8.webp", alt: "Minaret silhouettes at sunset" },
-  { src: "/hadees-images/hadees-img-9.webp", alt: "Minaret silhouettes at sunset" },
-  { src: "/hadees-images/hadees-img-10.webp", alt: "Minaret silhouettes at sunset" },
-  { src: "/hadees-images/hadees-img-11.webp", alt: "Minaret silhouettes at sunset" },
-  { src: "/hadees-images/hadees-img-12.webp", alt: "Minaret silhouettes at sunset" },
 ]
 
 function StoryImageSec() {
@@ -64,11 +59,9 @@ function StoryImageSec() {
   };
 
   useEffect(() => {
-    // Start the timer when component mounts or when it needs to
     startTimer();
 
     return () => {
-      // Cleanup timer when the component unmounts
       clearTimer();
     };
   }, [])
@@ -136,7 +129,7 @@ function StoryImageSec() {
                   alt={image.alt}
                   width={80}
                   height={80}
-                  loading="eager"
+                  priority
                   className="w-20 h-20 object-cover rounded-lg"
                 />
               </div>
@@ -144,7 +137,6 @@ function StoryImageSec() {
           ))}
         </Swiper>
 
-        {/* Custom Navigation Arrows - Positioned Opposite and Centered */}
         <button
           aria-label="previmgslide"
           id="previmgslide"
