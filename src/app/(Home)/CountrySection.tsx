@@ -27,78 +27,54 @@ const destinations = [
   },
   {
     id: 3,
-    name: 'India',
-    image: '/country-slider/india.webp',
-    alt: 'Indian cityscape with historic temples and architecture'
-  },
-  {
-    id: 4,
     name: 'Libya',
     image: '/country-slider/libya.webp',
     alt: 'Libya cityscape with historic temples and architecture'
   },
   {
-    id: 5,
+    id: 4,
     name: 'Lebanon',
     image: '/country-slider/lebanon.webp',
     alt: 'Lebanon cityscape with historic temples and architecture'
   },
   {
-    id: 6,
-    name: 'Jordan',
-    image: '/country-slider/jordan.webp',
-    alt: 'Jordan cityscape with historic temples and architecture'
-  },
-  {
-    id: 7,
+    id: 5,
     name: 'Palestine',
     image: '/country-slider/palestine.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 8,
+    id: 6,
     name: 'Iraq',
     image: '/country-slider/iraq.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 9,
+    id: 7,
     name: 'Bangladesh',
     image: '/country-slider/bangladesh.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 10,
-    name: 'Afghanistan',
-    image: '/country-slider/afghanistan.webp',
-    alt: 'Indian cityscape with historic temples and architecture'
-  },
-  {
-    id: 11,
+    id: 8,
     name: 'Germany',
     image: '/country-slider/germany.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 12,
+    id: 9,
     name: 'Spain',
     image: '/country-slider/spain.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 13,
-    name: 'Indonesia',
-    image: '/country-slider/indonesia.webp',
-    alt: 'Indian cityscape with historic temples and architecture'
-  },
-  {
-    id: 14,
+    id: 10,
     name: 'Philippines',
     image: '/country-slider/philippines.webp',
     alt: 'Indian cityscape with historic temples and architecture'
   },
   {
-    id: 15,
+    id: 11,
     name: 'Switzerland',
     image: '/country-slider/switzerland.webp',
     alt: 'Indian cityscape with historic temples and architecture'
