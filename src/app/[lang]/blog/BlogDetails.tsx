@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { checkIsPathnameIsEqualToLang, urlSplitter } from "@/lib";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 interface BlogDetailsProps {
   blog: any;
@@ -140,14 +141,15 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
         {blog?.blog_title}
       </h1>
 
+        <Link href={`/${lang}/author/sheikh-abdur-rehman`}>
       <div className="flex items-center pt-16 ml-12">
-        <Image
+        <img
           className="rounded-full"
           src={blog?.blog_author_gravatar}
           alt="author-avatar"
           width={40}
           height={40}
-          priority={true}
+          fetchPriority="high"
         />
         <div className="ml-3">
           <p className="font-bold text-sm lg:text-lg">
@@ -158,13 +160,14 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
           </p>
         </div>
       </div>
-      <Image
+        </Link>
+      <img
         className="m-auto mt-4 rounded-lg"
         src={blog?.blog_featured_image_url}
         alt={blog?.blog_featured_image_alt}
         height={1000}
         width={1000}
-        priority={true}
+        fetchPriority="high"
       />
       <div className="w-[1000px] mx-auto">
         <span
@@ -203,8 +206,9 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
         </div>
       </div>
       <div className="pb-20 pt-4">
+        <Link href={`/${lang}/author/sheikh-abdur-rehman`}>
         <div className="flex items-center gap-3 justify-center mt-12">
-          <Image
+          <img
             className="rounded-full"
             src={blog?.blog_author_gravatar}
             alt="author-avatar"
@@ -215,6 +219,7 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
             Author: <span> {blog?.blog_author_name}</span>
           </h2>
         </div>
+        </Link>
         <div>
           <p className="text-center w-[80%] m-auto mt-4">
             {t("blog.authordesc")}
