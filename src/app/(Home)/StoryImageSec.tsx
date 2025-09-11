@@ -157,7 +157,6 @@ function StoryImageSec() {
       {showModal && (
         <div onClick={closeModal} className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
           <div className="relative w-full max-w-2xl">
-            {/* Progress Bar */}
             <div className="absolute -top-10 left-0 w-full h-1 bg-gray-700">
               <div
                 className="h-full bg-[#1e8e67] transition-all"
