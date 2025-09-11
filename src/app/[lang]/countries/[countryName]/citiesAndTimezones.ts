@@ -1948,7 +1948,6 @@ export const countriesData: { [country: string]: CountryData } = {
         { "name": "Luxembourg City", latitude: 49.6117, longitude: 6.13 },
         { "name": "Ettelbruck", latitude: 49.8672, longitude: 6.1222 },
         { "name": "Differdange", latitude: 49.5475, longitude: 5.9517 },
-        { "name": "Esch-sur-Alzette", latitude: 49.8672, longitude: 6.1222 },
       ]
     }
   },

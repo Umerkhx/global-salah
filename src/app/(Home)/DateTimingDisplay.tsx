@@ -323,10 +323,10 @@ function DateTimingDisplay() {
     setActiveIndex(newIndex)
 
     if (newIndex === 0) {
-      setCurrentDate(subDays(new Date(), 1))
+      setCurrentDate(subDays(new Date(), 0))
     } else if (newIndex === 1) {
       setCurrentDate(new Date())
-    } else if (newIndex === 2) {
+    } else if (newIndex === 1) {
       setCurrentDate(addDays(new Date(), 1))
     }
   }, [])
@@ -368,7 +368,7 @@ function DateTimingDisplay() {
                   }`}
                   onClick={() => {
                     setActiveIndex(0)
-                    setCurrentDate(subDays(new Date(), 1))
+                    setCurrentDate(subDays(new Date(), 0))
                   }}
                 >
                   {t("CurrentNamazTime.yesterday") || "Yesterday"}
@@ -398,7 +398,7 @@ function DateTimingDisplay() {
                   }`}
                   onClick={() => {
                     setActiveIndex(2)
-                    setCurrentDate(addDays(new Date(), 1))
+                    setCurrentDate(addDays(new Date(), 0))
                   }}
                 >
                   {t("CurrentNamazTime.tomorrow") || "Tomorrow"}

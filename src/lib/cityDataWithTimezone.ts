@@ -4499,13 +4499,6 @@ export const countriesData: CountryData[] = [
         timezone: "Europe/Luxembourg",
         latitude: 49.5250,
         longitude: 5.8906
-      },
-      {
-        name: "Esch-sur-Alzette",
-        countryCode: "LU",
-        timezone: "Europe/Luxembourg",
-        latitude: 49.4958,
-        longitude: 5.9806
       }
     ]
   },
