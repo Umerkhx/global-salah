@@ -14,19 +14,8 @@ export default function DuaSection() {
     const isLang = checkIsPathnameIsEqualToLang(currentLang)
     const { t } = useTranslation("duasection")
     const isArabic = pathname.split("/")[1]
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        localStorage.setItem("loading", "true");
-        setIsLoading(true);
 
-        const timer = setTimeout(() => {
-            localStorage.setItem("loading", "false");
-            setIsLoading(false);
-        }, 800);
-
-        return () => clearTimeout(timer);
-    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {

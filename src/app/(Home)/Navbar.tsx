@@ -17,14 +17,11 @@ function Navbar() {
   const { t } = useTranslation("navigation")
   const pathname = usePathname()
   const currentLang = urlSplitter(pathname)
-
   const isLang = checkIsPathnameIsEqualToLang(currentLang)
-
-  // Simulate translation loading state
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 500) // fake delay
+    const timeout = setTimeout(() => setLoading(false), 500) 
     return () => clearTimeout(timeout)
   }, [])
 
