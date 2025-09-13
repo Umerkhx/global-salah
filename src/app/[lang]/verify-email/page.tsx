@@ -3,7 +3,7 @@ import VerifyEmailPage from './VerifyEmailPage'
 
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
 
   let title = 'Verify Your Email – Global Salah';
   let description = 'Confirm your email to complete your registration on Global Salah. Stay connected with the community and access all features seamlessly. Verify now!';
@@ -65,11 +65,11 @@ export async function generateMetadata({ params }: any) {
       'x-default': `https://globalsalah.com/en/verify-email`,
     },
     robots: {
-      index: false,
+    index: false,
       follow: false,
       nocache: false,
       googleBot: {
-      index: false,
+    index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,

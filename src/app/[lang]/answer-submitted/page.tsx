@@ -2,7 +2,7 @@ import React from 'react'
 import AnswerSubmitted from './AnswerSubmitted'
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
 
   let title = '';
   let description = '';
@@ -69,11 +69,11 @@ export async function generateMetadata({ params }: any) {
       },
     },
     robots: {
-      index: false,
+    index: false,
       follow: false,
       nocache: false,
       googleBot: {
-      index: false,
+    index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,

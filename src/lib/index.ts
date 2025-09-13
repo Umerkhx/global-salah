@@ -25,7 +25,6 @@ export function urlSplitter(pathname: string): string {
   if (supportedLangs.includes(firstSegment)) {
     result = firstSegment
   } else {
-    // Check for partial matches
     for (const lang of supportedLangs) {
       const langCode = lang.split("-")[0]
       if (firstSegment.startsWith(langCode) && firstSegment.length > langCode.length) {

@@ -4,7 +4,7 @@ import Blogs from "./Blogs";
 
 
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
-  const lang = params.lang;
+  const lang = await params.lang;
 
   let title = '';
   let description = '';

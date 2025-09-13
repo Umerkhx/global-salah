@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 const countryLangMap: Record<string, string> = {
@@ -197,25 +198,39 @@ const countryLangMap: Record<string, string> = {
   };
 
 const HtmlLangSetter = () => {
+  const pathname = usePathname();
+
   useEffect(() => {
-    const setLang = async () => {
-      try {
-        const res = await fetch("https://pro.ip-api.com/json/?key=kHg84ht9eNasCRN");
-        const data = await res.json();
+    const pathLangMatch = pathname.match(
+      /^\/(en|ar|ur|pt|de|zh(?:-[A-Z]{2})?|tr|ru|es|fr)(\/|$)/
+    );
+    if (pathLangMatch && pathLangMatch[1].startsWith("zh")) {
+      pathLangMatch[1] = "zh";
+    }
 
-        const countryCode = data?.countryCode;
-        const lang = countryLangMap[countryCode] || "en";
+    if (pathLangMatch) {
+      // ✅ URL lang priority
+      document.documentElement.lang = pathLangMatch[1];
+    } else {
+      // 🌍 fallback (only first time, or if no lang in URL)
+      (async () => {
+        try {
+          const res = await fetch(
+            "https://pro.ip-api.com/json/?key=kHg84ht9eNasCRN"
+          );
+          const data = await res.json();
+          const countryCode = data?.countryCode;
+          const lang = countryLangMap[countryCode] || "en";
 
-        document.documentElement.lang = lang;
-      } catch (error) {
-        console.error("Error setting HTML lang:", error);
-      }
-    };
+          document.documentElement.lang = lang;
+        } catch (error) {
+          console.error("Error setting HTML lang:", error);
+        }
+      })();
+    }
+  }, [pathname]); // 🔑 runs every time URL path changes
 
-    setLang();
-  }, []);
-
-  return null; 
+  return null;
 };
 
 export default HtmlLangSetter;

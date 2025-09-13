@@ -3,7 +3,7 @@ import QuestionPage from "./single-question";
 import { getQuestionByTitle } from "@/services/forum";
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
   const titleSlug = params?.title as string;
 
   const metaslug = titleSlug
@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: any) {
         'x-default': `https://globalsalah.com/en/forum/${titleSlug}`,
       },
       robots: {
-      index: false,
+    index: false,
       follow: false,
         nocache: true,
         googleBot: {

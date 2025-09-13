@@ -3,7 +3,7 @@ import MadinaPage from './MadinaPage'
 
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
 
   let title = '';
   let description = '';
@@ -77,11 +77,11 @@ export async function generateMetadata({ params }: any) {
       'x-default': `https://globalsalah.com/en/madina-tv`,
     },
     robots: {
-      index: false,
+    index: false,
       follow: false,
       nocache: false,
       googleBot: {
-      index: false,
+    index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,

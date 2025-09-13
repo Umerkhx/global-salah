@@ -23,7 +23,7 @@ const HijirDivider = dynamic(() => import("../(Home)/HijirDivider"), {
 
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
 
   let title = '';
   let description = '';
@@ -93,8 +93,8 @@ export async function generateMetadata({ params }: any) {
       follow: false,
       nocache: false,
       googleBot: {
-      index: false,
-      follow: false,
+        index: true,
+        follow: true,
         noimageindex: false,
         'max-video-preview': -1,
         'max-image-preview': 'large',

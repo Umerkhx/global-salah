@@ -32,11 +32,8 @@ export default function LanguageSwitcher() {
   const [currentLang, setCurrentLang] = useState<Language>(languages[0])
   const [hasMounted, setHasMounted] = useState(false)
 
-  // Helper: check if current path is a blog detail page
   const isBlogDetail = () => {
-    // Example: /en/blog/blog-title
     const parts = pathname.split("/")
-    // ["", "en", "blog", "blog-title"]
     return parts.length >= 4 && parts[2] === "blog" && !!parts[3]
   }
 
@@ -75,7 +72,7 @@ export default function LanguageSwitcher() {
           localStorage.setItem("loading", "false")
         }, 2000)
       } else {
-        const browserLang = navigator.language.split("-")[0]
+        const browserLang = navigator.languages?.[0]?.split("-")[0] || "en"
         const defaultLang = languages.find((lang) => lang.code === browserLang) ? browserLang : "en"
         const selectedLang = languages.find((lang) => lang.code === defaultLang)!
 
@@ -142,24 +139,24 @@ export default function LanguageSwitcher() {
           className={cn(
             "w-[180px] p-2 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg mt-2 ",
           )}
-        >  
+        >
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
               onClick={() => changeLanguage(lang)}
               className={cn(
-          "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer outline-none group",
-          currentLang.code === lang.code
-            ? "bg-gray-100 dark:bg-gray-700"
-            : "hover:bg-gray-50 dark:hover:bg-gray-950",
+                "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer outline-none group",
+                currentLang.code === lang.code
+                  ? "bg-gray-100 dark:bg-gray-700"
+                  : "hover:bg-gray-50 dark:hover:bg-gray-950",
               )}
             >
               <Image
-          src={lang.flag || "/placeholder.svg"}
-          alt={`${lang.label} flag`}
-          width={30}
-          height={30}
-          className="rounded-full"
+                src={lang.flag || "/placeholder.svg"}
+                alt={`${lang.label} flag`}
+                width={30}
+                height={30}
+                className="rounded-full"
               />
               <span className="text-sm font-medium text-black dark:text-zinc-100">{lang.label}</span>
             </DropdownMenuItem>

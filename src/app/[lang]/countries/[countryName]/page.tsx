@@ -3,7 +3,7 @@ import CountryPage from './CountryPage'
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: any) {
-  const lang = params.lang;
+  const lang = await params.lang;
   const country = params.countryName;
   const countryName = country.charAt(0).toUpperCase() + country.slice(1);
 
@@ -85,11 +85,11 @@ export async function generateMetadata({ params }: any) {
       },
     },
     robots: {
-      index: false,
+    index: false,
       follow: false,
       nocache: false,
       googleBot: {
-      index: false,
+    index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,
