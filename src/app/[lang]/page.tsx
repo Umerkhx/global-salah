@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: any) {
       nocache: false,
       googleBot: {
         index: false,
-        follow: false,
+      follow: false,
         noimageindex: false,
         'max-video-preview': -1,
         'max-image-preview': 'large',

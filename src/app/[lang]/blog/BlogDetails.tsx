@@ -85,28 +85,28 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
   }, [lang, isLang])
 
 
-  const cleanSchema = (schemaString: string) => {
-    try {
-      try {
-        const parsedSchema = JSON.parse(schemaString);
-        return parsedSchema;
-      } catch {
-        console.log("Schema is not valid JSON; applying transformations...");
-      }
+  // const cleanSchema = (schemaString: string) => {
+  //   try {
+  //     try {
+  //       const parsedSchema = JSON.parse(schemaString);
+  //       return parsedSchema;
+  //     } catch {
+  //       console.log("Schema is not valid JSON; applying transformations...");
+  //     }
 
-      const validSchema = schemaString
-        .replace(/\s*}\s*{/g, "},{")
-        .replace(/^{/, "[{")
-        .replace(/}$/, "}]");
+  //     const validSchema = schemaString
+  //       .replace(/\s*}\s*{/g, "},{")
+  //       .replace(/^{/, "[{")
+  //       .replace(/}$/, "}]");
 
-      // Step 3: Parse the transformed string
-      return JSON.parse(validSchema);
-    } catch (error: any) {
-      console.error("Error parsing schema:", error.message);
-      return null;
-    }
-  };
-  const schema = cleanSchema(blog?.custom_schema);
+  //     // Step 3: Parse the transformed string
+  //     return JSON.parse(validSchema);
+  //   } catch (error: any) {
+  //     console.error("Error parsing schema:", error.message);
+  //     return null;
+  //   }
+  // };
+  // const schema = cleanSchema(blog?.custom_schema);
 
 
 
@@ -115,13 +115,7 @@ const BlogDetails = ({ blog }: BlogDetailsProps) => {
 
   return (
     <div className="container max-w-[1100px] m-auto pt-3">
-      <script
-        type="application/ld+json"
-        id="schema"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      >
-        {/* {schema} */}
-      </script>
+
       <meta property="og:title" content={blog?.blog_title} />
       <meta property="og:description" content={blog?.blog_description} />
       <meta property="og:image" content={blog?.blog_featured_image_url} />

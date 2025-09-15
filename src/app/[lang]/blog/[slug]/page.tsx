@@ -33,10 +33,58 @@ export const generateMetadata = async ({
   };
 };
 
-const Page = async ({ params }: { params: { slug: string } }) => {
-   const blog = await getBlogBySlug(params.slug);
+const Page = async ({ params }: { params: { slug: string; lang: string } }) => {
+  const blog = await getBlogBySlug(params.slug);
 
-  return <BlogDetails blog={blog} />;
+  const stripHtmlAndLimit = (text: string, maxLength = 170): string => {
+    const stripped = text.replace(/<[^>]*>/g, "")
+    const decoded = stripped.replace(/&[^;]+;/g, " ")
+    const cleaned = decoded.replace(/\s+/g, " ").trim()
+    if (cleaned.length <= maxLength) return cleaned
+    return cleaned.substring(0, maxLength).trim() + "..."
+  }
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://globalsalah.com/${params.lang}/blog/${blog.blog_slug}`,
+    },
+    headline: blog.blog_title,
+    description: stripHtmlAndLimit(blog.blog_description, 170),
+    image: {
+      "@type": "ImageObject",
+      url: blog.blog_featured_image_url,
+      width: 1080,
+      height: 608,
+    },
+    author: {
+      "@type": "Person",
+      name: blog.blog_author_name,
+      url: `https://globalsalah.com/${params.lang}/author/${blog.blog_author_name.toLowerCase().replace(/\s+/g, "-")}`,
+      image: "https://globalsalah.com/public/globalsalah-author.webp",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Global Salah",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://globalsalah.com/public/global-logo.png",
+        width: 512,
+        height: 512,
+      },
+    },
+    datePublished: blog.blog_posted_date,
+    dateModified: blog.blog_posted_date,
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <BlogDetails blog={blog} />
+    </>
+  );
 };
 
 export default Page;
