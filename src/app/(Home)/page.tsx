@@ -1,22 +1,10 @@
-// app/page.tsx
-import { headers } from "next/headers"
-import { permanentRedirect } from "next/navigation"
 
-const supportedLangs = ["en", "fr", "ar", "ur", "pt", "de", "zh-CN", "tr", "ru", "es"]
 
 export default async function Home() {
-  const acceptLang = (await headers()).get("accept-language") || ""
-  let lang = acceptLang.split(",")[0].toLowerCase()
-
-  if (lang.startsWith("zh")) {
-    lang = "zh-CN"
-  } else {
-    lang = lang.slice(0, 2)
-  }
-
-  if (!supportedLangs.includes(lang)) {
-    lang = "en"
-  }
-
-  permanentRedirect(`/${lang}`)
+ <div className="h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold">This is the root `/` page</h1>
+      <p className="mt-4 text-lg text-gray-600">
+        If you are seeing this page, middleware redirect is NOT running.
+      </p>
+    </div>
 }
