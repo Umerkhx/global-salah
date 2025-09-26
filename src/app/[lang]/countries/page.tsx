@@ -71,11 +71,11 @@ export async function generateMetadata({ params }: any) {
       },
     },
     robots: {
-    index: false,
+ index: false,
       follow: false,
       nocache: false,
       googleBot: {
-    index: false,
+ index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,
@@ -271,6 +271,7 @@ const page = () => {
     { name: 'Zimbabwe', code: 'ZW', timezone: 'Africa/Harare', offset: '+02:00' },
   ];
   return (
+    
     <CountriesList countries={countries} />
   )
 }

@@ -11,9 +11,9 @@ function CityContent({ country, city, arabic }: any) {
             <div className=" my-8 pb-6 border-b border-gray-200 ">
                 <div className="flex items-center md:justify-start justify-center mb-4">
                     <MapPin className="w-8 h-8 text-emerald-600 mr-3" />
-                    <h1 className="text-4xl font-bold ">
+                    <h2 className="text-4xl font-bold ">
                         {t("city.heading")} <span className='capitalize'>{city}, {country}</span> 
-                    </h1>
+                    </h2>
                 </div>
                 <div className='flex items-center md:justify-start justify-center '>
                     <p className="md:text-base text-sm text-muted-foreground  leading-relaxed">

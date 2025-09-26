@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://blogs.globalsalah.com/wp-json/custom-blog-api/v1";
+  "https://globalsalahblogs.teckteam.org/wp-json/custom-blog-api/v1";
 
 const TOKEN =
   "347f7627d6c4765cf911391a34a3319e2140859fbc723ebefeb4f2f39d8a1d67";

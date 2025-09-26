@@ -64,23 +64,19 @@ function HijirDivider() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 scale-90 lg:scale-100">
       <div className="relative rounded-2xl overflow-hidden bg-black py-10 flex items-center justify-center">
-        {/* Gradient background */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-emerald-800 to-black" />
 
-        {/* Horizon Glow */}
         <div className="absolute bottom-0 left-0 right-0 h-[200px]">
           <div className="w-full h-full rounded-[50%] bg-gradient-to-t from-emerald-700/70 to-transparent blur-3xl" />
           <div className="absolute inset-x-0 bottom-0 h-[40px] bg-white/80 blur-lg rounded-full" />
         </div>
 
-        {/* Overlay for text readability */}
         <div className="absolute inset-0 bg-black/30" />
 
-        {/* Content */}
         <div className="relative z-10 text-center text-white px-6 space-y-4">
-          <h1 className="text-2xl md:text-4xl font-bold animate-fade-in drop-shadow-lg">
+          <h2 className="text-2xl md:text-4xl font-bold animate-fade-in drop-shadow-lg">
             {t("HijriDivider.dividertitle")}
-          </h1>
+          </h2>
 
           {location.city && location.country && (
             <h2 className="text-lg md:text-xl font-medium animate-fade-in drop-shadow-md">

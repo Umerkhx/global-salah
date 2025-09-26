@@ -9,7 +9,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const decodedSlug = decodeURIComponent(params.slug);
   const response = await fetch(
-    `https://blogs.globalsalah.com/wp-json/custom-blog-api/v1/blog/${decodedSlug}`,
+    `https://globalsalahblogs.teckteam.org/wp-json/custom-blog-api/v1/blog/${decodedSlug}`,
     {
       headers: {
         Authorization: `Bearer 347f7627d6c4765cf911391a34a3319e2140859fbc723ebefeb4f2f39d8a1d67`,

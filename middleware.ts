@@ -19,7 +19,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all forum routes in all languages
     "/:lang/forum/:title*",
     "/forum/:title*",
   ],

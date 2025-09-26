@@ -1,0 +1,64 @@
+# Global Salah Website Robots TXT updated 25 September 2025 12:37:24 PM
+
+User-agent: *
+Allow: /
+Allow: *.js
+Allow: *.css
+
+Disallow: /cgi-bin/
+Disallow: /en/admin/
+Disallow: /ar/admin/
+Disallow: /fr/admin/
+Disallow: /en/about-us
+Disallow: /ar/about-us
+Disallow: /fr/about-us
+Disallow: /en/contact-us
+Disallow: /ar/contact-us
+Disallow: /fr/contact-us
+Disallow: /en/terms-and-conditions
+Disallow: /ar/terms-and-conditions
+Disallow: /fr/terms-and-conditions
+Disallow: /en/privacy-policy
+Disallow: /ar/privacy-policy
+Disallow: /fr/privacy-policy
+Disallow: /enfr/
+Disallow: /hadees/
+Disallow: /api/
+Disallow: /en/enur/
+Disallow: /en/enar/
+Disallow: /en/enenur/
+Disallow: /en/enru/
+Disallow: /en/entr/
+Disallow: /en/enes/
+Disallow: /en/enzh-CN/
+Disallow: /en/enende/
+Disallow: /en/enpt/
+Disallow: /en/ende/
+Disallow: /locales/
+Disallow: /en/enfr/
+Disallow: /enpt
+Disallow: /enes
+Disallow: /enar
+Disallow: /enzh-CN
+Disallow: /enur
+Disallow: /entr
+Disallow: /enru
+Disallow: /ende
+Disallow: /enen
+Disallow: /enfr
+Disallow: /placeholder.svg
+
+User-agent: bingbot
+Crawl-delay: 10
+
+Sitemap: https://globalsalah.com/sitemap.xml
+Sitemap: https://globalsalah.com/en/sitemap.xml
+Sitemap: https://globalsalah.com/ar/sitemap.xml
+Sitemap: https://globalsalah.com/fr/sitemap.xml
+Sitemap: https://globalsalah.com/es/sitemap.xml
+Sitemap: https://globalsalah.com/zh-CN/sitemap.xml
+Sitemap: https://globalsalah.com/de/sitemap.xml
+Sitemap: https://globalsalah.com/tr/sitemap.xml
+Sitemap: https://globalsalah.com/pt/sitemap.xml
+Sitemap: https://globalsalah.com/ur/sitemap.xml
+Sitemap: https://globalsalah.com/ru/sitemap.xml

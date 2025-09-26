@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { PrayerTimes, CalculationMethod, Madhab } from 'adhan';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Sun, Sunrise, Moon, Calendar, Search } from 'lucide-react';
@@ -11,8 +11,8 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTranslation } from '@/hooks/useTranslation';
 import CityContent from './CityContent';
+import { urlSplitter } from '@/lib';
 
-// Types
 interface PrayerTime {
   date: string;
   fajr: string;
@@ -29,12 +29,6 @@ interface City {
   longitude: number;
   timezone: string;
   countryCode: string;
-}
-
-interface CountryData {
-  name: string;
-  code: string;
-  cities: City[];
 }
 
 interface ApiResponse {
@@ -57,7 +51,6 @@ const countryToMethod = {
   PK: CalculationMethod.Karachi,
 };
 
-// Helper functions
 const formatMonthlyDate = (dateString: string): string => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -71,20 +64,21 @@ const CityPage = () => {
   const [nextPrayer, setNextPrayer] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string | null>(null);
+  const [currentDate, setCurrentDate] = useState<string | null>(null);
   const [data, setData] = useState<ApiResponse | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation("city");
-
-  // Get URL params
+   const router = useRouter()
   const pathname = usePathname();
   const parts = pathname.split("/");
   const currentLang = parts[1];
-  const isArabic = currentLang === 'ar';
+  const isArabic = currentLang === 'ar' || currentLang === 'ur' ;
   const countryName = parts[3];
   const cityName = parts[4];
+  const lang = urlSplitter(pathname);
 
-  // Prayer names based on language
+
   const prayerNames = {
     fajr: isArabic ? "الفجر" : "fajr",
     sunrise: isArabic ? "الشروق" : "sunrise",
@@ -94,35 +88,35 @@ const CityPage = () => {
     isha: isArabic ? "العشاء" : "isha",
   };
 
-  // Fetch city data
   useEffect(() => {
     const fetchCityData = async () => {
       setIsLoading(true);
       try {
-        // Use the correct API path
         const response = await fetch(
           `/api/city-data?country=${encodeURIComponent(countryName)}&city=${encodeURIComponent(cityName)}`
         );
 
         if (!response.ok) {
+          router.push(`/${lang}`)
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const cityData = await response.json();
 
         if (cityData.error) {
+          router.push(`/${lang}`)
           throw new Error(cityData.error);
         }
 
         setData(cityData);
         setError(null);
 
-        // Calculate prayer times if data is available
         if (cityData.city?.timezone) {
           calculatePrayerTimes(cityData.city.timezone);
           calculateMonthlyPrayerTimes(cityData.city.timezone);
         }
       } catch (err) {
+        router.push(`/${lang}`)
         setError(err instanceof Error ? err.message : "An unknown error occurred");
       } finally {
         setIsLoading(false);
@@ -139,6 +133,13 @@ const CityPage = () => {
       dateStyle: "long",
     });
     setCurrentTime(formatter.format(new Date()));
+  };
+  const updateCurrentDate = (timezone: string) => {
+    const formatter = new Intl.DateTimeFormat("en-US", {
+      timeZone: timezone,
+      dateStyle: "long",
+    });
+    setCurrentDate(formatter.format(new Date()));
   };
 
   const getNextPrayer = (prayerTimes: PrayerTimes, dateInCity: Date) => {
@@ -183,8 +184,8 @@ const CityPage = () => {
       return;
     }
 
-    const methodFn = countryCode && countryToMethod.hasOwnProperty(countryCode) 
-      ? countryToMethod[countryCode as keyof typeof countryToMethod] 
+    const methodFn = countryCode && countryToMethod.hasOwnProperty(countryCode)
+      ? countryToMethod[countryCode as keyof typeof countryToMethod]
       : CalculationMethod.MuslimWorldLeague;
     const method = methodFn();
     method.madhab = Madhab[selectedMadhab];
@@ -227,8 +228,8 @@ const CityPage = () => {
       return;
     }
 
-    const methodFn = countryCode && countryCode in countryToMethod 
-      ? countryToMethod[countryCode as keyof typeof countryToMethod] 
+    const methodFn = countryCode && countryCode in countryToMethod
+      ? countryToMethod[countryCode as keyof typeof countryToMethod]
       : CalculationMethod.MuslimWorldLeague;
     const method = methodFn();
     method.madhab = Madhab[selectedMadhab];
@@ -272,6 +273,7 @@ const CityPage = () => {
 
       const interval = setInterval(() => {
         updateCurrentTime(data.city.timezone);
+        updateCurrentDate(data.city.timezone);
       }, 1000);
 
       return () => clearInterval(interval);
@@ -309,7 +311,6 @@ const CityPage = () => {
         </div>
       ) : (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
-          {/* Breadcrumb */}
           {isArabic ? (
             <div className={`mb-6 flex items-center justify-end text-sm text-muted-foreground`}>
               <span className="capitalize text-foreground">{data?.city?.name}</span>
@@ -379,7 +380,17 @@ const CityPage = () => {
             </div>
           )}
 
-          {/* Prayer Times Card */}
+          <div className='mb-6'>
+            <p className='md:text-base text-sm '>
+              <b>{data?.city?.name} {t("city.sub_para")} </b> {t("city.for")} {currentDate} {t("city.are")}:
+              <b> {t("CurrentNamazTime.namazfajr")} {prayerTimes?.fajr}</b>,
+               <b> {t("CurrentNamazTime.namazdhuhr")} {prayerTimes?.dhuhr}</b>,
+               <b> {t("CurrentNamazTime.namazasr")} {prayerTimes?.asr}</b>,
+               <b> {t("CurrentNamazTime.namazmaghrib")} {prayerTimes?.maghrib}</b>,
+                <b>{t("CurrentNamazTime.namazisha")} {prayerTimes?.isha}</b>. {t("city.sub_para_1")} <b>{t("city.sub_keyword")}</b> {t("city.sub_para_2")}
+            </p>
+          </div>
+
           <Card className="mb-8">
             <CardContent className="pt-6">
               <div className="flex justify-end items-center px-3 py-4">
@@ -551,7 +562,7 @@ const CityPage = () => {
             )}
           </div>
 
-          <CityContent country={countryName} city={cityName}  arabic={isArabic}/>
+          <CityContent country={countryName} city={cityName} arabic={isArabic} />
 
 
           {isArabic ? (
@@ -645,11 +656,11 @@ const CityPage = () => {
             </div>
           )}
 
-            <div className="mt-12 pt-6 border-t border-gray-200 text-center">
-        <p className="text-muted-foreground italic">
-          {t("city.footerline1")} <span className='capitalize'>{cityName}, {countryName}</span>. {t("city.footerline2")}
-        </p>
-      </div>
+          <div className="mt-12 pt-6 border-t border-gray-200 text-center">
+            <p className="text-muted-foreground italic">
+              {t("city.footerline1")} <span className='capitalize'>{cityName}, {countryName}</span>. {t("city.footerline2")}
+            </p>
+          </div>
 
         </div>
       )}

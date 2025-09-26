@@ -7,6 +7,9 @@ import Footer from "./(Home)/Footer";
 import Navbar from "./(Home)/Navbar";
 import "./globals.css";
 import HtmlLangSetter from "@/components/HtmlLangSetter";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -17,14 +20,17 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Global Salah",
-  description: "Global Salah is a platform that helps you find the most accurate prayer times for your location.",
+  title: {
+    template: "%s | Global Salah",
+    default: "Global Salah - Accurate Prayer Times and Qibla Direction",
+  },
+  description: "Global Salah is a platform that provides the most accurate prayer times, Qibla direction, and Islamic resources for your location, ensuring you never miss a prayer.",
   robots: {
     index: false,
     follow: false,
-    nocache: false,
+    nocache: true,
     googleBot: {
-    index: false,
+      index: false,
       follow: false,
       noimageindex: false,
       'max-video-preview': -1,
@@ -109,6 +115,9 @@ export default function RootLayout({
           <Navbar />
           <Toaster richColors />
           {children}
+          <Analytics />
+          <SpeedInsights />
+
           <Footer />
         </ThemeProvider>
       </body>

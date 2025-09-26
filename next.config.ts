@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "blogs.globalsalah.com",
+        hostname: "globalsalahblogs.teckteam.org",
         pathname: "/wp-content/uploads/**",
       },
       {

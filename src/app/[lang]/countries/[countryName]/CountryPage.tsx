@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Banner } from "./Banner";
 import { PrayerTimesTable } from "./PrayerTimeTable";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight} from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { timezoneMapping } from "../timzone";
+import { urlSplitter } from "@/lib";
 
 type CityPrayerTimes = {
   name: string;
@@ -49,6 +50,9 @@ export default function CountryPage() {
   const [country, setCountry] = useState<CountryData | null>(null);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState<string>("");
+    const lang = urlSplitter(pathname);
+  
+  const router = useRouter();
 
   const { t } = useTranslation("country")
 
@@ -73,6 +77,7 @@ export default function CountryPage() {
         );
 
         if (!response.ok) {
+          router.push(`/${lang}`)
           throw new Error("Country not found");
         }
 
@@ -709,7 +714,7 @@ export default function CountryPage() {
   }
 
   if (!country) {
-    return <div>Country not found</div>;
+    return null;
   }
   const isArabic = pathname.split("/")[1]
 

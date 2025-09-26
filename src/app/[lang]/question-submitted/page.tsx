@@ -67,11 +67,11 @@ export async function generateMetadata({ params }: any) {
       'x-default': `https://globalsalah.com/en/question-submitted`,
     },
     robots: {
-    index: false,
+ index: false,
       follow: false,
       nocache: false,
       googleBot: {
-    index: false,
+ index: false,
       follow: false,
         noimageindex: false,
         "max-video-preview": -1,

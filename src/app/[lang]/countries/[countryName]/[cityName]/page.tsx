@@ -70,12 +70,12 @@ export async function generateMetadata({ params }: any) {
       'x-default': `https://globalsalah.com/en/countries/${country}/${city}`,
     },
     robots: {
-    index: false,
+      index: false,
       follow: false,
       nocache: false,
       googleBot: {
-    index: false,
-      follow: false,
+        index: true,
+        follow: true,
         noimageindex: false,
         "max-video-preview": -1,
         "max-image-preview": "large",
@@ -87,9 +87,61 @@ export async function generateMetadata({ params }: any) {
 
 
 
-function page() {
+async function page({ params }: any) {
+
+  const lang = await params.lang;
+  const country = await params.countryName;
+  const city = await params.cityName;
+  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+  const countryName = country.charAt(0).toUpperCase() + country.slice(1);
+
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": `https://globalsalah.com/${lang}`,
+          name: "Home",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@id": `https://globalsalah.com/${lang}/countries`,
+          name: "Countries",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@id": `https://globalsalah.com/${lang}/countries${country}/`,
+          name: countryName,
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        item: {
+          "@id": `https://globalsalah.com/${lang}/countries${country}/${city}/`,
+          name: cityName,
+        },
+      },
+    ],
+  }
   return (
-    <div><CityData/></div>
+    <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CityData />
+    </div>
   )
 }
 
