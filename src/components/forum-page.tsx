@@ -401,15 +401,7 @@ export default function ForumPage({
                                   <div className="mt-4 pt-4 border-t border-primary/10 bg-muted/30 p-3 rounded-md">
                                     <div className="flex flex-col justify-start md:flex-row md:justify-between md:items-center items-start  mb-2 text-sm">
                                       <div className="flex items-center gap-2">
-                                        {/* <Avatar className="h-5 w-5 border border-primary/20"> */}
-                                        {/* <AvatarImage
-                                        src={firstAnswer.user.avatar}
-                                        alt={firstAnswer.author.name}
-                                      /> */}
-                                        {/* <AvatarFallback className="bg-primary/10 text-primary">
-                                        {firstAnswer.author.initials}
-                                      </AvatarFallback> */}
-                                        {/* </Avatar> */}
+                                    
                                         <span className="font-medium">
                                           {firstAnswer.user.name}
                                         </span>
