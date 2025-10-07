@@ -33,18 +33,9 @@ export default function UserDropdown({
   const { t } = useTranslation("forum")
 
 
-  // useEffect(() => {
-  //   const user: any = localStorage.getItem("userData");
-  //   const parsedUser = JSON.parse(user);
-  //   setUserDetails(parsedUser);
-  // }, []);
 
   const onLogout = () => {
-    const updatedUserDetails = {
-      ...userDetails,
-      token: null,
-    };
-    localStorage.setItem("userData", JSON.stringify(updatedUserDetails));
+    localStorage.removeItem("userData");
     setIsLoggedIn(false);
   };
 

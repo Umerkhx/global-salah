@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import UserAvatar from "@/components/UserAvatar";
 import { urlSplitter } from "@/lib";
-import { getUserById, updateUserDetails } from "@/services/authentication";
 import { ArrowLeft, Loader2, Mail, Save, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,37 +19,35 @@ export default function EditProfilePage() {
   const router = useRouter();
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-  const { t } = useTranslation("forum")
+  const { t } = useTranslation("forum");
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState<any>(null);
   const [userDetails, setUserDetails] = useState<any>(null);
 
-  // useEffect(() => {
-  //   // Check if user is logged in
-  //   const userLoggedIn = localStorage.getItem("isLoggedIn") === "true"
-  //   if (!userLoggedIn) {
-  //     router.push(`/${lang}/forum`)
-  //   } else {
-  //     setIsLoggedIn(true)
-  //   }
-  // }, [router])
   const fetchUserById = async () => {
     try {
-      const response = await getUserById(userId);
-      if (response) {
-        setUserDetails(response.user);
-        setFullname(response.user.fullname);
-        setEmail(response.user.email);
+      const response = await fetch(`/api/users/get-user-by-id?id=${userId}`, {
+        method: "GET",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to fetch user");
       }
+
+      setUserDetails(data.user);
+      setFullname(data.user.fullname);
+      setEmail(data.user.email);
     } catch (error: any) {
       toast.error(error?.message);
     } finally {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     if (userId) {
       fetchUserById();
@@ -72,19 +68,28 @@ export default function EditProfilePage() {
     setIsLoading(true);
 
     try {
-      const response = await updateUserDetails(userId, fullname);
+      const response = await fetch(`/api/users/update-user`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: userId, fullname }),
+      });
 
-      if (response) {
+      const data = await response.json();
 
-        const updatedUserData = {
-          ...userDetails,
-          fullname,
-          token: "sadsa",
-        };
-        localStorage.setItem("userData", JSON.stringify(updatedUserData));
-        toast.success(response.message);
-        router.push(`/${lang}/forum`);
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update user");
       }
+
+      const updatedUserData = {
+        ...userDetails,
+        fullname,
+      };
+
+      localStorage.setItem("userData", JSON.stringify(updatedUserData));
+      toast.success(data.message || "Profile updated successfully");
+      router.push(`/${lang}/forum`);
     } catch (error: any) {
       toast.error(error?.message);
     } finally {
@@ -104,7 +109,9 @@ export default function EditProfilePage() {
       <Card className="border-primary/20 shadow-md">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold">{t("forum.editprofile")}</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              {t("forum.editprofile")}
+            </CardTitle>
             <Avatar className="h-12 w-12 border border-primary/20">
               <AvatarImage
                 src="/placeholder.svg?height=40&width=40"
@@ -115,9 +122,7 @@ export default function EditProfilePage() {
               </AvatarFallback>
             </Avatar>
           </div>
-          <CardDescription>
-            {t("forum.editprofiletitle")}
-          </CardDescription>
+          <CardDescription>{t("forum.editprofiletitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -125,7 +130,7 @@ export default function EditProfilePage() {
               <div className="space-y-2">
                 <Label htmlFor="name" className="flex items-center gap-2">
                   <User className="h-4 w-4 text-muted-foreground" />
-                 {t("forum.fullname")}
+                  {t("forum.fullname")}
                 </Label>
                 <Input
                   id="name"
@@ -148,7 +153,6 @@ export default function EditProfilePage() {
                   name="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   className="border-primary/20 focus-visible:ring-primary/30"
                   required
                 />
@@ -172,7 +176,7 @@ export default function EditProfilePage() {
             {isLoading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                 {t("forum.updating")}
+                {t("forum.updating")}
               </>
             ) : (
               <>

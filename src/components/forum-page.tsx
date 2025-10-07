@@ -34,19 +34,14 @@ export default function ForumPage({
   const router = useRouter();
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-  const { t } = useTranslation("forum")
-  const [questions, setQuestions] = useState<any>([]);
+  const { t } = useTranslation("forum");
+  const [questions, setQuestions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredQuestions, setFilteredQuestions] = useState(() =>
-    questions
-      ? questions.filter(
-        (question: any) => question.question_status === "approved")
-      : []
-  );
+  const [filteredQuestions, setFilteredQuestions] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [userDetailsInLS, setUserDetailsInLS] = useState<any>(null);
+  const [userId, setUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -64,21 +59,17 @@ export default function ForumPage({
     try {
       parsedUser = user ? JSON.parse(user) : null;
     } catch (error) {
-      console.error("Error parsing userData from localStorage:", error);
     }
     if (parsedUser) {
       setUserDetailsInLS(parsedUser);
-      if (
-        parsedUser.verification_status === 1 &&
-        parsedUser.token
-      ) {
+      if (parsedUser.verification_status === 1) {
         setIsVerified(true);
       }
     }
   }, []);
 
   useEffect(() => {
-    if (userDetailsInLS?.verification_status === 1 && userDetailsInLS?.token) {
+    if (userDetailsInLS?.verification_status === 1) {
       setIsVerified(true);
     } else {
       setIsVerified(false);
@@ -88,39 +79,37 @@ export default function ForumPage({
   const questionsPerPage = 10;
 
   const filterQuestions = useCallback(() => {
+    if (!questions || !Array.isArray(questions)) {
+      setFilteredQuestions([]);
+      return;
+    }
+
+    const approvedQuestions = questions.filter(
+      (question) =>
+        question.status === "approved" &&
+        question.lang === lang &&
+        typeof question.lang === "string"
+    );
+
     if (searchQuery.trim() === "") {
-      setFilteredQuestions(
-        questions.filter(
-          (question: any) => question.question_status === "approved"
-        )
-      );
+      setFilteredQuestions(approvedQuestions);
     } else {
       const lowercaseQuery = searchQuery.toLowerCase();
-      const filtered = questions.filter(
-        (question: any) =>
-          question.question_status === "approved" &&
-          question.title.toLowerCase().includes(lowercaseQuery)
+      setFilteredQuestions(
+        approvedQuestions.filter(
+          (question) =>
+            question.title &&
+            typeof question.title === "string" &&
+            question.title.toLowerCase().includes(lowercaseQuery)
+        )
       );
-      setFilteredQuestions(filtered);
     }
-    setCurrentPage(1);
-  }, [searchQuery]);
+  }, [questions, searchQuery, lang]);
 
   useEffect(() => {
     filterQuestions();
-  }, [searchQuery, filterQuestions]);
+  }, [questions, searchQuery, filterQuestions]);
 
-  useEffect(() => {
-    if (questions) {
-      setFilteredQuestions(
-        questions.filter(
-          (question: any) => question.question_status === "approved"
-        )
-      );
-    }
-  }, [questions]);
-
-  // Calculate pagination
   const indexOfLastQuestion = currentPage * questionsPerPage;
   const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const currentQuestions = filteredQuestions.slice(
@@ -133,36 +122,93 @@ export default function ForumPage({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
-  // const fetchAllQuestions = async () => {
-  //   try {
-  //     const response = await getAllQuestions();
+  const fetchQuestions = debounce(async (lang: string) => {
+    try {
+      setIsLoading(true);
 
-  //     if (response.status === 200) {
-  //       setQuestions(response.data.questions.reverse());
-  //     }
-  //   } catch (error: any) {
-  //     toast.error(error?.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+      const [questionsRes, answersRes, usersRes] = await Promise.all([
+        fetch(`/api/questions/get-questions?lang=${lang}`),
+        fetch(`/api/answers/get-answers?lang=${lang}`),
+        fetch(`/api/users/get-users?lang=${lang}`),
+      ]);
 
-  const fetchQuestions = debounce((lang: string) => {
-    fetch(`/api/get-all-questions?lang=${lang}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Server error: ${res.status}`);
+      // Check if responses are ok
+      if (!questionsRes.ok || !answersRes.ok || !usersRes.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const questionsData = await questionsRes.json();
+      const answersData = await answersRes.json();
+      const usersData = await usersRes.json();
+
+      const questions = questionsData.questions || questionsData.data || [];
+      const answers = answersData.answers || answersData.data || [];
+      const users = usersData.users || usersData.data || [];
+
+      const userMap = new Map();
+      users.forEach((user: any) => {
+        if (user && user.id) {
+          userMap.set(user.id, {
+            name: user.fullname || 'Unknown User',
+            id: user.id,
+            email: user.email || ''
+          });
         }
-        return res.json();
-      })
-      .then((data) => {
-        setQuestions(data.questions.reverse());
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching questions:", error);
-        setIsLoading(false);
       });
+
+      const answersMap = new Map();
+      answers.forEach((answer: any) => {
+        if (answer && answer.question_id && answer.status === 'approved') {
+          const answerUser = userMap.get(answer.user_id) || {
+            name: 'Unknown User',
+            id: answer.user_id
+          };
+
+          const enrichedAnswer = {
+            ...answer,
+            user: answerUser
+          };
+
+          if (!answersMap.has(answer.question_id)) {
+            answersMap.set(answer.question_id, []);
+          }
+          answersMap.get(answer.question_id).push(enrichedAnswer);
+        }
+      });
+
+      const enrichedQuestions = questions
+        .filter((question: any) =>
+          question &&
+          question.status === 'approved' &&
+          question.lang === lang
+        )
+        .map((question: any) => {
+          const questionUser = userMap.get(question.user_id) || {
+            name: 'Unknown User',
+            id: question.user_id
+          };
+
+          const questionAnswers = answersMap.get(question.id) || [];
+
+          return {
+            id: question.id,
+            title: question.title || 'Untitled Question',
+            description: question.description || 'No description available',
+            created_at: question.created_at,
+            status: question.status,
+            lang: question.lang,
+            user: questionUser,
+            answers: questionAnswers
+          };
+        })
+        .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+      setQuestions(enrichedQuestions);
+    } catch (error) {
+      toast.error("Failed to load questions. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }, 500);
 
   useEffect(() => {
@@ -174,10 +220,6 @@ export default function ForumPage({
     };
   }, [lang]);
 
-  // useEffect(() => {
-  //   fetchAllQuestions();
-  // }, []);
-
   const handleAddQuestionClick = () => {
     if (isLoggedIn && !isVerified) {
       toast.error("Please verify your account first");
@@ -188,29 +230,38 @@ export default function ForumPage({
 
   const getFirstAnswer = (questionId: number) => {
     const question = questions?.find((q: any) => q.id === questionId);
-
-    return question?.answers.find(
-      (answer: any) => answer.answer_status === "approved"
-    );
+    const firstAnswer = question?.answers?.[0];
+    return firstAnswer;
   };
 
-  const fetchUserNotifications = async () => {
-    if (!isLoggedIn || !userDetailsInLS) return;
-    try {
-      const response = await getUserNotifications(userDetailsInLS.id);
+const fetchUserNotifications = async () => {
+  const storedUserData = localStorage.getItem("userData");
+  if (!isLoggedIn || !storedUserData) return;
 
-      if (response.status === 200) {
-        const isUnread = response.data.notifications.some(
-          (notification: any) => notification.is_read === 0
-        );
+  const parsedUser = JSON.parse(storedUserData);
+  const userIdFromLS = parsedUser.id;
 
-        setAnyUnreadNotification(isUnread);
-      }
-    } catch (error: any) {
-    } finally {
-      setIsLoading(false);
+  if (!userIdFromLS) return;
+
+  try {
+    const res = await fetch(`/api/notifications/get-notifications?userId=${userIdFromLS}`);
+    const data = await res.json();
+
+    if (res.ok) {
+      const notifications = data.notifications || [];
+      const isUnread = notifications.some(
+        (notification: any) => notification.is_read === false
+      );
+      setAnyUnreadNotification(isUnread);
     }
-  };
+  } catch (error) {
+    console.error("Fetch notifications error:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
 
   useEffect(() => {
     if (isLoggedIn && userDetailsInLS) {
@@ -223,14 +274,11 @@ export default function ForumPage({
       const response = await verifyEmail(userDetailsInLS?.email);
 
       if (response.status === 200) {
-        const user = response.data.user;
         toast.success(response.data.message);
-
         router.push(`/${lang}/verify-code`);
       }
     } catch (error: any) {
       toast.error(error.message);
-      console.log(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -246,25 +294,25 @@ export default function ForumPage({
       ) : (
         <div className="container mx-auto py-4 px-4">
           {!isVerified && userDetailsInLS?.token && (
-            <div className="alert-bar w-full rounded-lg text-center capitalize  text-white">
-              {t('forum.verifystatus1')} {" "}
+            <div className="alert-bar w-full rounded-lg text-center capitalize text-white">
+              {t("forum.verifystatus1")}{" "}
               <Button
                 className="!bg-inherit text-white px-0 capitalize pr-1 underline"
                 onClick={sendVerificationCode}
               >
-                {t('forum.verifystatus2')}
+                {t("forum.verifystatus2")}
               </Button>
-              {t('forum.verifystatus3')}
+              {t("forum.verifystatus3")}
             </div>
           )}
           <div className="bg-gradient-to-r from-emerald-500/10 via-emerald-600/5 to-background rounded-xl p-8 mb-8 shadow-md">
             <div className="flex justify-between items-center mb-4">
-              <h1 className="md:text-4xl text-2xl font-bold ">
-                {t('forum.title')}
+              <h1 className="md:text-4xl text-2xl font-bold">
+                {t("forum.title")}
               </h1>
               {isLoggedIn ? (
                 <div className="font-semibold text-lg">
-                  {t('forum.account')}
+                  {t("forum.account")}
                   <div className="flex items-center gap-1 scale-110 justify-center mt-3">
                     <User />
                     <div className="relative">
@@ -284,28 +332,28 @@ export default function ForumPage({
                       className="bg-emerald-700 py-1 px-4 text-sm font-medium mt-6 text-white rounded-lg"
                       href={`/${lang}/admin`}
                     >
-                      {t('forum.panel')}
+                      {t("forum.panel")}
                     </Link>
                   )}
                 </div>
               ) : (
                 <Button variant="outline" size="sm" onClick={onAddQuestion}>
-                  {t('forum.loginbutton')}
+                  {t("forum.loginbutton")}
                 </Button>
               )}
             </div>
             <div className="max-w-3xl">
               <p className="text-muted-foreground md:text-lg text-sm md:text-left text-center mb-6">
-                {t('forum.desc')}
+                {t("forum.desc")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                {isLoggedIn && isVerified ? (
+                {isLoggedIn ? (
                   <Link
                     href={`/${lang}/add-question`}
-                    className="gap-2 flex md:justify-start justify-center py-3 px-4  rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
+                    className="gap-2 flex md:justify-start justify-center py-3 px-4 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
                   >
                     <Plus className="h-5 w-5" />
-                    {t('forum.askquestion')}
+                    {t("forum.askquestion")}
                   </Link>
                 ) : (
                   <Button
@@ -314,7 +362,7 @@ export default function ForumPage({
                     className="gap-2 bg-emerald-500 text-white hover:bg-emerald-600"
                   >
                     <Plus className="h-5 w-5" />
-                    {t('forum.askquestion')}
+                    {t("forum.askquestion")}
                   </Button>
                 )}
               </div>
@@ -326,7 +374,7 @@ export default function ForumPage({
               <div className="sticky top-20 space-y-6">
                 <Card className="overflow-hidden border-primary/20 shadow-md">
                   <CardHeader className="bg-primary/5 pb-3">
-                    <h3 className="font-semibold text-lg">{t('forum.search')}</h3>
+                    <h3 className="font-semibold text-lg">{t("forum.search")}</h3>
                   </CardHeader>
                   <CardContent className="pt-4 space-y-4">
                     <div className="relative">
@@ -348,46 +396,44 @@ export default function ForumPage({
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-muted-foreground">
-                    {t('forum.showing')} {indexOfFirstQuestion + 1}-
+                    {t("forum.showing")} {indexOfFirstQuestion + 1}-
                     {Math.min(indexOfLastQuestion, filteredQuestions.length)} of{" "}
-                    {filteredQuestions.length} {t('forum.questions')}
+                    {filteredQuestions.length} {t("forum.questions")}
                   </span>
                 </div>
               </div>
 
               {filteredQuestions.length > 0 ? (
                 <div className="space-y-4">
-                  {currentQuestions.map((question: any, index: any) => {
+                  {currentQuestions.map((question: any, index: number) => {
                     const firstAnswer = getFirstAnswer(question.id);
 
                     return (
-                      <div key={question.id}>
+                      <div key={question.id || index}>
                         <Link
                           className="space-y-4"
-                          href={`/${lang}/forum/${question.title.replaceAll(
-                            " ",
-                            "-"
-                          )}`}
+                          href={`/${lang}/forum/${question.title?.replaceAll(" ", "-") || question.id}`}
                         >
                           <motion.div
-                            key={question.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.05 }}
                           >
                             <Card className="overflow-hidden border-green-600/20 shadow-md hover:shadow-lg transition-shadow">
                               <CardHeader className="pb-3">
-                                <div className="flex flex-col items-start md:flex-row md:justify-between md:items-center text-sm text-muted-foreground ">
-                                  <h2 className="text-xl font-bold ">
-                                    {question.title}
+                                <div className="flex flex-col items-start md:flex-row md:justify-between md:items-center text-sm text-muted-foreground">
+                                  <h2 className="text-xl font-bold">
+                                    {question.title || "Untitled Question"}
                                   </h2>
                                   <div className="flex items-center gap-4 mt-3 md:mt-0 text-xs">
-                                    <UserAvatar userName={question.user.name} />
+                                    <UserAvatar userName={question.user?.name || "Unknown"} />
                                     <div className="flex flex-col">
-                                      <span>{question.user.name}</span>
+                                      <span>{question.user?.name || "Unknown"}</span>
                                       <span>
-                                        {t('forum.posted')}{" "}
-                                        {refactorDate(question.created_at)}
+                                        {t("forum.posted")}{" "}
+                                        {question.created_at
+                                          ? refactorDate(question.created_at)
+                                          : "Unknown Date"}
                                       </span>
                                     </div>
                                   </div>
@@ -395,40 +441,37 @@ export default function ForumPage({
                               </CardHeader>
                               <CardContent>
                                 <p className="line-clamp-3">
-                                  {question.description}
+                                  {question.description || "No description available"}
                                 </p>
-                                {firstAnswer && (
+                                {firstAnswer ? (
                                   <div className="mt-4 pt-4 border-t border-primary/10 bg-muted/30 p-3 rounded-md">
-                                    <div className="flex flex-col justify-start md:flex-row md:justify-between md:items-center items-start  mb-2 text-sm">
+                                    <div className="flex flex-col justify-start md:flex-row md:justify-between md:items-center items-start mb-2 text-sm">
                                       <div className="flex items-center gap-2">
-                                        {/* <Avatar className="h-5 w-5 border border-primary/20"> */}
-                                        {/* <AvatarImage
-                                        src={firstAnswer.user.avatar}
-                                        alt={firstAnswer.author.name}
-                                      /> */}
-                                        {/* <AvatarFallback className="bg-primary/10 text-primary">
-                                        {firstAnswer.author.initials}
-                                      </AvatarFallback> */}
-                                        {/* </Avatar> */}
                                         <span className="font-medium">
-                                          {firstAnswer.user.name}
+                                          {firstAnswer.user?.name || "Unknown"}
                                         </span>
                                       </div>
                                       <span className="text-muted-foreground">
-                                        {refactorDate(firstAnswer.created_at)}
+                                        {firstAnswer.created_at
+                                          ? refactorDate(firstAnswer.created_at)
+                                          : "Unknown Date"}
                                       </span>
                                     </div>
                                     <p className="text-sm line-clamp-2">
-                                      {firstAnswer.answer}
+                                      {firstAnswer.answer || "No answer content"}
                                     </p>
                                     <Button
                                       variant="link"
                                       size="sm"
                                       className="mt-1 h-auto p-0 text-primary"
                                     >
-                                     {t('forum.viewmore')}
+                                      {t("forum.viewmore")}
                                     </Button>
                                   </div>
+                                ) : (
+                                  <p className="text-sm text-muted-foreground mt-4">
+                                    No approved answers available.
+                                  </p>
                                 )}
                               </CardContent>
                               <CardFooter className="flex justify-between py-3 border-t bg-muted/20">
@@ -440,22 +483,19 @@ export default function ForumPage({
                                   >
                                     <MessageSquare className="h-4 w-4" />
                                     <span>
-                                      {
-                                        question.answers.filter(
-                                          (answer: any) =>
-                                            answer.answer_status === "approved"
-                                        ).length
-                                      }
+                                      {question.answers?.length || 0}
                                     </span>
                                   </Button>
                                 </div>
-                                <Link href={`/${lang}/forum/${question.title.replaceAll(" ","-")}`}>
+                                <Link
+                                  href={`/${lang}/forum/${question.title?.replaceAll(" ", "-") || question.id}`}
+                                >
                                   <Button
                                     variant="outline"
                                     size="sm"
                                     className="border-primary/20 hover:bg-green-700/10"
                                   >
-                                    {t('forum.viewquestion')}
+                                    {t("forum.viewquestion")}
                                   </Button>
                                 </Link>
                               </CardFooter>
@@ -469,18 +509,20 @@ export default function ForumPage({
               ) : (
                 <Card className="text-center py-12 border-primary/20 shadow-md">
                   <h3 className="text-lg font-medium mb-2">
-                    {t('forum.noquestion')}
+                    {t("forum.noquestion")}
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    {t('forum.searchquestion')}
+                    {questions.length === 0
+                      ? "Failed to load questions. Please try again later."
+                      : `No approved questions found for ${lang}.`}
                   </p>
                   {isLoggedIn && isVerified ? (
                     <Link
                       href={`/${lang}/add-question`}
-                      className="gap-2 w-[50%]  mx-auto flex py-3 px-4 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
+                      className="gap-2 w-[50%] mx-auto flex py-3 px-4 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
                     >
                       <Plus className="h-5 w-5" />
-                      {t('forum.askquestion')}
+                      {t("forum.askquestion")}
                     </Link>
                   ) : (
                     <Button
@@ -489,7 +531,7 @@ export default function ForumPage({
                       className="gap-2 bg-emerald-500 text-white hover:bg-emerald-600"
                     >
                       <Plus className="h-5 w-5" />
-                      {t('forum.addquestion')}
+                      {t("forum.askquestion")}
                     </Button>
                   )}
                 </Card>
@@ -560,6 +602,7 @@ export default function ForumPage({
     </>
   );
 }
+
 function debounce(func: (...args: any[]) => void, wait: number) {
   let timeout: NodeJS.Timeout;
   const debounced = (...args: any[]) => {
@@ -571,4 +614,3 @@ function debounce(func: (...args: any[]) => void, wait: number) {
   };
   return debounced as typeof debounced & { cancel: () => void };
 }
-

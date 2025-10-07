@@ -43,7 +43,7 @@ export default function AuthModal({
               <MessageSquare className="h-8 w-8 " />
             </div>
             <DialogTitle className="text-center text-xl font-bold">
-             {t('forum.logintitle')}
+              {t('forum.logintitle')}
             </DialogTitle>
           </DialogHeader>
           <Tabs
@@ -74,7 +74,9 @@ export default function AuthModal({
               />
             </TabsContent>
             <TabsContent value="signup">
-              <SignupForm onLoginClick={() => setActiveTab("login")} />
+              <SignupForm
+                setShowAuthModal={setShowAuthModal}
+                onLoginClick={() => setActiveTab("login")} />
             </TabsContent>
           </Tabs>
         </motion.div>

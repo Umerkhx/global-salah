@@ -27,20 +27,16 @@ export function UsersTable() {
   const [users, setUsers] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const updateUserStatus = (userId: number, newStatus: string) => {
-  //   setUsers((prevUsers: typeof mockUsers) =>
-  //     prevUsers.map((user: (typeof mockUsers)[number]) =>
-  //       user.id === userId ? { ...user, status: newStatus } : user
-  //     )
-  //   );
-  // };
 
-  const fetchAllQuestions = async () => {
+
+  const fetchAllUsers = async () => {
     try {
-      const response = await getAllUsers();
+      const response = await fetch(`/api/users/get-users`);
+      const data = await response.json();
 
       if (response.status === 200) {
-        setUsers(response.data.users.reverse());
+        const filteredUsers = data.users.filter((user: any) => user.role !== "admin");
+        setUsers(filteredUsers.reverse());
       }
     } catch (error: any) {
       toast.error(error?.message);
@@ -50,35 +46,41 @@ export function UsersTable() {
   };
 
   useEffect(() => {
-    fetchAllQuestions();
+    fetchAllUsers();
   }, []);
 
-  const handleUserAccountTypeUpdate = async (id: number, status: string) => {
-    try {
-      setIsLoading(true);
-      // setIsSubmitting(true);
+const handleUserAccountTypeUpdate = async (id: string, status: string) => {
+  try {
+    setIsLoading(true);
 
-      const response = await updateUserAccountStatus(id, status);
+    const response = await fetch("/api/users/update-status", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: id, account_status: status }),
+    });
 
-      if (response.status === 200) {
-        // Assuming the API returns the updated user object
-        toast.success(response.data.message);
+    const data = await response.json();
 
-        // Update UI if needed
-        setUsers((prevUsers: any) =>
-          prevUsers.map((user: any) =>
-            user.id === id ? { ...user, account_status: status } : user
-          )
-        );
-      }
-    } catch (error: any) {
-      toast.error(error?.message);
-    } finally {
-      setIsLoading(false);
-      // setIsSubmitting(false);
-      // setApproveModalOpen(false);
+    if (response.status === 200) {
+      toast.success(data.message);
+
+      setUsers((prevUsers: any) =>
+        prevUsers.map((user: any) =>
+          user.id === id ? { ...user, account_status: status } : user
+        )
+      );
+    } else {
+      toast.error(data.error || "Failed to update user");
     }
-  };
+  } catch (error: any) {
+    toast.error(error?.message || "Something went wrong");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="rounded-md border">

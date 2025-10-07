@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -16,12 +15,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Loader2, Send, HelpCircle, Info } from "lucide-react";
 import Link from "next/link";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { urlSplitter } from "@/lib";
-import { addQuestion } from "@/services/forum";
 import { toast } from "sonner";
 import CustomCaptcha from "@/components/ui/common/CustomCaptcha";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -31,7 +28,7 @@ export default function AddQuestionPage() {
   const router = useRouter();
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-  const { t } = useTranslation("forum")
+  const { t } = useTranslation("forum");
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -52,7 +49,6 @@ export default function AddQuestionPage() {
     const { name, value } = e.target;
 
     if (name === "title") {
-      // Limit title to MAX_TITLE_LENGTH characters
       if (value.length <= MAX_TITLE_LENGTH) {
         setTitle(value);
         setTitleCount(value.length);
@@ -70,15 +66,27 @@ export default function AddQuestionPage() {
     }
     setIsLoading(true);
 
-    const questionDetail = { user_id: userDetailsInLS?.id, title, description, lang };
+    const questionDetail = {
+      user_id: userDetailsInLS?.id,
+      title,
+      description,
+      lang,
+    };
 
     try {
-      const response = await addQuestion(questionDetail);
+      const response = await fetch("/api/questions/add-question", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(questionDetail),
+      });
 
-      if (response.status === 201) {
+      if (response.ok) {
         router.push(`/${lang}/question-submitted`);
+      } else {
+        toast.error("Failed to submit question");
       }
     } catch (error: any) {
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -98,12 +106,14 @@ export default function AddQuestionPage() {
 
   return (
     <>
-      {isLoading ? <div className='px-8 mt-4'>
-        <div className='flex items-center justify-center gap-2 mt-4'>
-          <Skeleton className="h-[500px] rounded-lg w-3/5" />
+      {isLoading ? (
+        <div className="px-8 mt-4">
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <Skeleton className="h-[500px] rounded-lg w-3/5" />
+          </div>
         </div>
-      </div> :
-        (<div className="container max-w-3xl mx-auto py-8 px-4">
+      ) : (
+        <div className="container max-w-3xl mx-auto py-8 px-4">
           <Link href={`/${lang}/forum`}>
             <Button variant="ghost" className="mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -117,9 +127,7 @@ export default function AddQuestionPage() {
                 <HelpCircle className="h-5 w-5 text-emerald-600" />
                 {t("forum.askquestion")}
               </CardTitle>
-              <CardDescription>
-                {t("forum.sharequestion")}
-              </CardDescription>
+              <CardDescription>{t("forum.sharequestion")}</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -127,10 +135,11 @@ export default function AddQuestionPage() {
                   <div className="flex justify-between items-center">
                     <Label htmlFor="title"> {t("forum.questiontitle")} </Label>
                     <span
-                      className={`text-xs ${titleCount > MAX_TITLE_LENGTH * 0.8
-                        ? "text-orange-500"
-                        : "text-muted-foreground"
-                        }`}
+                      className={`text-xs ${
+                        titleCount > MAX_TITLE_LENGTH * 0.8
+                          ? "text-orange-500"
+                          : "text-muted-foreground"
+                      }`}
                     >
                       {titleCount}/{MAX_TITLE_LENGTH}
                     </span>
@@ -202,7 +211,8 @@ export default function AddQuestionPage() {
               </Button>
             </CardFooter>
           </Card>
-        </div>)}
+        </div>
+      )}
     </>
-  )
+  );
 }

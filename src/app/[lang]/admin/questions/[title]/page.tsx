@@ -4,40 +4,75 @@ import { ResponsiveAdminDashboard } from "@/components/responsive-admin-dashboar
 import { QuestionDetail } from "@/components/question-detail";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { urlSplitter } from "@/lib";
-import { getQuestionByTitle } from "@/services/forum";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 
+const normalize = (str: string) =>
+  decodeURIComponent(str)
+    .toLowerCase()
+    .replace(/-/g, " ")
+    .replace(/[^\p{L}\p{N}\s]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export default function QuestionPage() {
   const [question, setQuestion] = useState<any>(null);
-
+  const [answers, setAnswers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-
   const params = useParams();
-  const title = params?.title as string;
+  const rawTitle = params?.title as string;
 
-  const fetchQuestionByTitle = async () => {
+  const normalizedTitle = normalize(rawTitle);
+
+  const fetchData = async () => {
     try {
-      const response = await getQuestionByTitle(title);
+      const qRes = await fetch(`/api/questions/get-questions`);
+      const qData = await qRes.json();
+      if (qRes.status !== 200) throw new Error(qData.error || "Failed to fetch questions");
 
-      if (response.status === 200) {
-        setQuestion(response.data);
+      const foundQuestion = qData.questions.find(
+        (q: any) => normalize(q.title) === normalizedTitle
+      );
+      if (!foundQuestion) {
+        notFound();
+        return;
       }
+
+      const aRes = await fetch(`/api/answers/get-answers`);
+      const aData = await aRes.json();
+      if (aRes.status !== 200) throw new Error(aData.error || "Failed to fetch answers");
+
+      const relatedAnswers = aData.answers.filter(
+        (ans: any) => ans.question_id === foundQuestion.id
+      );
+
+      const uRes = await fetch(`/api/users/get-users`);
+      const uData = await uRes.json();
+      if (uRes.status !== 200) throw new Error(uData.error || "Failed to fetch users");
+
+      const questionUser = uData.users.find((u: any) => u.id === foundQuestion.user_id);
+
+      const enrichedAnswers = relatedAnswers.map((ans: any) => ({
+        ...ans,
+        user: uData.users.find((u: any) => u.id === ans.user_id) || null,
+      }));
+
+      setQuestion({ ...foundQuestion, user: questionUser || null });
+      setAnswers(enrichedAnswers);
     } catch (error: any) {
-      toast.error(error?.message);
+      toast.error(error?.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    fetchQuestionByTitle();
-  }, []);
 
-  const answers = question?.answers || [];
+  useEffect(() => {
+    fetchData();
+  }, [normalizedTitle]);
 
   if (isLoading) {
     return (
@@ -56,8 +91,8 @@ export default function QuestionPage() {
             { label: "Admin", href: `/${lang}/admin` },
             { label: "Questions", href: `/${lang}/admin/questions` },
             {
-              label: `Question #${question.id}`,
-              href: `/${lang}/admin/questions/${question.id}`,
+              label: `Question #${question?.id}`,
+              href: `/${lang}/admin/questions/${question?.id}`,
             },
           ]}
         />

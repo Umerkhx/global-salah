@@ -15,7 +15,7 @@ export default function Home() {
       const userData = localStorage.getItem("userData");
       if (userData) {
         const parsedUser = JSON.parse(userData);
-        if (parsedUser?.token) {
+        if (parsedUser) {
           setIsLoggedIn(true);
           setUserDetails(parsedUser);
         }

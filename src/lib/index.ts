@@ -13,7 +13,7 @@ export function urlSplitter(pathname: string): string {
   const supportedLangs = ["en", "ar", "fr", "es", "de", "zh-CN", "ur", "pt", "tr", "ru"]
   const segments = pathname.split("/").filter(Boolean)
 
-  let result = "en" // default
+  let result = "en" 
 
   if (segments.length === 0) {
     langCache.set(pathname, result)

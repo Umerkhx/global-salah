@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,8 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import { getAdmin, updateAdmin } from "@/services/authentication";
 import { usePathname, useRouter } from "next/navigation";
@@ -24,7 +21,6 @@ export function ProfileForm() {
   const router = useRouter();
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-
   const [isLoading, setIsLoading] = useState(false);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -34,11 +30,15 @@ export function ProfileForm() {
 
   const fetchAdmin = async () => {
     try {
-      const response = await getAdmin();
-      if (response) {
-        // setAdminDetails(response.admin);
-        setFullname(response.admin.fullname);
-        setEmail(response.admin.email);
+      const response = await fetch(`/api/users/get-users`);
+      const data = await response.json()
+
+      const filteredUsers = data.users.filter((user: any) => user.role == "admin");
+
+
+      if (data) {
+        setFullname(filteredUsers.fullname);
+        setEmail(filteredUsers.email);
       }
     } catch (error: any) {
       toast.error(error?.message);
@@ -59,7 +59,7 @@ export function ProfileForm() {
 
       if (response) {
         const data = response.data.admin;
-       
+
         const updatedUserData = {
           ...data,
           fullname,
@@ -85,13 +85,7 @@ export function ProfileForm() {
         <CardContent className="space-y-6">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col items-center space-y-4">
-              {/* <Avatar className="h-24 w-24">
-                <AvatarImage src={formData.avatar} alt={formData.name} />
-                <AvatarFallback>{formData.name.charAt(0)}</AvatarFallback>
-              </Avatar> */}
-              {/* <Button variant="outline" size="sm" type="button">
-                Change Avatar
-              </Button> */}
+
             </div>
 
             <div className="flex-1 space-y-4">

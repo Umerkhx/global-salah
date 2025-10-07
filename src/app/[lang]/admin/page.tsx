@@ -9,7 +9,6 @@ import AuthenticatedRoute from "@/components/AuthenticatedRoute";
 export default function AdminResponsivePage() {
   const pathname = usePathname();
   const lang = urlSplitter(pathname);
-  const currentPage = 1;
 
   return (
     <AuthenticatedRoute>
@@ -24,7 +23,7 @@ export default function AdminResponsivePage() {
           <div className="flex justify-between items-center">
             <h1 className="text-xl md:text-2xl font-bold">Questions</h1>
           </div>
-          <QuestionsTable currentPage={currentPage} />
+          <QuestionsTable />
         </div>
       </ResponsiveAdminDashboard>
     </AuthenticatedRoute>
