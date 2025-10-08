@@ -47,16 +47,16 @@ export function SheetSidebar({ className }: SheetSidebarProps) {
         },
       ],
     },
-    {
-      title: "Account",
-      items: [
-        {
-          title: "Update Profile",
-          href: `/${lang}/admin/profile`,
-          icon: UserCircle,
-        },
-      ],
-    },
+    // {
+    //   title: "Account",
+    //   items: [
+    //     {
+    //       title: "Update Profile",
+    //       href: `/${lang}/admin/profile`,
+    //       icon: UserCircle,
+    //     },
+    //   ],
+    // },
   ]
 
 
@@ -66,7 +66,6 @@ export function SheetSidebar({ className }: SheetSidebarProps) {
 
   return (
     <>
-      {/* Mobile trigger */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant="ghost" size="icon" className="">

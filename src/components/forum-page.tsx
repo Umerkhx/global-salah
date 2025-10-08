@@ -14,7 +14,6 @@ import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
 import UserDropdown from "./ui/user-dropdown";
 import UserAvatar from "./UserAvatar";
-import { getUserNotifications } from "@/services/notifications";
 import { verifyEmail } from "@/services/authentication";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -132,7 +131,6 @@ export default function ForumPage({
         fetch(`/api/users/get-users?lang=${lang}`),
       ]);
 
-      // Check if responses are ok
       if (!questionsRes.ok || !answersRes.ok || !usersRes.ok) {
         throw new Error('Failed to fetch data');
       }

@@ -1,5 +1,4 @@
 "use client"
-
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { AnswerModal } from "@/components/ui/answer-modal"
 import { Badge } from "@/components/ui/badge"

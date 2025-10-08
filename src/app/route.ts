@@ -1,21 +1,21 @@
-import { headers } from "next/headers"
-import { NextResponse } from "next/server"
+// import { headers } from "next/headers"
+// import { NextResponse } from "next/server"
 
-const supportedLangs = ["en", "fr", "ar", "ur", "pt", "de", "zh-CN", "tr", "ru", "es"]
+// const supportedLangs = ["en", "fr", "ar", "ur", "pt", "de", "zh-CN", "tr", "ru", "es"]
 
-export async function GET() {
-  const acceptLang = (await headers()).get("accept-language") || ""
-  let lang = acceptLang.split(",")[0].toLowerCase()
+// export async function GET() {
+//   const acceptLang = (await headers()).get("accept-language") || ""
+//   let lang = acceptLang.split(",")[0].toLowerCase()
 
-  if (lang.startsWith("zh")) {
-    lang = "zh-CN"
-  } else {
-    lang = lang.slice(0, 2)
-  }
+//   if (lang.startsWith("zh")) {
+//     lang = "zh-CN"
+//   } else {
+//     lang = lang.slice(0, 2)
+//   }
 
-  if (!supportedLangs.includes(lang)) {
-    lang = "en"
-  }
+//   if (!supportedLangs.includes(lang)) {
+//     lang = "en"
+//   }
 
-return NextResponse.redirect(new URL(`/${lang}`, process.env.NEXT_PUBLIC_APP_URL || "https://global-salah.vercel.app"), 301)
-}
+// return NextResponse.redirect(new URL(`/${lang}`, process.env.NEXT_PUBLIC_SITE_URL || "https://globalsalah.com"), 301)
+// }
