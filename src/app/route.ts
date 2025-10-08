@@ -17,5 +17,5 @@ export async function GET() {
     lang = "en"
   }
 
-return NextResponse.redirect(new URL(`/${lang}`, "https://globalsalah.vercel.app"), 301)
+return NextResponse.redirect(new URL(`/${lang}`, "https://global-salah.vercel.app"), 301)
 }
